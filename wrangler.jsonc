@@ -1,0 +1,9 @@
+// Publicação na Cloudflare (Workers com arquivos estáticos). Não há build: a própria pasta é o site.
+// O que não deve ir para o ar está em .assetsignore.
+{
+  "name": "app",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./"
+  }
+}

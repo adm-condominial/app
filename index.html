@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Condomínio Exemplo - Cadastro de moradores</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="theme-color" content="#2c3e50">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="css/base.css?v=20261009Z">
+  <link rel="stylesheet" href="css/inputs.css?v=20261010E">
+  <link rel="stylesheet" href="css/consulta.css?v=20261009Z">
+  <link rel="stylesheet" href="css/componentes.css?v=20261010F">
+  <link rel="stylesheet" href="css/utilitarios.css?v=20261010E">
+  <link rel="stylesheet" href="css/responsivo.css?v=20261010I">
+
+  <!-- Scripts JS -->
+  <script src="js/regras.js?v=20261009Z" defer></script>
+  <script src="js/utils.js?v=20261009Z" defer></script>
+  <script src="js/data/backend.js?v=20261009Z" defer></script>
+  <script src="js/data/backend-demo.js?v=20261010A" defer></script>
+  <script src="js/data/FirebaseRepository.js?v=20261009Z" defer></script>
+  <script src="js/data/GoogleSheetsRepository.js?v=20261009Z" defer></script>
+  <script src="js/data/DataService.js?v=20261010D" defer></script>
+  <script src="js/mascaras.js?v=20261009Z" defer></script>
+  <script src="js/pular-campo.js?v=20261009Z" defer></script>
+  <script src="js/ui-formulario.js?v=20261009Z" defer></script>
+  <script src="js/form-controle.js?v=20261010E" defer></script>
+  <script src="js/sessao-morador.js?v=20261010H" defer></script>
+  <script src="js/sessao-admin-morador.js?v=20261009Z" defer></script>
+  <script src="js/validacoes-form.js?v=20261009Z" defer></script>
+  <script src="js/codigo-email.js?v=20261009Z"></script>
+<script src="js/progresso-overlay.js?v=20261010E" defer></script>
+<script src="js/envio-form.js?v=20261010E" defer></script>
+<script src="js/botao-sem-alteracao.js?v=20261009Z" defer></script>
+  <script src="js/modo-admin.js?v=20261009Z" defer></script>
+  <script src="js/vaga-miniatura.js?v=20261009Z" defer></script>
+  <script src="js/popup-links.js?v=20261010C" defer></script>
+  <script src="js/sem-conectivos.js?v=20261009Z" defer></script>
+  <script src="js/kit-acesso.js?v=20261009Z" defer></script>
+  <script src="js/barra-acoes.js?v=20261009ZA" defer></script>
+</head>
+<body>
+
+<div class="topo-fora-cartao" style="max-width:750px;margin:0 auto 10px;">
+  <p class="link-admin-topo" style="margin-bottom:0">
+    <a href="admin.html" rel="noopener noreferrer">Acessar área da administração</a>
+    <a href="seguranca.html">Documentação: meus dados estão seguros?</a>
+  </p>
+</div>
+
+<div class="container">
+  <div id="avisoContingenciaPublico" class="aviso-contingencia" hidden>
+    ⚠️ <strong>Modo de contingência</strong><br>
+    Os dados estão sendo carregados do backup do Google Sheets. Novos envios estão temporariamente desativados.
+  </div>
+  <h1>Condomínio Exemplo</h1>
+  <h2 class="subtitulo">Cadastro de moradores</h2>
+  <p class="subtitle">
+    Mantenha os dados da sua unidade sempre atualizados. Isso contribui para a segurança do condomínio e facilita a comunicação entre a administração e os moradores.
+  </p>
+  <p class="subtitle">
+    Para ajudar na adaptação e garantir acesso rápido às principais informações, preparamos um Kit de Boas-vindas, que reúne os documentos e orientações mais importantes para a convivência no condomínio.
+  </p>
+  <p class="link-destaque">
+    <a class="btn-kit" href="kit.html" target="_blank" rel="noopener noreferrer">Acessar o Kit de Boas-vindas</a>
+  </p>
+  <p class="subtitle nota-kit">Acesse com o CPF e a data de nascimento do seu cadastro aprovado, ou pela pasta no Google Drive com a conta Google do e-mail cadastrado.</p>
+
+<!-- BLOCO DE CONSULTA POR CPF: busca o cadastro existente antes do formulário principal -->
+  <div class="card-consulta centralizado" id="boxConsultaCpf">
+    <h3>Preencha os dados abaixo para localizar seu cadastro<br>e manter suas informações atualizadas.</h3>
+    
+    <div class="row-consulta" id="rowConsultaCpf">
+      <!-- Grupo do CPF -->
+      <div class="consulta-grupo">
+        <span class="input-label-consulta">CPF</span>
+        <input type="text" id="cpfConsulta" class="campo-mascara" data-mascara="cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14">
+      </div>
+      
+      <!-- Grupo da Data de Nascimento -->
+      <div class="consulta-grupo">
+        <span class="input-label-consulta">Data de nascimento</span>
+        <input type="text" id="nascConsulta" class="campo-mascara" data-mascara="data" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10">
+      </div>
+      
+      <button type="button" id="btnBuscarCpf" onclick="consultarPorCpf()">Buscar Cadastro</button>
+    </div>
+    
+    <div class="row-checkbox-morador">
+      <input type="checkbox" id="chkMoradorNovo" onchange="tratarMoradorNovo(this.checked)" hidden>
+      <button type="button" id="btnMoradorNovo" class="btn-novo-cadastro" onclick="alternarMoradorNovo()" aria-pressed="false" aria-disabled="false">Novo cadastro</button>
+      <button type="button" id="btnFecharNovoCadastro" class="btn-fechar-novo-cadastro hidden" onclick="fecharNovoCadastro()" aria-label="Fechar novo cadastro">x</button>
+    </div>
+    <!-- Sessão de 1 hora depois do CPF + data de nascimento (js/sessao-morador.js). -->
+    <p id="avisoSessaoMorador" class="aviso-sessao-morador" role="status" hidden></p>
+  </div>
+
+  <form id="cadForm">
+    <!-- FORMULÁRIO PRINCIPAL: sequência de etapas do cadastro -->
+    <!-- 1. Identificação do Imóvel (Desbloqueia após CPF ou Checkbox) -->
+    <div id="secTipoResidente" class="section hidden centralizado">
+      <label for="tipoResidente">Qual é o seu vínculo com a unidade?<span class="required-star">*</span></label>
+      <select id="tipoResidente" onchange="tratarEscolhaTipoResidente(this.value)">
+        <option value="">Selecione se é Proprietário ou Inquilino</option>
+        <option value="Proprietário">Proprietário</option>
+        <option value="Inquilino">Inquilino</option>
+      </select>
+      <div id="opcaoMoraNoImovel" class="opcao-mora-imovel hidden">
+        <label for="moraNoImovel">Mora no imóvel?<span class="required-star">*</span></label>
+        <select id="moraNoImovel" onchange="tratarEscolhaMoraNoImovel(this.value)">
+          <option value="">Selecione</option>
+          <option value="Sim">Sim</option>
+          <option value="Não, está alugado">Não, está alugado</option>
+          <option value="Não, está desocupado">Não, está desocupado</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 2. Seleção de Apartamento (Desbloqueia após escolher Tipo de Residente) -->
+    <div id="secApto" class="section hidden centralizado">
+      <label for="apto">Qual seu apartamento?<span class="required-star">*</span></label>
+      <select id="apto" required onchange="aoSelecionarApto(this.value)">
+        <option value="">Selecione</option>
+      </select>
+    </div>
+
+    <!-- 3. Resto do Formulário (Desbloqueia após escolher o apartamento) -->
+    <div id="secRestoFormulario" class="hidden">
+      
+      <!-- Dados pessoais do morador -->
+      <div id="secDadosPessoais" class="section">
+        <h3 id="tituloDadosPessoais">Dados do Morador Titular</h3>
+  
+      <!-- 1. Nome Completo -->
+      <label>Nome Completo<span class="required-star">*</span></label>
+      <input type="text" id="moradorNome" required>
+      
+      <!-- 2. Data de Nascimento -->
+      <label>Data de Nascimento<span class="required-star">*</span></label>
+      <input type="text" id="moradorNasc" class="campo-mascara" data-mascara="data" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10" required>
+      
+      <!-- 3. CPF | Identidade RG | Órgão Emissor (Mesma linha) -->
+      <div class="form-row col-3">
+        <div>
+          <label>CPF<span class="required-star">*</span></label>
+          <input type="text" id="moradorCpf" class="campo-mascara" data-mascara="cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" required>
+        </div>
+        <div>
+          <label>Identidade RG</label>
+          <input type="text" id="moradorRg" inputmode="numeric" placeholder="00.000.000-0" maxlength="12">
+        </div>
+        <div>
+          <label>Órgão Emissor</label>
+          <input type="text" id="moradorOrgaoEmissor" placeholder="Ex: DETRAN">
+        </div>
+      </div>
+      
+      <!-- 4. Celular | Telefone Residencial / Comercial (Mesma linha) -->
+      <div class="form-row col-2">
+        <div>
+          <label>Celular<span class="required-star">*</span></label>
+          <input type="tel" id="moradorCelular" inputmode="numeric" placeholder="21 999999999" required>
+        </div>
+        <div>
+          <label>Telefone Residencial/Comercial</label>
+          <input type="tel" id="moradorTel" inputmode="numeric" placeholder="21 22222222">
+        </div>
+      </div>
+      
+      <!-- 5. E-mail -->
+      <label>E-mail</label>
+      <input type="email" id="moradorEmail" placeholder="seuemail@exemplo.com">
+      <div class="checkbox-group opcao-codigo-email">
+        <input type="checkbox" id="exigirCodigo">
+        <label for="exigirCodigo">Exigir código por e-mail para abrir meu cadastro</label>
+      </div>
+      <p class="desc-secao dica-codigo-email">Proteção extra (opcional): além do CPF e da data de nascimento, será preciso
+        digitar um código enviado para o e-mail acima. Se você perder o acesso a esse e-mail, peça à administração para
+        desligar a opção.</p>
+
+      <!-- Contatos de Emergência -->
+      <div class="sub-title">Em caso de emergência procurar por</div>
+      <div id="containerEmergencia"></div>
+      <button type="button" class="btn-add" onclick="addEmergencia()">+ Adicionar Contato de Emergência</button>
+    </div>
+
+     <!-- Dados Exclusivos da Locação (Inquilino) -->
+      <div id="secInquilino" class="section hidden">
+        <h3>Dados da Locação/Contrato</h3>
+        <p class="desc-secao">Essas informações ajudam a administração a entrar em contato com o responsável da locação.</p>
+        
+          <label>Nome do Proprietário/Administradora<span class="required-star">*</span></label>
+        <input type="text" id="inqPropAdmin">
+        
+        <label>Contato do Proprietário/Administradora (Telefone/Celular/E-mail)</label>
+        <input type="text" id="inqContato">
+        
+        <label>Vigência do Contrato</label>
+        <input type="text" id="inqVigencia" placeholder="Ex: 05/2026 a 05/2028">
+      
+        <label>Envio de cópia do contrato (PDF)</label>
+        <div class="upload-contrato-wrapper">
+          <label for="arquivoContrato" class="upload-contrato-botao">Escolher arquivo</label>
+          <input type="file" id="arquivoContrato" class="input-upload-hidden" accept="application/pdf">
+          <span class="upload-contrato-status" id="nomeArquivoSelecionado">Nenhum arquivo selecionado</span>
+        </div>
+      
+        <!-- Área de Preview e Botão de Cancelamento (X) -->
+        <div id="containerPreviewContrato" class="preview-contrato-container hidden">
+          <span id="nomeArquivoSelecionadoPreview"></span>
+          <button type="button" id="btnRemoverContrato" title="Remover arquivo">✕</button>
+        </div>
+      
+        <!-- Histórico / Uploads Anteriores -->
+        <div id="containerHistoricoContratos" class="historico-contratos-container hidden">
+          <label class="label-historico">Contratos / Uploads Anteriores:</label>
+          <div id="listaHistoricoContratos">
+            <!-- Os links anteriores serão injetados aqui via JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Seções Complementares -->
+      <div id="secDetalhes" class="section">
+        <h3>Informações Complementares</h3>
+        
+        <!-- Demais Ocupantes -->
+        <div class="sub-title">Demais Ocupantes</div>
+        <p class="desc-secao">Preencha apenas se houver outras pessoas residindo na unidade.</p>
+        <div id="containerOcupantes"></div>
+        <button type="button" class="btn-add" onclick="addOcupante()">+ Adicionar Ocupante</button>
+
+      <!-- Seção Vaga de Garagem -->
+      <div class="sub-title title-grupo">Vaga de Garagem</div>
+      
+      <!-- ELEMENTO DINÂMICO DA VAGA -->
+      <div id="infoVagaGaragem"></div>
+
+      <p class="desc-secao">
+        <a id="linkMapaVaga" href="mapa-vaga.html" target="_blank" rel="noopener noreferrer" class="email-link">Clique aqui</a> para visualizar a demarcação das vagas<span id="textoLinkMapaVaga"></span>.
+      </p>
+
+      <!-- Miniatura do andar com a vaga pintada (último item da seção); abre o mapa completo num popup (js/vaga-miniatura.js). -->
+      <div id="miniaturaVaga" class="miniatura-vaga-container" hidden></div>
+      <p id="avisoMapaNovoCadastro" class="desc-secao aviso-mapa-novo" hidden>Assim que o seu cadastro for aprovado, você recebe
+        por e-mail a ficha do cadastro com o mapa da garagem e a sua vaga demarcada.</p>
+
+      <!-- Aluguel de Vagas -->
+      <div class="sub-title title-grupo">Aluguel de vagas</div>
+      
+      <p class="desc-secao">
+        O aluguel de vagas é permitido exclusivamente entre moradores do condomínio.<br>
+        Preencha os campos abaixo caso você alugue sua vaga para outro morador ou utilize uma vaga alugada de outro morador.
+      </p>
+
+      <div class="row-vagas">
+        <select id="vagaSituacao">
+          <option value="">Selecione</option>
+          <option value="Minha vaga está alugada para">Minha vaga está alugada para</option>
+          <option value="Alugo vaga do">Alugo vaga do</option>
+        </select>
+
+        <select id="vagaAptoRelacionado">
+          <option value="">Apto envolvido</option>
+        </select>
+      </div>
+        
+        <!-- Seção Veículos -->
+        <div class="sub-title title-grupo">Veículos</div>
+        <div class="desc-secao">
+          <p>Por favor, registre os dados de todos os meios de transporte da unidade que utilizam as dependências da garagem ou bicicletário.</p>
+          <p>✅ É permitido que visitantes utilizem sua vaga de garagem <strong>somente enquanto permanecerem no prédio</strong>. Ao deixar o condomínio, o veículo também deverá ser retirado da vaga.</p>
+          <p>📌 Quando o uso da vaga for <strong>pontual</strong>, como no caso de uma visita, <strong>não é necessário cadastrar o veículo</strong>. Basta informar os dados ao porteiro no momento da entrada.</p>
+          <p>⚠️ Caso um mesmo veículo utilize a vaga de forma <strong>frequente, recorrente ou contínua</strong>, ainda que pertença a visitantes ou pessoas vinculadas à unidade, <strong>seu cadastro será obrigatório</strong>.</p>
+          <p>Caso não possua nenhum veículo, você pode avançar para a próxima seção.</p>
+        </div>
+
+        <!-- Carros -->
+        <div class="sub-title">Carros</div>
+        <div id="containerCarros"></div>
+        <button type="button" class="btn-add" onclick="addCarro()">+ Adicionar Carro</button>
+
+        <!-- Motos -->
+        <div class="sub-title">Motos</div>
+        <div id="containerMotos"></div>
+        <button type="button" class="btn-add" onclick="addMoto()">+ Adicionar Moto</button>
+
+        <!-- Bicicletas -->
+        <div class="sub-title">Bicicletas</div>
+        <div id="containerBikes"></div>
+        <button type="button" class="btn-add" onclick="addBike()">+ Adicionar Bicicleta</button>
+        <p class="desc-secao alert-text">Atenção aos procedimentos do Bicicletário: as bicicletas devem ser identificadas por unidade. O acesso ao bicicletário é restrito e feito mediante tag eletrônica. Solicitamos aos moradores que ainda não possuem a tag que procurem a administração/síndico para a retirada.</p>
+
+        <!-- Pets -->
+        <div class="sub-title">Pets</div>
+        <p class="desc-secao">Registro de animais de estimação residentes na unidade para controle interno e auxílio em casos de identificação ou fuga.</p>
+        <div id="containerPets"></div>
+        <button type="button" class="btn-add" onclick="addPet()">+ Adicionar Pet</button>
+
+        <!-- Prestadores de Serviço -->
+        <div class="sub-title">Prestadores de Serviço</div>
+        <p class="desc-secao">Registro de profissionais que realizam serviços frequentes na unidade (ex: diaristas, cuidadores, professores particulares).</p>
+        <div id="containerPrestadores"></div>
+        <button type="button" class="btn-add" onclick="addPrestador()">+ Adicionar Prestador</button>
+      </div>
+
+      <!-- Observações e Declaração -->
+      <div id="secFinal" class="section">
+        
+        <div class="sub-title">Observações</div>
+        <textarea id="observacoes" name="observacoes" rows="2"></textarea>
+
+        <p class="desc-secao aviso-privacidade">
+          <strong>Privacidade (LGPD):</strong> os dados informados neste formulário, inclusive os dos demais ocupantes,
+          são usados exclusivamente pela administração do Condomínio Exemplo para identificação dos moradores,
+          segurança, controle de acesso e contato em caso de emergência. O acesso é restrito ao síndico e ao conselho,
+          e os dados não são compartilhados com terceiros. Para quaisquer esclarecimentos ou dúvidas, consulta,
+          correção ou pedir a exclusão dos seus dados, escreva para o e-mail:
+          <a href="mailto:contato@exemplo.com.br" class="email-link">contato@exemplo.com.br</a>.
+        </p>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="declaracao" required>
+          <label for="declaracao">Declaro que as informações prestadas são verdadeiras. <span class="required-star">*</span></label>
+        </div>
+      </div>
+
+      
+
+      <!-- AÇÕES DO FORMULÁRIO -->
+      <div class="form-actions">
+        <button type="button" id="btnEnviarForm" class="btn-submit" onclick="enviar()">Enviar Cadastro</button>
+        <button type="button" id="btnSairSemAlterar" class="btn-secondary" onclick="voltarTelaInicial()">Fechar visualização</button>
+        <button type="button" id="btnSairSessaoFim" class="btn-secondary btn-sair-sessao" onclick="SessaoMorador.sair()" title="Encerrar a sessão e apagar o CPF e a data de nascimento desta aba" hidden>Sair</button>
+      </div>
+
+    </div>
+  </form>
+
+  <div id="statusMessage" class="hidden"></div>
+</div>
+
+<div id="modalOverlay" class="modal-overlay hidden">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <h3 id="modalTitulo">Atenção</h3>
+    <p id="modalMensagem"></p>
+    <div class="modal-actions">
+      <button type="button" id="btnModalConfirmar" class="btn-modal btn-modal-primary">OK</button>
+      <button type="button" id="btnModalCancelar" class="btn-modal btn-modal-secondary hidden">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<footer class="rodape-site" style="max-width:750px;margin:18px auto 6px;">
+  <p class="link-admin-topo" style="margin-bottom:0">
+    <a href="admin.html" rel="noopener noreferrer">Acessar área da administração</a>
+    <a href="seguranca.html">Documentação: meus dados estão seguros?</a>
+  </p>
+</footer>
+
+<div id="overlayProcessamento" class="overlay-processamento hidden" aria-live="polite" aria-busy="true">
+  <div class="overlay-processamento-card">
+    <button type="button" class="overlay-processamento-fechar" aria-label="Desistir e fechar" title="Desistir e fechar">&times;</button>
+    <div class="overlay-processamento-roda">
+      <div class="overlay-processamento-spinner" aria-hidden="true"></div>
+      <span id="overlayProcessamentoPercentual" class="overlay-processamento-percentual" aria-hidden="true"></span>
+    </div>
+    <p id="overlayProcessamentoMensagem">Aguarde: enviando</p>
+  </div>
+</div>
+
+</body>
+</html>

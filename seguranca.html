@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <title>Meus dados estão seguros? — Cadastro de moradores</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="shortcut icon" href="favicon/favicon.ico">
+  <style>
+    :root {
+      --texto: #243447;
+      --suave: #5f7287;
+      --borda: #dcdde1;
+      --fundo: #f4f7f6;
+      --cartao: #ffffff;
+      --destaque: #2f5f98;
+      --destaque-fundo: #eef4fb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      background: var(--fundo);
+      color: var(--texto);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    main {
+      max-width: 750px;
+      margin: 0 auto;
+      background: var(--cartao);
+      padding: 28px 24px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    .voltar { font-size: 0.9rem; font-weight: 600; color: var(--destaque); text-decoration: none; }
+    h1 { font-size: 1.5rem; line-height: 1.3; margin: 12px 0 6px; text-wrap: balance; }
+    .subtitulo { color: var(--suave); margin: 0 0 20px; }
+    p, li { text-wrap: pretty; }
+    ul { padding-left: 22px; }
+    li { margin: 4px 0; }
+    a { color: var(--destaque); }
+    .resumo {
+      background: var(--destaque-fundo);
+      border-left: 4px solid var(--destaque);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+    }
+    .resumo p { margin: 8px 0; }
+
+    /* Menu de tópicos: botões como os da área da administração, 12 tópicos em linhas cheias
+       (3 por linha em tela larga, 2 no celular — sem botão sozinho numa linha). */
+    .menu-topicos {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .menu-topicos button {
+      min-height: 40px;
+      padding: 8px 6px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      background: var(--cartao);
+      color: var(--destaque);
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 700;
+      line-height: 1.25;
+      cursor: pointer;
+    }
+    .menu-topicos button:hover { background: var(--destaque-fundo); }
+    .menu-topicos button[aria-expanded="true"] { background: var(--destaque); border-color: var(--destaque); color: #fff; }
+    @media (max-width: 560px) {
+      .menu-topicos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .menu-topicos button { font-size: 0.8rem; }
+    }
+
+    .topico {
+      margin-top: 14px;
+      padding: 16px 18px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+    }
+    .topico[hidden] { display: none; }
+    .topico-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .topico h2 { font-size: 1.12rem; margin: 0; text-wrap: balance; }
+    .topico h3 { font-size: 0.95rem; margin: 14px 0 2px; }
+    .fechar-topico {
+      flex: none;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--borda);
+      border-radius: 50%;
+      background: var(--cartao);
+      color: var(--suave);
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .fechar-topico:hover { background: var(--destaque-fundo); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 8px 0; }
+    th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--borda); vertical-align: top; }
+    th { color: var(--suave); font-weight: 600; }
+    .tabela { overflow-x: auto; }
+    .rodape { margin-top: 28px; font-size: 0.85rem; color: var(--suave); }
+    @media (max-width: 480px) {
+      main { padding: 22px 16px; }
+      h1 { font-size: 1.3rem; }
+      .topico { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <a class="voltar" id="linkVoltar" href="index.html">← voltar para o cadastro de moradores</a>
+  <h1>Documentação: meus dados estão seguros?</h1>
+  <p class="subtitulo">Como funciona o cadastro de moradores do Condomínio Exemplo e como os seus dados são protegidos.</p>
+
+  <div class="resumo">
+    <p><strong>Em poucas palavras:</strong> os dados que você informa no formulário ficam guardados em serviços do Google
+      (Firebase, Planilhas e Drive), na conta Google do responsável pelo sistema. Só a administração do condomínio —
+      síndico, conselho, a conta do condomínio e o desenvolvedor — consegue ver todos os cadastros, e para isso precisa
+      entrar com uma conta Google autorizada.</p>
+    <p>Para ver ou atualizar o próprio cadastro, o morador informa o CPF e a data de nascimento. Se quiser uma proteção
+      extra, pode marcar no formulário a opção de <strong>receber um código por e-mail</strong>: aí, além do CPF e da data,
+      só abre o cadastro quem tiver acesso ao e-mail dele. Todo cadastro novo passa pela <strong>aprovação da administração</strong> antes de valer no sistema. Os dados não são vendidos nem repassados a terceiros, e existem
+      cópias de segurança para que nada se perca.</p>
+    <p>Nenhum sistema é 100% seguro. Nos tópicos abaixo explicamos o que foi feito, o que isso protege e quais são os limites.</p>
+  </div>
+
+  <nav class="menu-topicos" aria-label="Tópicos">
+    <button type="button" aria-expanded="false" aria-controls="dados">Quais dados</button>
+    <button type="button" aria-expanded="false" aria-controls="onde">Onde ficam</button>
+    <button type="button" aria-expanded="false" aria-controls="quem">Quem acessa</button>
+    <button type="button" aria-expanded="false" aria-controls="morador">Acesso do morador</button>
+    <button type="button" aria-expanded="false" aria-controls="tentativas">Bloqueio de tentativas</button>
+    <button type="button" aria-expanded="false" aria-controls="copias">Cópias de segurança</button>
+    <button type="button" aria-expanded="false" aria-controls="emails">E-mails</button>
+    <button type="button" aria-expanded="false" aria-controls="busca">Buscadores</button>
+    <button type="button" aria-expanded="false" aria-controls="limites">Limites</button>
+    <button type="button" aria-expanded="false" aria-controls="ia">Uso de IA</button>
+    <button type="button" aria-expanded="false" aria-controls="tecnico">Detalhes técnicos</button>
+    <button type="button" aria-expanded="false" aria-controls="contato">Contato</button>
+  </nav>
+
+  <section class="topico" id="dados" hidden>
+    <div class="topico-topo"><h2>Quais dados são coletados e para quê</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <p>Nome, CPF, data de nascimento, RG, telefones e e-mail do morador; ocupantes do apartamento; contatos de emergência;
+      veículos e vaga de garagem; bicicletas; animais de estimação; prestadores de serviço; e, para inquilinos, dados da
+      locação e a cópia do contrato.</p>
+    <p>Esses dados são usados pela administração do condomínio para identificar os moradores, cuidar da segurança e do
+      controle de acesso, organizar a garagem e entrar em contato em caso de emergência.</p>
+  </section>
+
+  <section class="topico" id="onde" hidden>
+    <div class="topico-topo"><h2>Onde os dados ficam guardados</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <p>O sistema usa serviços de empresas conhecidas, cada um com uma função:</p>
+    <div class="tabela">
+      <table>
+        <tr><th>Serviço</th><th>Para que é usado</th></tr>
+        <tr><td><strong>Google Firebase</strong> (Cloud Firestore)</td><td>Banco de dados principal, onde ficam os cadastros.</td></tr>
+        <tr><td><strong>Google Apps Script</strong></td><td>O "servidor" do sistema: recebe os pedidos do formulário, confere as permissões e lê ou grava no banco de dados.</td></tr>
+        <tr><td><strong>Google Planilhas e Google Drive</strong></td><td>Cópia de segurança dos dados, relatórios em PDF, o PDF de cada cadastro e as cópias dos contratos de locação.</td></tr>
+        <tr><td><strong>Gmail</strong> (pelo Apps Script)</td><td>Envio dos e-mails automáticos do sistema.</td></tr>
+        <tr><td><strong>GitHub Pages</strong></td><td>Hospeda as páginas do site (o formulário e a área da administração). Só o código do site fica lá — nenhum dado de morador.</td></tr>
+      </table>
+    </div>
+    <p>A conexão entre o seu navegador e o sistema é criptografada (HTTPS). Os serviços do Google também guardam os dados
+      criptografados nos seus servidores, conforme as políticas do próprio Google.</p>
+  </section>
+
+  <section class="topico" id="quem" hidden>
+    <div class="topico-topo"><h2>Quem tem acesso aos cadastros</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <p>Só quem está cadastrado na página <strong>Membros</strong> da área da administração:</p>
+    <ul>
+      <li>a conta de e-mail do condomínio;</li>
+      <li>o síndico;</li>
+      <li>até três membros do conselho;</li>
+      <li>o desenvolvedor do sistema.</li>
+    </ul>
+    <p>Para entrar, a pessoa faz login com a conta Google. O sistema confere com o próprio Google se o login é verdadeiro e
+      se o e-mail está na lista de membros. Quem não está na lista não vê nada.</p>
+    <p>Cada papel tem permissões diferentes. Por exemplo, o síndico não pode trocar quem é o síndico, e cada membro do
+      conselho só pode alterar o próprio e-mail de acesso. Quando alguém sai da lista de membros, perde o acesso.</p>
+    <p>Toda alteração feita pela administração fica registrada com o e-mail de quem fez, no histórico do próprio
+      cadastro e no painel "Últimas alterações".</p>
+  </section>
+
+  <section class="topico" id="morador" hidden>
+    <div class="topico-topo"><h2>Como o morador acessa o próprio cadastro</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <p>Para abrir e atualizar o próprio cadastro, o morador informa o <strong>CPF</strong> e a <strong>data de
+      nascimento</strong>. Os dois precisam conferir com o mesmo cadastro. Para evitar tentativas de adivinhação, existe
+      um limite de tentativas erradas (veja "Bloqueio de tentativas").</p>
+    <h3>Proteção extra opcional: código por e-mail</h3>
+    <p>No formulário, o morador pode marcar <strong>"Exigir código por e-mail para abrir meu cadastro"</strong>. Com isso,
+      depois do CPF e da data de nascimento, o sistema manda um código de 6 dígitos para o e-mail do cadastro, válido por
+      10 minutos, e só mostra os dados depois do código certo. Assim, quem souber o CPF e a data de nascimento de alguém
+      não consegue abrir o cadastro sem acesso ao e-mail da pessoa.</p>
+    <ul>
+      <li>Código errado conta como tentativa errada (veja "Bloqueio de tentativas").</li>
+      <li>Um novo código só pode ser pedido 1 minuto depois do anterior.</li>
+      <li>Se o sistema estiver no modo de contingência, esses cadastros não abrem até o sistema principal voltar.</li>
+      <li>Se o morador perder o acesso ao e-mail, a administração pode desligar a opção. Isso fica registrado com o
+        e-mail de quem desligou.</li>
+    </ul>
+    <p>Depois de cada envio, o sistema manda para o e-mail informado no formulário uma cópia do cadastro em PDF, para
+      conferência.</p>
+  </section>
+
+  <section class="topico" id="tentativas" hidden>
+    <div class="topico-topo"><h2>Bloqueio após 5 tentativas erradas</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <p>Serve para impedir que alguém descubra a data de nascimento de outra pessoa testando várias datas.</p>
+    <h3>O que conta como tentativa errada</h3>
+    <ul>
+      <li>Buscar o cadastro com um CPF e uma data de nascimento que não conferem com nenhum cadastro. Tanto faz se o erro
+        está no CPF, na data ou nos dois: o sistema responde com a mesma mensagem e conta uma tentativa errada para o
+        CPF digitado.</li>
+      <li>Tentar enviar uma atualização do cadastro sem que o CPF e a data de nascimento confiram.</li>
+    </ul>
+    <h3>O que não conta</h3>
+    <ul>
+      <li>CPF com menos de 11 números ou data de nascimento em formato inválido: o sistema avisa o erro sem fazer a busca.</li>
+      <li>Falhas técnicas (por exemplo, o servidor demorar a responder).</li>
+    </ul>
+    <h3>Como funciona o bloqueio</h3>
+    <ul>
+      <li>A contagem é feita <strong>por CPF</strong>, e não por aparelho ou pessoa. Consulta e atualização somam na
+        mesma contagem.</li>
+      <li>Cada tentativa errada fica contando por 15 minutos. Se passarem 15 minutos sem novos erros, a contagem volta
+        a zero. Uma busca certa também zera a contagem.</li>
+      <li>Na <strong>5ª tentativa errada</strong> dentro desse período, o CPF fica <strong>bloqueado sem prazo</strong>.
+        Enquanto estiver bloqueado, nem a combinação certa é aceita.</li>
+      <li>Cada bloqueio fica registrado com o CPF, o morador (quando o CPF é de um cadastro), a data e hora, o motivo e
+        o tipo de erro de cada tentativa — por exemplo, "data de nascimento incorreta" ou "CPF não cadastrado". Esse
+        detalhe fica só no registro interno: para quem tenta, a mensagem é sempre a mesma.</li>
+    </ul>
+    <h3>Como recuperar o acesso</h3>
+    <ul>
+      <li>O bloqueio não acaba sozinho. É preciso pedir o desbloqueio ao síndico ou pelo e-mail
+        <a href="mailto:contato@exemplo.com.br">contato@exemplo.com.br</a>.</li>
+      <li>A administração desbloqueia pela página "Bloqueios" da área restrita. O desbloqueio só libera o acesso: o
+        registro do bloqueio continua guardado, junto com quem desbloqueou e a data e hora.</li>
+      <li>Se o problema for um dado errado no cadastro (por exemplo, a data de nascimento), a administração também pode
+        conferir e corrigir.</li>
+    </ul>
+    <p>Como a contagem é por CPF, se outra pessoa errar 5 vezes com o seu CPF, o seu acesso fica bloqueado até a
+      administração desbloquear. É um efeito colateral conhecido dessa proteção, e o histórico ajuda a administração a
+      identificar esses casos.</p>
+  </section>
+
+  <section class="topico" id="copias" hidden>
+    <div class="topico-topo"><h2>Cópias de segurança e histórico</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <ul>
+      <li>A cada alteração, o sistema faz automaticamente uma cópia completa dos dados (um arquivo técnico e uma cópia da
+        planilha) numa pasta do Google Drive da administração.</li>
+      <li>Ficam guardadas todas as cópias dos últimos 30 dias e, das mais antigas, uma por mês. As que sobram vão para
+        uma pasta "Lixeira", e a exclusão definitiva é feita manualmente pela administração.</li>
+      <li>Cada cadastro tem um PDF com a versão mais recente, e as versões anteriores ficam numa subpasta de backup.</li>
+      <li>Se o banco de dados principal ficar fora do ar, o sistema passa a ler a planilha de cópia, só para consulta. Nesse
+        modo não é possível alterar dados, para evitar que as informações fiquem diferentes entre os dois lugares.</li>
+    </ul>
+  </section>
+
+  <section class="topico" id="emails" hidden>
+    <div class="topico-topo"><h2>E-mails enviados pelo sistema</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <ul>
+      <li><strong>Para a administração, uma vez por mês:</strong> um resumo com as alterações feitas nos cadastros no mês.
+        Esse e-mail não traz CPF nem outros documentos — só o que mudou e quem mudou. Quem recebe é escolhido na página
+        "Notificações".</li>
+      <li><strong>Para a administração, na hora:</strong> um aviso quando um cadastro é excluído, para o síndico, o
+        condomínio e o desenvolvedor que estiverem marcados em "Notificações". O conselho vê no resumo mensal.</li>
+      <li><strong>Para a administração, quando um CPF é bloqueado:</strong> um aviso para quem está marcado em "Notificações", com o CPF, o
+        cadastro (se houver), a data e hora e o motivo do bloqueio.</li>
+      <li><strong>Para o morador, uma vez por ano:</strong> se o cadastro ficar 1 ano sem atualização, um e-mail pede que ele
+        revise e confirme ou atualize os dados, com o link do formulário. No máximo um e-mail por ano.</li>
+      <li><strong>Para o morador:</strong> um link para a cópia do próprio cadastro em PDF, no Google Drive, enviado ao
+        e-mail informado no formulário. O arquivo é compartilhado só com esse e-mail (e com a administração). Se o e-mail
+        não for de uma conta Google, o PDF vai anexado. Ele contém dados pessoais: não repasse o link nem o arquivo.</li>
+    </ul>
+  </section>
+
+  <section class="topico" id="busca" hidden>
+    <div class="topico-topo"><h2>O site não aparece em buscadores</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <p>As páginas do sistema têm uma instrução ("noindex") que pede aos buscadores, como Google e Bing, para não
+      listarem o site nos resultados de pesquisa. Assim, quem pesquisar o nome do condomínio não deve encontrar o
+      formulário nem a área da administração.</p>
+    <p><strong>Limitações:</strong></p>
+    <ul>
+      <li>É um pedido, não um bloqueio. Os buscadores mais conhecidos respeitam essa instrução, mas nada obriga um robô
+        a respeitá-la.</li>
+      <li>Não esconde o site de quem tem o endereço: qualquer pessoa com o link consegue abrir as páginas.</li>
+      <li>Não protege os dados por si só. Quem protege os cadastros são as regras de acesso descritas nos outros tópicos
+        (CPF e data de nascimento para o morador, login autorizado para a administração).</li>
+    </ul>
+  </section>
+
+  <section class="topico" id="limites" hidden>
+    <div class="topico-topo"><h2>O que esta proteção não cobre</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <ul>
+      <li>Quem souber o CPF e a data de nascimento de um morador consegue abrir o cadastro dele. São dados que nem
+        sempre são secretos; o bloqueio após 5 tentativas reduz o risco, mas não o elimina.</li>
+      <li>O bloqueio por CPF pode ser usado de má-fé para travar o acesso de outra pessoa até a administração desbloquear.</li>
+      <li>Os membros da administração conseguem ver, baixar e imprimir os dados. O sistema registra as alterações, mas
+        não consegue impedir o que alguém autorizado faz com uma cópia.</li>
+      <li>A segurança também depende das contas Google dos membros. Recomenda-se usar senha forte e verificação em duas
+        etapas.</li>
+      <li>Os dados dependem da disponibilidade e da segurança dos serviços do Google, que estão fora do controle do
+        condomínio.</li>
+    </ul>
+  </section>
+
+  <section class="topico" id="ia" hidden>
+    <div class="topico-topo"><h2>Desenvolvimento com auxílio de inteligência artificial</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <p>Este sistema foi desenvolvido com o auxílio de inteligência artificial, usando o <strong>Claude</strong>, da
+      Anthropic. A IA participou do processo de desenvolvimento — escrevendo e revisando código, testando e ajustando o
+      sistema — sempre sob a supervisão e as decisões do desenvolvedor responsável.</p>
+    <p>Durante o desenvolvimento e a manutenção, a IA trabalhou com o código e, em algumas tarefas, com arquivos do
+      sistema. O sistema em funcionamento não envia dados de moradores para nenhuma inteligência artificial.</p>
+  </section>
+
+  <section class="topico" id="tecnico" hidden>
+    <div class="topico-topo"><h2>Detalhes técnicos</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <ul>
+      <li>O navegador nunca acessa o banco de dados diretamente: todas as leituras e gravações passam pelo Apps Script,
+        que usa uma credencial de conta de serviço guardada nas propriedades do script, e não no código do site.</li>
+      <li>O login da administração usa o "Fazer login com o Google". O token recebido é validado no servidor pelo
+        Google (assinatura, emissor, validade e aplicativo de destino) antes de qualquer operação restrita.</li>
+      <li>As permissões de cada papel são conferidas no servidor, não só na tela.</li>
+      <li>Sessão de 1 hora do morador: depois que o CPF e a data de nascimento conferem (no Kit de Boas-vindas ou na
+        consulta do cadastro), o site guarda os dois só nesta aba do navegador (sessionStorage) por 1 hora, para não
+        pedir de novo. Junto, guarda o nome, o apartamento e o e-mail do cadastro, só para mostrar no topo da página.
+        Na tela, aparecem só os 3 primeiros dígitos do CPF e o dia do aniversário. Tocar em "Sair" ou fechar a aba
+        apaga esses dados; o servidor continua conferindo o CPF e a data a cada uso.</li>
+      <li>Login de admin e de morador: entrar pela área de administração com o Google também abre a sessão de morador
+        (se a pessoa tiver cadastro). Entrar pelo CPF abre só a sessão de morador, nunca o login de admin. Tocar em
+        "Sair" em qualquer lugar do site (na home ou na área de administração) encerra os dois nesta aba.</li>
+      <li>Código por e-mail: o código fica guardado só como resumo criptográfico (SHA-256) por 10 minutos. Abrir com
+        o código cria uma sessão de 1 hora, exigida também para gravar a atualização desse cadastro.</li>
+      <li>As tentativas erradas ficam no cache do Apps Script por 15 minutos; os bloqueios, no Firestore (um registro
+        permanente por bloqueio, completado no desbloqueio, e um marcador do bloqueio em vigor). Vale tanto para a
+        consulta quanto para a atualização do cadastro.</li>
+      <li>Os campos digitados são validados e tratados antes de ser gravados ou exibidos.</li>
+      <li>A pasta do sistema no Google Drive é compartilhada como "leitor" com os e-mails da página Membros. Quem sai
+        da lista perde esse acesso, se ele tiver sido dado pelo próprio sistema.</li>
+      <li>As páginas têm a meta tag <code>robots</code> com <code>noindex, nofollow, noarchive, nosnippet,
+        noimageindex</code>.</li>
+    </ul>
+  </section>
+
+  <section class="topico" id="contato" hidden>
+    <div class="topico-topo"><h2>Dúvidas, correção ou exclusão de dados</h2><button type="button" class="fechar-topico" aria-label="Fechar">&times;</button></div>
+    <p>Para esclarecer dúvidas, consultar, corrigir ou pedir a exclusão dos seus dados, escreva para
+      <a href="mailto:contato@exemplo.com.br">contato@exemplo.com.br</a>.</p>
+  </section>
+
+  <p class="rodape">Condomínio Exemplo · Cadastro de moradores</p>
+</main>
+<script>
+  // "Voltar" inteligente: volta para a página de onde a pessoa veio (área da administração, mapa da
+  // vaga ou formulário). Se veio de uma página do próprio site, usa o histórico do navegador, que
+  // devolve a página no mesmo ponto em que estava (ex.: o painel aberto no admin).
+  (function() {
+    var link = document.getElementById("linkVoltar");
+    var origem = "";
+    try { var r = new URL(document.referrer); if (r.origin === location.origin) origem = r.pathname; } catch (e) {}
+    if (!origem) return;
+    if (/admin.html$/.test(origem)) { link.href = "admin.html"; link.textContent = "← voltar para a área da administração"; }
+    else if (/mapa-vaga.html$/.test(origem)) { link.href = "mapa-vaga.html"; link.textContent = "← voltar para o mapa da vaga"; }
+    link.addEventListener("click", function(e) {
+      if (history.length > 1) { e.preventDefault(); history.back(); }
+    });
+  })();
+
+  // Accordion exclusivo: abrir um tópico fecha o anterior; clicar de novo no aberto (ou no ×) fecha.
+  (function() {
+    var botoes = Array.prototype.slice.call(document.querySelectorAll(".menu-topicos button"));
+    function abrir(id) {
+      botoes.forEach(function(b) {
+        var alvo = document.getElementById(b.getAttribute("aria-controls"));
+        var aberto = b.getAttribute("aria-controls") === id;
+        b.setAttribute("aria-expanded", aberto ? "true" : "false");
+        alvo.hidden = !aberto;
+      });
+      if (id) document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    botoes.forEach(function(b) {
+      b.addEventListener("click", function() {
+        abrir(b.getAttribute("aria-expanded") === "true" ? null : b.getAttribute("aria-controls"));
+      });
+    });
+    document.querySelectorAll(".fechar-topico").forEach(function(x) {
+      x.addEventListener("click", function() { abrir(null); });
+    });
+    // Link direto para um tópico (ex.: seguranca.html#tentativas) já abre esse tópico.
+    var hash = location.hash.replace("#", "");
+    if (hash && document.getElementById(hash) && document.getElementById(hash).classList.contains("topico")) abrir(hash);
+  })();
+</script>
+<script src="js/popup-links.js?v=20261010C"></script>
+<script src="js/sem-conectivos.js?v=20261009Z"></script>
+</body>
+</html>

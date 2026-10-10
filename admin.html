@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Área da administração</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="css/admin.css?v=20261010E">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+</head>
+<body>
+  <div id="authGate" class="auth-container">
+    <div class="auth-card">
+      <h1>Login administrativo</h1>
+      <p>Área reservada para o síndico e conselho. Entre com uma conta autorizada para realizar consultas.</p>
+      <div class="auth-actions">
+        <div id="googleLoginButton"></div>
+      </div>
+      <p id="authMensagem" class="auth-mensagem" hidden></p>
+      <div class="auth-links">
+        <a href="index.html">← voltar para cadastro</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="adminArea" class="container" hidden>
+    <div class="card">
+      <div class="topo-admin">
+        <div id="authUsuario" class="auth-usuario"></div>
+        <div class="topo-admin-acoes">
+          <button type="button" id="btnAbrirFonteDados" class="btn-sair">Dados</button>
+          <button type="button" id="btnSairAdmin" class="btn-sair" hidden>Sair</button>
+        </div>
+      </div>
+
+      <div id="fonteDadosAdmin" class="card-fonte-dados" hidden>
+        <h2>Fonte de dados</h2>
+        <p id="avisoSomenteLeituraDados" class="aviso-somente-leitura" hidden>Somente visualização: apenas Síndico, Condomínio e Desenvolvedor podem alterar.</p>
+        <div class="opcoes-fonte-dados">
+          <label><input type="radio" name="fonteDados" value="auto"> Automático</label>
+          <label><input type="radio" name="fonteDados" value="firebase"> Firebase</label>
+          <label><input type="radio" name="fonteDados" value="sheets"> Google Sheets</label>
+        </div>
+        <div class="indicador-fonte-atual">
+          Fonte atualmente utilizada: <span id="indicadorFonteAtual">—</span>
+        </div>
+        <div id="avisoContingenciaAdmin" class="aviso-contingencia" hidden>
+          ⚠️ <strong>Modo de contingência</strong><br>
+          Os dados estão sendo carregados do backup do Google Sheets. Alterações estão temporariamente desativadas.
+        </div>
+        <button type="button" id="btnTestarConexoes">Testar conexões</button>
+        <div id="resultadoTesteConexoes" class="resultado-teste-conexoes"></div>
+
+        <h2 class="titulo-perfil">Perfil dos moradores</h2>
+        <p class="descricao-acao">Quem mora no prédio: titulares dos cadastros (menos o proprietário que não mora no imóvel) e os
+          demais ocupantes. O gênero é <strong>estimado pelo primeiro nome</strong> (o cadastro não tem esse campo) e pode errar
+          em nomes incomuns.</p>
+        <div id="statusPerfil" class="status"></div>
+        <div id="graficosPerfil" class="graficos-perfil"></div>
+      </div>
+
+      <div id="conteudoPrincipalAdmin">
+        <div class="topo-links">
+          <a href="index.html">← voltar para o cadastro de moradores</a>
+        </div>
+
+        <!-- Menu: cada botão abre/fecha a sua página (js/admin-paineis.js). Só uma página por vez:
+             abrir outra substitui a atual. Cada página tem um × para voltar à home. -->
+        <button type="button" id="btnPaginaInicial" class="btn-pagina-inicial ativo" aria-pressed="true"><svg class="icone-casa" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 9v11h4.5v-6h4v6h4.5V9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Página inicial</span></button>
+        <nav class="menu-admin" aria-label="Seções da administração">
+          <button type="button" data-painel="painelAprovacoes" aria-pressed="false"><span class="rotulo-longo">Cadastros para aprovação</span><span class="rotulo-curto">Para aprovação</span><span id="contadorAprovacoes" class="badge-menu aguardando">…</span></button>
+          <button type="button" data-painel="painelConsulta" aria-pressed="false"><span class="rotulo-longo">Consulta por apartamento</span><span class="rotulo-curto">Consulta por apto</span></button>
+          <button type="button" data-painel="painelPendencias" aria-pressed="false">Pendências<span id="contadorPendencias" class="badge-menu aguardando">…</span></button>
+          <button type="button" data-painel="painelRelatorios" aria-pressed="false">Relatórios</button>
+          <button type="button" data-painel="painelLinks" aria-pressed="false">Links úteis</button>
+          <button type="button" data-painel="painelGabarito" aria-pressed="false">Gabarito de vagas</button>
+          <button type="button" data-painel="painelMembros" aria-pressed="false">Membros</button>
+          <button type="button" data-painel="painelNotificacoes" aria-pressed="false">Notificações</button>
+          <button type="button" data-painel="painelBloqueios" aria-pressed="false">Bloqueios</button>
+        </nav>
+
+        <div id="paineisAdmin" class="paineis-admin">
+          <section id="painelLinks" class="painel-admin" hidden>
+            <div class="painel-topo"><h2>Links úteis</h2><button type="button" class="btn-fechar-painel" aria-label="Fechar" title="Fechar">&times;</button></div>
+            <div class="link-planilha-admin links-lista">
+              <a href="#demo-arquivo" target="_blank" rel="noopener noreferrer" data-nova-aba>Fichas individuais em PDF</a>
+              <a href="#demo-arquivo" target="_blank" rel="noopener noreferrer" data-nova-aba>Contratos dos inquilinos</a>
+              <a href="#demo-arquivo" target="_blank" rel="noopener noreferrer" data-nova-aba>Planilha com todos os dados</a>
+              <a href="#demo-arquivo" target="_blank" rel="noopener noreferrer" data-nova-aba>Backup de planilhas anteriores</a>
+              <a href="kit.html" target="_blank" rel="noopener noreferrer">Kit de Boas-vindas</a>
+            </div>
+          </section>
+
+          <section id="painelRelatorios" class="painel-admin" hidden>
+            <div class="painel-topo"><h2>Relatórios</h2><button type="button" class="btn-fechar-painel" aria-label="Fechar" title="Fechar">&times;</button></div>
+            <!-- Dois relatórios em PDF, com conteúdos que não se repetem. São gerados sozinhos depois de
+                 cada alteração cadastral; aqui fica o link do mais recente (js/admin-relatorio.js). -->
+            <div class="relatorios-admin">
+              <div class="relatorio-item">
+                <div class="relatorio-titulo">Relatório de contatos</div>
+                <p class="descricao-acao">
+                  Um quadro por apartamento: responsável e contato,
+                  contatos de emergência, ocupantes, prestadores (com chave ou não) e pets.
+                  Não traz veículos. Fica na pasta "Relatório de contatos" do Drive.
+                </p>
+                <div id="situacaoRelatorioContatos" class="situacao-relatorio carregando">Carregando</div>
+                <a class="link-backups-relatorio" href="#demo-arquivo" target="_blank" rel="noopener noreferrer">Backups de Relatórios de Contatos</a>
+              </div>
+
+              <div class="relatorio-item">
+                <div class="relatorio-titulo">Lista de veículos</div>
+                <p class="descricao-acao">
+                  Todos os carros e motos por apartamento, com a vaga que ocupam
+                  (apto, vaga, tipo, modelo, cor e placa), os apartamentos sem veículo com a sua vaga e, no fim,
+                  o mapa da garagem (G1 e G2) com os veículos desenhados em cada vaga.
+                  Fica na pasta "Relatório de veículos" do Drive.
+                </p>
+                <div id="situacaoListaVeiculos" class="situacao-relatorio carregando">Carregando</div>
+                <a class="link-backups-relatorio" href="#demo-arquivo" target="_blank" rel="noopener noreferrer">Backups das Listas de veículos</a>
+              </div>
+
+              <p class="descricao-acao relatorios-nota">
+                Os dois são atualizados sozinhos a cada alteração cadastral (um PDF novo só quando algo neles muda)
+                e vão em anexo no e-mail de alterações. Consideram só quem mora no prédio: cadastros marcados
+                como "mudou-se" ficam de fora.
+              </p>
+            </div>
+          </section>
+
+          <section id="painelConsulta" class="painel-admin" hidden>
+            <div class="painel-topo"><h2>Consulta por apartamento</h2><button type="button" class="btn-fechar-painel" aria-label="Fechar" title="Fechar">&times;</button></div>
+            <p>Selecione o apartamento para carregar todas as informações disponíveis no cadastro.</p>
+            <div class="linha">
+              <label for="aptoAdmin">Apartamento:</label>
+              <select id="aptoAdmin">
+                <option value="">Selecione</option>
+              </select>
+              <button type="button" id="btnBuscarApto">Carregar dados</button>
+            </div>
+
+            <div id="statusAdmin" class="status"></div>
+            <div id="resultadoAdmin" class="resultado vazio">
+              <div class="resultado-placeholder">Nenhum dado carregado.</div>
+            </div>
+          </section>
+
+          <section id="painelMembros" class="painel-admin" hidden>
+            <div class="painel-topo"><h2>Membros</h2><span class="bloco-atualizar"><button type="button" id="btnAtualizarMembros" class="btn-atualizar-pendencias">Atualizar</button><span class="atualizado-em" data-leitura="obterMembros"></span></span><button type="button" class="btn-fechar-painel" aria-label="Fechar" title="Fechar">&times;</button></div>
+            <p class="descricao-acao" id="descricaoMembros">Quem acessa a área restrita. O e-mail de acesso é o da conta Google usada no login.</p>
+            <div id="statusMembros" class="status"></div>
+            <div class="acoes-50 acoes-3" data-espelho="acoesMembros"></div>
+            <div id="formMembros" class="form-membros"></div>
+            <div id="autorizacoesMembros" class="autorizacoes-membros" hidden></div>
+            <div id="acoesMembros" class="membros-acoes acoes-50 acoes-3">
+              <button type="button" id="btnAutorizacoes" class="btn-secundario btn-autorizacoes" aria-pressed="false">Autorizações</button>
+              <button type="button" id="btnDesfazerMembros" class="btn-secundario">Desfazer</button>
+              <button type="button" id="btnSalvarMembros">Salvar alterações</button>
+            </div>
+          </section>
+
+          <section id="painelNotificacoes" class="painel-admin" hidden>
+            <div class="painel-topo"><h2>Notificações</h2><span class="bloco-atualizar"><button type="button" id="btnAtualizarNotificacoes" class="btn-atualizar-pendencias">Atualizar</button><span class="atualizado-em" data-leitura="obterNotificacoes"></span></span><button type="button" class="btn-fechar-painel" aria-label="Fechar" title="Fechar">&times;</button></div>
+            <p class="descricao-acao">
+              Marque, para cada membro, quais e-mails ele recebe. A lista vem da página Membros; quem sair da
+              administração deixa de receber.
+            </p>
+            <div id="statusNotificacoes" class="status"></div>
+            <div class="acoes-50" data-espelho="acoesNotificacoes"></div>
+            <div id="listaNotificacoes" class="lista-notificacoes"></div>
+            <div id="acoesNotificacoes" class="acoes-50">
+              <button type="button" id="btnDesfazerNotificacoes" class="btn-secundario">Desfazer</button>
+              <button type="button" id="btnSalvarNotificacoes">Salvar alterações</button>
+            </div>
+            <details class="como-funcionam-notificacoes">
+              <summary>Como funcionam os e-mails do sistema</summary>
+              <ul>
+                <li><strong>Resumo mensal</strong> (para quem estiver marcado na coluna): no dia 1 de cada mês, um e-mail com todas as
+                  alterações cadastrais do mês anterior e os links dos relatórios. Se nada mudou, não é enviado.</li>
+                <li><strong>CPF bloqueado</strong> (para quem estiver marcado na coluna): na hora, quando alguém erra 5 vezes o CPF e a
+                  data de nascimento.</li>
+                <li><strong>Cadastro excluído</strong> (só síndico, condomínio ou desenvolvedor, se marcados):
+                  na hora. O conselho vê no resumo mensal. Morador novo aparece só no resumo mensal.</li>
+                <li><strong>Novo cadastro aguardando aprovação</strong> (para os marcados abaixo que são síndico, condomínio ou
+                  desenvolvedor): na hora, com o link para a página Cadastros para aprovação.</li>
+                <li><strong>Para o próprio morador</strong> (não depende desta lista): a aprovação ou a rejeição (com o motivo) do
+                  cadastro novo, a cópia do cadastro em PDF a cada envio, o código para abrir o cadastro (se ele ativou) e o
+                  lembrete de revisão uma vez por ano.</li>
+              </ul>
+            </details>
+            <h3 class="titulo-exemplo-email">Exemplos dos e-mails</h3>
+            <div class="botoes-exemplo-email" role="group" aria-label="Exemplos dos e-mails">
+              <button type="button" class="btn-exemplo-email" data-exemplo="resumo" aria-pressed="false">Resumo mensal</button>
+              <button type="button" class="btn-exemplo-email" data-exemplo="bloqueio" aria-pressed="false">CPF bloqueado</button>
+              <button type="button" class="btn-exemplo-email" data-exemplo="exclusao" aria-pressed="false">Cadastro excluído</button>
+              <button type="button" class="btn-exemplo-email" data-exemplo="aprovacao" aria-pressed="false">Novo cadastro aguardando aprovação</button>
+            </div>
+            <div class="exemplo-email-bloco" data-exemplo="resumo" hidden>
+              <p class="descricao-acao">Junta as alterações do mês anterior. Não traz CPF nem outros dados sensíveis.</p>
+              <div class="exemplo-email" aria-label="Exemplo do e-mail: Resumo mensal">
+                <div class="exemplo-email-cabecalho">
+                  <div><span>De:</span> Cadastro de moradores Cond. Exemplo</div>
+                  <div><span>Assunto:</span> [CSF] Resumo de setembro de 2026: 2 alterações cadastrais</div>
+                </div>
+                <div class="exemplo-email-corpo">
+                  <div style="font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:14px"><p>Houve 2 alterações no cadastro de moradores desde o último resumo (setembro de 2026):</p><table style="border-collapse:collapse;font-size:13px"><tr style="text-align:left;color:#5f7287"><th style="padding:6px 8px">Quando</th><th style="padding:6px 8px">O quê</th><th style="padding:6px 8px">Apto</th><th style="padding:6px 8px">Cadastro</th><th style="padding:6px 8px">Por</th></tr><tr><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;white-space:nowrap">02/10 12:15</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;font-weight:bold">edição</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;white-space:nowrap">Apto 302</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee">Maria Souza (Proprietário)<div style="color:#5f7287;font-size:12px">Alterou: Celular, Carros</div></td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;color:#5f7287">Próprio morador (formulário)</td></tr><tr><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;white-space:nowrap">02/10 13:40</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;font-weight:bold">criação</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;white-space:nowrap">Apto 504</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee">João Lima (Inquilino)</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;color:#5f7287">Próprio morador (formulário), aprovado por sindico@exemplo.com</td></tr></table><p style="margin-top:16px;margin-bottom:4px">Relatórios:</p><ul style="margin-top:0"><li><strong>Relatório de contatos:</strong> <strong style="color:#1f7a3a">NOVO</strong> — mudou com estas alterações. <a href="#">Abrir PDF</a></li><li><strong>Lista de veículos:</strong> Nada mudou nele com estas alterações. <a href="#">Abrir o mais recente</a></li></ul><p style="margin-top:16px"><a href="admin.html">Abrir o painel da administração</a></p><p style="color:#8a99a8;font-size:12px">E-mail automático do cadastro de moradores do Condomínio Exemplo.</p><p style="color:#8a99a8;font-size:12px;margin-top:4px"><a href="seguranca.html" style="color:#8a99a8">Documentação: meus dados estão seguros?</a></p></div>
+                </div>
+              </div>
+            </div>
+            <div class="exemplo-email-bloco" data-exemplo="bloqueio" hidden>
+              <p class="descricao-acao">Na hora, quando alguém erra 5 vezes o CPF e a data de nascimento.</p>
+              <div class="exemplo-email" aria-label="Exemplo do e-mail: CPF bloqueado">
+                <div class="exemplo-email-cabecalho">
+                  <div><span>De:</span> Cadastro de moradores Cond. Exemplo</div>
+                  <div><span>Assunto:</span> [CSF] CPF bloqueado — apto 302</div>
+                </div>
+                <div class="exemplo-email-corpo">
+                  <div style="font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:14px"><p>Um CPF foi bloqueado no cadastro de moradores depois de 5 tentativas com dados que não conferem:</p><table style="border-collapse:collapse;font-size:13px"><tr><td style="padding:4px 12px 4px 0;color:#5f7287;vertical-align:top">CPF</td><td style="padding:4px 0;font-weight:bold">123.456.789-09</td></tr><tr><td style="padding:4px 12px 4px 0;color:#5f7287;vertical-align:top">Cadastro</td><td style="padding:4px 0;font-weight:bold">Maria Souza · apto 302</td></tr><tr><td style="padding:4px 12px 4px 0;color:#5f7287;vertical-align:top">Data e hora</td><td style="padding:4px 0;font-weight:bold">03/10/2026 21:04:11</td></tr><tr><td style="padding:4px 12px 4px 0;color:#5f7287;vertical-align:top">Motivo</td><td style="padding:4px 0;font-weight:bold">5 tentativas erradas em 15 minutos</td></tr><tr><td style="padding:4px 12px 4px 0;color:#5f7287;vertical-align:top">Tipo de erro</td><td style="padding:4px 0;font-weight:bold">Data de nascimento não confere</td></tr></table><p>O acesso desse CPF (consulta e atualização do cadastro) fica bloqueado até alguém da administração desbloquear na página Bloqueios. Se o morador não reconhecer as tentativas, pode ser alguém tentando acessar os dados dele.</p><p><a href="admin.html">Abrir o painel da administração</a></p><p style="color:#8a99a8;font-size:12px">E-mail automático do cadastro de moradores do Condomínio Exemplo.</p><p style="color:#8a99a8;font-size:12px;margin-top:4px"><a href="seguranca.html" style="color:#8a99a8">Documentação: meus dados estão seguros?</a></p></div>
+                </div>
+              </div>
+            </div>
+            <div class="exemplo-email-bloco" data-exemplo="exclusao" hidden>
+              <p class="descricao-acao">Na hora, quando um cadastro é excluído (só síndico, condomínio e desenvolvedor).</p>
+              <div class="exemplo-email" aria-label="Exemplo do e-mail: Cadastro excluído">
+                <div class="exemplo-email-cabecalho">
+                  <div><span>De:</span> Cadastro de moradores Cond. Exemplo</div>
+                  <div><span>Assunto:</span> [CSF] 1 alteração cadastral</div>
+                </div>
+                <div class="exemplo-email-corpo">
+                  <div style="font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:14px"><p>Houve uma alteração no cadastro de moradores:</p><table style="border-collapse:collapse;font-size:13px"><tr style="text-align:left;color:#5f7287"><th style="padding:6px 8px">Quando</th><th style="padding:6px 8px">O quê</th><th style="padding:6px 8px">Apto</th><th style="padding:6px 8px">Cadastro</th><th style="padding:6px 8px">Por</th></tr><tr><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;white-space:nowrap">04/10 10:20</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;font-weight:bold">exclusão</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;white-space:nowrap">Apto 205</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee">Carlos Pereira (Inquilino)</td><td style="padding:6px 8px;border-bottom:1px solid #e3e8ee;color:#5f7287">sindico@exemplo.com</td></tr></table><p style="margin-top:16px"><a href="admin.html">Abrir o painel da administração</a></p><p style="color:#8a99a8;font-size:12px">E-mail automático do cadastro de moradores do Condomínio Exemplo.</p><p style="color:#8a99a8;font-size:12px;margin-top:4px"><a href="seguranca.html" style="color:#8a99a8">Documentação: meus dados estão seguros?</a></p></div>
+                </div>
+              </div>
+            </div>
+            <div class="exemplo-email-bloco" data-exemplo="aprovacao" hidden>
+              <p class="descricao-acao">Na hora, quando chega um cadastro novo para aprovar (só síndico, condomínio e desenvolvedor).</p>
+              <div class="exemplo-email" aria-label="Exemplo do e-mail: Novo cadastro aguardando aprovação">
+                <div class="exemplo-email-cabecalho">
+                  <div><span>De:</span> Cadastro de moradores Cond. Exemplo</div>
+                  <div><span>Assunto:</span> [CSF] Novo cadastro aguardando aprovação — apto 703</div>
+                </div>
+                <div class="exemplo-email-corpo">
+                  <div style="font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:14px"><p>Um novo cadastro foi enviado pelo formulário e aguarda aprovação:</p><p><strong>Apto 703</strong> — Carla Nova (Proprietário)</p><p style="margin:18px 0"><a href="admin.html" style="display:inline-block;padding:10px 18px;border-radius:8px;background:#2f5f98;color:#ffffff;font-weight:bold;text-decoration:none">Abrir Cadastros para aprovação</a></p><p style="color:#8a99a8;font-size:12px">E-mail automático do cadastro de moradores do Condomínio Exemplo. Você recebe este aviso por estar marcado na página Notificações.</p><p style="color:#8a99a8;font-size:12px;margin-top:4px"><a href="seguranca.html" style="color:#8a99a8">Documentação: meus dados estão seguros?</a></p></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="painelAprovacoes" class="painel-admin" hidden>
+            <div class="painel-topo">
+              <h2>Cadastros para aprovação</h2>
+              <span class="bloco-atualizar"><button type="button" id="btnAtualizarAprovacoes" class="btn-atualizar-pendencias">Atualizar</button><span class="atualizado-em" data-leitura="listarAprovacoes"></span></span>
+              <button type="button" class="btn-fechar-painel" aria-label="Fechar" title="Fechar">&times;</button>
+            </div>
+            <p class="descricao-acao">Cadastros novos enviados pelo formulário. Só entram no sistema (consulta, relatórios e acesso do
+              morador) depois de aprovados; o morador recebe a decisão por e-mail. Quem já teve o cadastro aprovado atualiza sem
+              nova aprovação.</p>
+            <p id="avisoSoVisualizarAprovacoes" class="descricao-acao aviso-so-visualizar" hidden>Você pode visualizar os cadastros
+              pendentes. Aprovar ou rejeitar é com o síndico, o condomínio ou o desenvolvedor.</p>
+            <div id="statusAprovacoes" class="status"></div>
+            <div id="listaAprovacoes" class="lista-aprovacoes"></div>
+          </section>
+
+          <section id="painelBloqueios" class="painel-admin" hidden>
+            <div class="painel-topo">
+              <h2>Bloqueios</h2>
+              <span class="bloco-atualizar"><button type="button" id="btnAtualizarBloqueios" class="btn-atualizar-pendencias">Atualizar</button><span class="atualizado-em" data-leitura="listarBloqueios"></span></span>
+              <button type="button" class="btn-fechar-painel" aria-label="Fechar" title="Fechar">&times;</button>
+            </div>
+            <p class="descricao-acao">CPFs bloqueados depois de 5 tentativas com CPF e data de nascimento que não conferem. O bloqueio só
+              acaba quando alguém da administração desbloqueia; o registro continua no histórico.</p>
+            <div id="statusBloqueios" class="status"></div>
+            <h3 id="tituloBloqueiosAtivos" class="titulo-bloqueios">Bloqueados agora</h3>
+            <div id="listaBloqueiosAtivos" class="lista-bloqueios"></div>
+            <h3 id="tituloBloqueiosHistorico" class="titulo-bloqueios">Histórico</h3>
+            <div id="listaBloqueiosHistorico" class="lista-bloqueios"></div>
+          </section>
+
+          <section id="painelPendencias" class="painel-admin" hidden>
+            <div class="painel-topo">
+              <h2>Pendências</h2>
+              <span class="bloco-atualizar"><button type="button" id="btnAtualizarPendencias" class="btn-atualizar-pendencias">Atualizar</button><span class="atualizado-em" data-leitura="listarPendencias"></span></span>
+              <button type="button" class="btn-fechar-painel" aria-label="Fechar" title="Fechar">&times;</button>
+            </div>
+            <p class="dica-pendencias">Toque num grupo para ver a lista e num item para abrir o cadastro. Marque a caixinha para ignorar uma pendência.</p>
+            <div id="statusPendencias" class="status"></div>
+            <div id="listaPendencias" class="lista-pendencias"></div>
+          </section>
+
+          <section id="painelGabarito" class="painel-admin" hidden>
+            <div class="painel-topo"><h2>Gabarito de vagas</h2><span class="bloco-atualizar"><button type="button" id="btnAtualizarGabarito" class="btn-atualizar-pendencias">Atualizar</button><span class="atualizado-em" data-leitura="obterGabaritoVagasCompleto"></span></span><button type="button" class="btn-fechar-painel" aria-label="Fechar" title="Fechar">&times;</button></div>
+            <p class="descricao-acao">
+              Uma linha por vaga do desenho (vagas não são criadas nem removidas; para devolver uma ao condomínio, escolha "— Condomínio —"). Salvar grava no banco de dados e na aba "Gabarito" da planilha. Se a vaga não
+              bater com o desenho da garagem, aparece um aviso (dá para salvar mesmo assim).
+            </p>
+            <p class="descricao-acao desenhos-originais">
+              Clique para ver os desenhos originais:
+              <a href="#demo-arquivo" target="_blank" rel="noopener noreferrer">G1</a> e
+              <a href="#demo-arquivo" target="_blank" rel="noopener noreferrer">G2</a>
+              <button type="button" id="btnRestaurarNumeracao" class="btn-restaurar-numeracao" disabled
+                title="Volta os números das vagas ao que estava antes das suas mudanças">Restaurar distribuição original</button>
+            </p>
+            <div class="gabarito-modos segmentado" role="tablist">
+              <button type="button" data-modo="mapa" class="ativo" role="tab">Mapa</button>
+              <button type="button" data-modo="tabela" role="tab">Tabela</button>
+            </div>
+            <!-- G1/G2 vale para os dois modos (tabela e mapa). -->
+            <div class="gabarito-garagens segmentado">
+              <button type="button" data-garagem="G1" class="ativo">G1</button>
+              <button type="button" data-garagem="G2">G2</button>
+            </div>
+            <div id="statusGabarito" class="status"></div>
+            <div class="acoes-50" data-espelho="acoesGabarito"></div>
+            <div id="modoTabelaGabarito" hidden>
+              <div class="gabarito-cabecalho" aria-hidden="true"><span>Vaga</span><span>Apartamento</span></div>
+              <div id="tabelaGabarito" class="tabela-gabarito"></div>
+              <button type="button" id="btnCarregarMaisGabarito" class="btn-carregar-mais" hidden>Carregar mais 5</button>
+            </div>
+            <!-- Modo mapa (padrão): toque numa vaga para escolher o apto (js/admin-gabarito.js). -->
+            <div id="modoMapaGabarito">
+              <p class="descricao-acao">Toque numa vaga para escolher o apartamento. Vagas com aviso ficam com contorno vermelho.</p>
+              <div id="editorVagaMapa" class="editor-vaga-mapa" hidden>
+                <strong id="editorVagaTitulo"></strong>
+                <select id="editorVagaApto" aria-label="Apartamento desta vaga"></select>
+                <button type="button" id="editorVagaAplicar">Aplicar</button>
+                <button type="button" id="editorVagaCancelar" class="btn-secundario">Cancelar</button>
+                <div id="editorVagaAvisos" class="gabarito-avisos"></div>
+              </div>
+              <div id="mapaGabarito" class="mapa-gabarito"></div>
+            </div>
+            <div id="acoesGabarito" class="gabarito-acoes acoes-50">
+              <button type="button" id="btnDesfazerGabarito" class="btn-secundario">Desfazer</button>
+              <button type="button" id="btnSalvarGabarito">Salvar alterações</button>
+            </div>
+          </section>
+        </div>
+
+        <!-- Home do admin (some quando alguma página do menu está aberta). -->
+        <div id="homeAdmin" class="home-admin">
+        <!-- Seção recolhível (fechada por padrão). O histórico só é buscado ao abrir. -->
+        <details id="historicoAdmin" class="card-historico">
+          <summary><span>Últimas alterações cadastrais</span><b id="contadorHistorico" class="contagem-historico aguardando">…</b><button type="button" id="btnAtualizarHistorico" class="btn-atualizar-pendencias">Atualizar</button></summary>
+          <div class="historico-conteudo">
+            <div id="statusHistorico" class="status"></div>
+            <ol id="listaHistorico" class="lista-historico"></ol>
+            <div class="historico-acoes">
+              <button type="button" id="btnMaisHistorico" class="btn-atualizar-historico" hidden>Mostrar mais 5</button>
+            </div>
+          </div>
+        </details>
+
+        <section class="busca-home">
+          <h2 class="titulo-home">Busca geral <span class="subtitulo-painel">(nome, carro, pet ou prestador)</span></h2>
+            <div id="buscaGeralAdmin" class="card-busca">
+              <div class="linha-busca">
+                <!-- O × fica dentro do campo, à direita: limpa o termo e os resultados. -->
+                <div class="campo-busca">
+                  <input type="text" id="buscaGeralInput" placeholder="Digite um nome, placa ou modelo" aria-label="Buscar em todos os cadastros">
+                  <button type="button" id="btnFecharBusca" class="btn-limpar-busca" aria-label="Limpar busca" title="Limpar busca" hidden>&times;</button>
+                </div>
+                <button type="button" id="btnBuscaGeral">Buscar</button>
+              </div>
+              <div id="statusBuscaGeral" class="status"></div>
+              <div id="resultadosBuscaGeral" class="resultados-busca"></div>
+            </div>
+        </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="overlayProcessamento" class="overlay-processamento hidden" aria-live="polite" aria-busy="true">
+    <div class="overlay-processamento-card">
+      <button type="button" class="overlay-processamento-fechar" aria-label="Desistir e fechar" title="Desistir e fechar">&times;</button>
+      <div class="overlay-processamento-roda">
+        <div class="overlay-processamento-spinner" aria-hidden="true"></div>
+        <span id="overlayProcessamentoPercentual" class="overlay-processamento-percentual" aria-hidden="true"></span>
+      </div>
+      <p id="overlayProcessamentoMensagem">Aguarde: buscando cadastro</p>
+    </div>
+  </div>
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="js/regras.js?v=20261009Z"></script>
+  <script src="js/utils.js?v=20261009Z"></script>
+  <script src="js/data/backend.js?v=20261009Z"></script>
+  <script src="js/data/backend-demo.js?v=20261010A"></script>
+<footer class="rodape-site" style="max-width:750px;margin:18px auto 6px;text-align:center;font-size:0.82rem;">
+  <a href="seguranca.html" style="display:inline-block;padding:6px 12px;border-radius:999px;border:1px solid #c9d7e5;background:#f3f7fb;color:#3b5873;font-size:0.84rem;font-weight:600;text-decoration:none;">Documentação: meus dados estão seguros?</a>
+</footer>
+  <script src="js/admin-auth.js?v=20261009ZA"></script>
+  <script src="js/admin-badges.js?v=20261010B"></script>
+  <script src="js/data/FirebaseRepository.js?v=20261009Z"></script>
+  <script src="js/data/GoogleSheetsRepository.js?v=20261009Z"></script>
+  <script src="js/data/DataService.js?v=20261010D"></script>
+  <script src="js/sessao-morador.js?v=20261010E" defer></script>
+  <script src="js/sessao-admin-morador.js?v=20261009Z" defer></script>
+  <script src="js/admin-fonte-dados.js?v=20261009Z"></script>
+  <script src="js/progresso-overlay.js?v=20261010E"></script>
+  <script src="js/admin-simples.js?v=20261010E"></script>
+  <script src="js/admin-relatorio.js?v=20261009Z"></script>
+  <script src="js/admin-busca.js?v=20261009Z"></script>
+  <script src="js/admin-historico.js?v=20261009Z"></script>
+  <script src="js/admin-pendencias.js?v=20261009Z"></script>
+  <script src="js/admin-permissoes.js?v=20261009Z"></script>
+  <script src="js/admin-autorizacoes.js?v=20261010D"></script>
+  <script src="js/admin-membros.js?v=20261009Z"></script>
+  <script src="js/admin-bloqueios.js?v=20261009Z"></script>
+  <script src="js/vaga-miniatura.js?v=20261009Z"></script>
+  <script src="js/admin-aprovacoes.js?v=20261009Z"></script>
+  <script src="js/admin-notificacoes.js?v=20261009Z"></script>
+  <script src="js/admin-gabarito.js?v=20261009Z"></script>
+  <script src="js/admin-acoes-espelho.js?v=20261009Z"></script>
+  <script src="js/admin-pre-carga.js?v=20261010B"></script>
+  <script src="js/admin-paineis.js?v=20261009Z"></script>
+  <script src="js/popup-links.js?v=20261010C"></script>
+  <script src="js/sem-conectivos.js?v=20261009Z"></script>
+</body>
+</html>
