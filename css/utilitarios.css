@@ -1,0 +1,556 @@
+/* Ações do formulário, alertas e layouts auxiliares de apoio */
+
+button,
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-submit {
+  background-color: #1f7a3d;
+  color: white;
+  border: 2px solid #14532d;
+  padding: 13px 14px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.btn-submit:hover {
+  background-color: #219150;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+}
+
+#statusMessage {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.modal-overlay.hidden {
+  display: none !important;
+}
+
+.overlay-processamento {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.58);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 10000;
+}
+
+.overlay-processamento.hidden {
+  display: none !important;
+}
+
+.overlay-processamento-fechar {
+  position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border-radius: 50%; border: 1px solid #dcdde1;
+  background: #fff; color: #243447; font-size: 18px; line-height: 1; cursor: pointer; padding: 0;
+}
+.overlay-processamento-fechar:hover { background: #f1f4f8; }
+
+.overlay-processamento-card {
+  position: relative;
+  width: min(360px, 100%);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.overlay-processamento-spinner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid #dbeafe;
+  border-top-color: #1f5f8b;
+  animation: overlaySpin 0.9s linear infinite;
+}
+
+.overlay-processamento-roda {
+  position: relative;
+  width: 34px;
+  height: 34px;
+}
+
+.overlay-processamento-percentual {
+  display: none;
+}
+
+/* Bolinha maior, com a porcentagem dentro (o número não gira; só o arco). */
+.overlay-processamento.com-percentual .overlay-processamento-roda {
+  width: 80px;
+  height: 80px;
+}
+
+.overlay-processamento.com-percentual .overlay-processamento-spinner {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-width: 5px;
+}
+
+.overlay-processamento.com-percentual .overlay-processamento-percentual {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1f5f8b;
+  font-variant-numeric: tabular-nums;
+}
+
+#overlayProcessamentoMensagem {
+  margin: 0;
+  color: #1f2937;
+  font-weight: 700;
+}
+
+@keyframes overlaySpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.aviso-contingencia {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border: 1px solid #f0c36d;
+  background: #fff8e6;
+  border-radius: 8px;
+  color: #6b4e00;
+  font-size: 0.92rem;
+}
+
+/* Modo somente leitura (fonte ativa = Google Sheets): esconde ações de escrita */
+.modo-somente-leitura #btnEnviarForm,
+.modo-somente-leitura .btn-add {
+  display: none;
+}
+
+.modal-card {
+  width: auto;
+  max-width: 90vw;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  color: #1f2937;
+  text-align: center;
+}
+
+.modal-card p {
+  margin: 0 0 18px;
+  line-height: 1.5;
+  color: #374151;
+  white-space: pre-line;
+  min-height: 0;
+}
+
+.modal-card p:empty {
+  display: none;
+  margin: 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.btn-modal {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  flex: 1;
+  min-width: 120px;
+}
+
+.modal-card .modal-actions .btn-modal:first-child:last-child {
+  width: 100%;
+}
+
+.btn-modal-primary {
+  background: #1f5f8b;
+  color: #fff;
+}
+
+.btn-modal-primary:hover {
+  background: #17486e;
+}
+
+.btn-modal-secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.btn-modal-secondary:hover {
+  background: #d1d5db;
+}
+
+.sucesso {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.erro {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.desc-secao {
+  font-size: 0.8rem;
+  color: #636e72;
+  margin-top: -2px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.section h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: var(--primary-color);
+}
+
+.sub-title {
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+.alert-text {
+  background-color: #fff8e1;
+  border-left: 3px solid #ffc107;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #856404;
+}
+
+.row-vagas {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.form-row > div {
+  flex: 1;
+}
+
+/* Classes para o Preview do Contrato e Histórico */
+.upload-contrato-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.upload-contrato-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1f5f8b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.upload-contrato-botao:hover {
+  background: #17486e;
+}
+
+.input-upload-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.upload-contrato-status {
+  font-size: 13px;
+  color: #4b5563;
+  word-break: break-all;
+}
+
+.preview-contrato-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px dashed #cbd5e1;
+}
+
+.preview-contrato-container.hidden,
+.historico-contratos-container.hidden {
+  display: none !important;
+}
+
+#nomeArquivoSelecionadoPreview {
+  font-size: 13px;
+  color: #333;
+  word-break: break-all;
+}
+
+#btnRemoverContrato {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+#btnRemoverContrato:hover {
+  background: #c0392b;
+}
+
+.historico-contratos-container {
+  margin-top: 12px;
+}
+
+#listaHistoricoContratos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.item-historico-contrato {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.item-historico-contrato a {
+  color: #2980b9;
+  text-decoration: none;
+  word-break: break-all;
+  flex: 1;
+}
+
+.item-historico-contrato a:hover {
+  text-decoration: underline;
+}
+
+.btn-remover-historico {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.btn-remover-historico:hover {
+  background: #c0392b;
+}
+
+.label-historico {
+  font-size: 12px;
+  color: #666;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+#listaHistoricoContratos {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  max-height: 100px;
+  overflow-y: auto;
+  font-size: 12px;
+}
+
+/* Estilo opcional para os links de contratos antigos dentro do histórico */
+#listaHistoricoContratos a {
+  color: #2980b9;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 4px;
+}
+
+#listaHistoricoContratos a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   MODO ADMINISTRAÇÃO (edição pelo painel admin — js/modo-admin.js)
+   ========================================== */
+.aviso-modo-admin {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #b9c8d8;
+  border-left: 5px solid #1f5d99;
+  border-radius: 8px;
+  background: #eef4fb;
+  color: #243447;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.aviso-modo-admin-erro {
+  margin-top: 8px;
+  color: #a12622;
+  font-weight: 600;
+}
+
+.btn-voltar-painel {
+  display: block;
+  margin-top: 10px;
+  padding: 7px 12px;
+  border: 1px solid #b9c8d8;
+  border-radius: 8px;
+  background: #fff;
+  color: #1f5d99;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* No modo administração o formulário já vem aberto: o bloco do kit/boas-vindas sai do caminho. */
+.modo-admin .link-destaque,
+.modo-admin .subtitle {
+  display: none;
+}
+
+/* Alerta mais estreito e com quebra de linha equilibrada (sem palavra sozinha na última linha). */
+.modal-card {
+  max-width: min(90vw, 360px);
+  box-sizing: border-box;
+}
+.modal-card h3 {
+  text-wrap: balance;
+}
+.modal-card p {
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.modal-card .modal-link {
+  font-weight: 700;
+  color: #1a5fb4;
+}
+
+/* Janela do código por e-mail (js/codigo-email.js). */
+.codigo-email-input { display: block; width: 100%; max-width: 200px; margin: 0 auto 10px; padding: 10px; font-size: 1.4rem; letter-spacing: 6px; text-align: center; border: 1px solid #c9d7e5; border-radius: 8px; box-sizing: border-box; }
+.codigo-email-erro { color: #c62828; font-size: 0.85rem; margin: 0 0 10px !important; }
+.codigo-email-reenviar { display: block; margin: 12px auto 0; padding: 0; border: 0; background: none; color: #1a5fb4; font-size: 0.82rem; text-decoration: underline; cursor: pointer; }
+.codigo-email-reenviar:disabled { color: #8a99a8; cursor: default; }
+.opcao-codigo-email { margin-top: 8px; }
+.dica-codigo-email { font-size: 0.82rem; margin-top: 2px; }
+
+/* "Aguarde" com × no canto superior direito; card do tamanho do conteúdo (o menor possível). */
+.overlay-processamento-card {
+  width: auto !important;
+  min-width: 240px;
+  max-width: min(320px, 100%);
+  position: relative !important;
+}
+.overlay-processamento .overlay-processamento-card > .overlay-processamento-fechar {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid #dcdde1 !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  color: #243447 !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+}

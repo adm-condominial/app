@@ -1,0 +1,129 @@
+/* MEDIA QUERIES PARA DISPOSITIVOS MÓVEIS */
+
+@media (min-width: 601px) {
+  .form-actions {
+    flex-direction: row;
+  }
+  .btn-submit {
+    flex: 2;
+  }
+  .btn-secondary {
+    flex: 1;
+  }
+  /* Com o "Sair" (sessão do morador): Atualizar cadastro, Fechar visualização e Sair com a mesma largura. */
+  .form-actions.tres-botoes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 12px 10px calc(24px + env(safe-area-inset-bottom));
+    padding-left: max(10px, env(safe-area-inset-left));
+    padding-right: max(10px, env(safe-area-inset-right));
+  }
+  .container {
+    padding: 16px;
+    border-radius: 8px;
+  }
+  h1 {
+    font-size: 1.3rem;
+    line-height: 1.25;
+  }
+  h2.subtitulo {
+    font-size: 1.05rem;
+  }
+  .subtitle {
+    font-size: 0.92rem;
+    line-height: 1.45;
+    margin-bottom: 18px;
+  }
+  .link-destaque {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  .link-admin-topo {
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
+  .card-consulta {
+    padding: 16px 12px !important;
+    min-height: auto;
+  }
+  .card-consulta h3 {
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .row-vagas {
+    grid-template-columns: 1fr;
+  }
+  .form-row,
+  .form-row.col-2,
+  .form-row.col-3 {
+    flex-direction: column;
+    gap: 0;
+  }
+  #cpfConsulta,
+  #nascConsulta,
+  #btnBuscarCpf,
+  #btnMoradorNovo {
+    font-size: 16px !important;
+    height: 50px !important;
+    min-height: 50px !important;
+  }
+  .btn-submit,
+  .btn-secondary,
+  .btn-add,
+  .btn-modal,
+  .upload-contrato-botao {
+    min-height: 48px;
+    font-size: 0.96rem;
+  }
+  .dynamic-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px;
+  }
+  .dynamic-group {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+  }
+  .dynamic-group:has(.car-marca-modelo) .dynamic-row,
+  .dynamic-group:has(.moto-marca-modelo) .dynamic-row {
+    grid-template-columns: 1fr !important;
+  }
+  .upload-contrato-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .preview-contrato-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  #btnRemoverContrato {
+    align-self: flex-end;
+  }
+  .modal-card {
+    padding: 18px;
+  }
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+  .modal-actions .btn-modal {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .container {
+    padding: 14px;
+  }
+  .dynamic-row {
+    grid-template-columns: 1fr !important;
+  }
+  .desc-secao {
+    font-size: 0.8rem;
+  }
+}

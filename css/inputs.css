@@ -1,0 +1,239 @@
+/* Labels, campos de entrada e estados visuais do formulário */
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.row-checkbox-morador {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 10px auto 0;
+  width: 100%;
+  max-width: 340px;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.checkbox-group {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.row-checkbox-morador label,
+.checkbox-group label {
+  margin: 0 !important;
+  display: inline !important;
+  font-weight: 500;
+}
+
+.btn-novo-cadastro {
+  border: 1px solid #173a58;
+  background: #ffffff;
+  color: #173a58;
+  border-radius: 8px;
+  padding: 12px 46px;
+  min-height: 50px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 700;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.btn-novo-cadastro:hover:not(:disabled) {
+  background: #eef4fa;
+  color: #173a58;
+  border-color: #0f2f4a;
+  box-shadow: 0 4px 12px rgba(23, 58, 88, 0.14);
+}
+
+.btn-novo-cadastro.ativo {
+  background: #173a58;
+  color: #ffffff;
+  border-color: #173a58;
+}
+
+.btn-novo-cadastro.ativo:hover:not(:disabled) {
+  background: #173a58;
+  color: #ffffff;
+  border-color: #173a58;
+  box-shadow: none;
+}
+
+.btn-fechar-novo-cadastro {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 25px;
+  border: 1px solid #173a58;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #173a58;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: none;
+  z-index: 2;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-fechar-novo-cadastro:hover:not(:disabled) {
+  background: #e8f1f9;
+  border-color: #173a58;
+  color: #0f2f4a;
+}
+
+.btn-fechar-novo-cadastro:disabled {
+  opacity: 0;
+}
+
+.btn-fechar-novo-cadastro.hidden {
+  display: none !important;
+}
+
+.btn-novo-cadastro.bloqueado {
+  cursor: pointer;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  width: 100% !important;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-sizing: border-box !important;
+  font-size: 1rem;
+  background-color: #fff;
+  color: var(--text-color);
+  font-family: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+select {
+  padding-right: 38px;
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--accent-color) 50%),
+    linear-gradient(135deg, var(--accent-color) 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 3px), calc(100% - 12px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+
+select:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.08);
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.22);
+}
+
+select option {
+  color: var(--text-color);
+}
+
+input:disabled,
+button:disabled {
+  background-color: #e9ecef !important;
+  color: #6c757d !important;
+  border-color: #ced4da !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+.input-label {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin-bottom: 4px;
+  margin-top: 6px;
+  font-weight: 600;
+  display: block;
+  text-align: left;
+}
+
+.input-label-consulta {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin-bottom: 4px;
+  margin-top: 6px;
+  font-weight: 600;
+  display: block;
+  text-align: center;
+}
+
+.input-erro-destaque {
+  border: 2px solid #e74c3c !important;
+  background-color: #fdf2f2 !important;
+  transition: all 0.3s ease;
+}
+
+#nascConsulta {
+  text-align: center;
+}
+
+label .required-star,
+.input-label .required-star {
+  color: #e74c3c;
+}
+
+/* "Mora no imóvel" (só para proprietário), centralizado abaixo do vínculo */
+.opcao-mora-imovel {
+  margin-top: 14px;
+}
+.opcao-mora-imovel.hidden {
+  display: none !important;
+}
+
+/* Mesmo espaço entre "vínculo", "Mora no imóvel?" e "apartamento" */
+#secTipoResidente { margin-bottom: 0; }
+#secApto { margin-top: 20px !important; padding-top: 0; }
+.opcao-mora-imovel { margin-top: 20px !important; }
+
+/* "Novo cadastro" desativado (com login, ou enquanto o CPF estiver preenchido): cinza, sem clique. */
+.btn-novo-cadastro.bloqueado,
+.btn-novo-cadastro[aria-disabled="true"] {
+  background: #eef1f4;
+  color: #9aa6b2;
+  border-color: #d5dce3;
+  box-shadow: none;
+  cursor: not-allowed;
+}

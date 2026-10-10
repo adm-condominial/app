@@ -1,0 +1,418 @@
+/* Componentes dinâmicos do formulário: grupos repetíveis, veículos e pets */
+
+.sub-title {
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.dynamic-group {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Container interno genérico */
+.dynamic-group .dynamic-row {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 1. SEÇÕES PADRÃO (Emergência, Ocupantes, Bicicletas, Prestadores): 2 campos por linha no Desktop */
+.dynamic-group:not(:has(.dynamic-row-veiculo)):not(:has(.pet-linha-principal)) .dynamic-row {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 15px !important;
+  align-items: flex-end !important;
+}
+
+.dynamic-row input, 
+.dynamic-row select {
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 2. LINHA DE VEÍCULOS (Carros e Motos): Usa o grid 2fr 1fr 1fr no Desktop */
+.dynamic-row-veiculo {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr 1fr !important;
+  gap: 15px !important;
+  align-items: flex-end !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.dynamic-row-veiculo .campo-50,
+.dynamic-row-veiculo .campo-25 {
+  min-width: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.dynamic-row-veiculo input, 
+.dynamic-row-veiculo select {
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 3. SEÇÃO DE PETS: Força o container a empilhar os blocos e estiliza as linhas internas */
+.dynamic-group:has(.pet-linha-principal) .dynamic-row,
+.dynamic-group:has(.item-pet) .dynamic-row {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.pet-linha-principal {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr !important;
+  gap: 15px !important;
+  width: 100% !important;
+  align-items: flex-end !important;
+  box-sizing: border-box !important;
+}
+
+.pet-linha-inferior {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.pet-linha-principal input,
+.pet-linha-principal select,
+.pet-linha-inferior input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+
+/* BOTÕES DE AÇÃO */
+.btn-add {
+  background-color: #eaf6ff;
+  color: #0f5d8c;
+  border: 1.5px dashed #2b7fb9;
+  padding: 11px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.92rem;
+  width: 100%;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.btn-add:hover {
+  background-color: #d0e7f9;
+}
+
+/* RESPONSIVO PARA CELULAR (Abaixo de 600px) */
+@media (max-width: 600px) {
+  /* Carros e Motos quebram (Marca/Modelo em cima, Cor e Placa embaixo) */
+  .dynamic-row-veiculo {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .dynamic-row-veiculo .campo-50 {
+    grid-column: span 2 !important;
+  }
+
+  .dynamic-row-veiculo .campo-25 {
+    grid-column: span 1 !important;
+  }
+
+  /* Pets mantêm Nome e Porte na mesma linha (proporção 2fr 1fr) também no celular */
+  .pet-linha-principal {
+    grid-template-columns: 2fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* Demais seções ficam estritamente com 2 campos por linha */
+  .dynamic-group:not(:has(.dynamic-row-veiculo)):not(:has(.pet-linha-principal)) .dynamic-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+#infoVagaGaragem {
+  margin-bottom: 4px;
+}
+
+/* ==========================================
+   ITENS REPETÍVEIS: botão "Excluir" embaixo, de largura inteira
+   ========================================== */
+.dynamic-group {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.btn-excluir-item {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid #f1b8b4;
+  border-radius: 8px;
+  background: #fdecea;
+  color: #b3261e;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.15s ease;
+}
+
+.btn-excluir-item:hover {
+  background: #f9d7d3;
+}
+
+/* ==========================================
+   MINIATURA DA VAGA + POPUP DO MAPA (js/vaga-miniatura.js)
+   ========================================== */
+.miniatura-vaga-container[hidden] {
+  display: none;
+}
+
+.miniatura-vaga {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 6px 0 10px;
+  padding: 6px;
+  border: 1px solid #d7dee6;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.miniatura-vaga svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.miniatura-vaga-dica {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: #5f7287;
+  text-align: center;
+}
+
+.popup-mapa-vaga {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(20, 30, 40, 0.6);
+  box-sizing: border-box;
+}
+
+.popup-mapa-vaga[hidden] {
+  display: none;
+}
+
+.popup-mapa-vaga-caixa {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 100%;
+  max-height: 900px;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.popup-mapa-vaga-caixa iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.popup-mapa-vaga-fechar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #d7dee6;
+  border-radius: 50%;
+  background: #fff;
+  color: #243447;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+body.popup-aberto {
+  overflow: hidden;
+}
+
+/* ==========================================
+   BARRA FLUTUANTE "ATUALIZAR CADASTRO" / "SAIR" (js/barra-acoes.js)
+   ========================================== */
+.barra-acoes-lugar {
+  margin: 0 0 12px;
+}
+
+.barra-acoes-lugar[hidden],
+.barra-acoes-flutuante[hidden] {
+  display: none;
+}
+
+.barra-acoes-flutuante {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+/* Presa no topo da tela enquanto o morador rola o formulário. */
+.barra-acoes-flutuante.fixa {
+  position: fixed;
+  z-index: 50;
+  padding: 8px 10px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.3);
+}
+
+.barra-acoes-flutuante .btn-submit {
+  flex: 1;
+  width: auto;
+  margin: 0;
+}
+
+.barra-acoes-flutuante .btn-secondary {
+  flex: 1;
+  width: auto;
+  margin: 0;
+}
+
+/* O "lugar" guarda o espaço da barra (o JS ajusta a altura), para a página não pular quando ela desce. */
+.barra-acoes-lugar { margin: 0; }
+
+.identidade-lugar { margin: 8px 0 10px; width: 100%; }
+.identidade-lugar[hidden] { display: none; }
+.identidade-logado {
+  box-sizing: border-box; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px;
+  background: #eef4fb; color: #243447; font-size: 0.86rem; font-weight: 600;
+}
+.identidade-texto { flex: 1; min-width: 0; text-align: left; overflow-wrap: anywhere; }
+/* Sair da sessão: vermelho suave (não é alerta), à direita. */
+.identidade-sair {
+  flex: none; padding: 4px 14px; border-radius: 999px; border: 1px solid #c98a8a; background: #fff; color: #9b4a4a;
+  font-size: 0.8rem; font-weight: 700; cursor: pointer;
+}
+.identidade-sair:hover { background: #fbf1f1; }
+/* Outros botões "Sair" da página inicial (no lugar de "Novo cadastro" e no fim do formulário): mesmo vermelho suave. */
+.btn-novo-cadastro.btn-sair-sessao,
+.btn-novo-cadastro.btn-sair-sessao:hover,
+#btnSairSessaoFim {
+  background: #fff;
+  color: #9b4a4a;
+  border: 1px solid #c98a8a;
+  box-shadow: none;
+}
+.btn-novo-cadastro.btn-sair-sessao:hover,
+#btnSairSessaoFim:hover {
+  background: #fbf1f1;
+  color: #9b4a4a;
+  border-color: #c98a8a;
+}
+.identidade-logado[hidden] { display: none; }
+/* Quando rola para baixo, a faixa de quem está logado fica presa no topo, acima da barra. */
+.identidade-logado.fixa {
+  position: fixed; top: 0; z-index: 51; border-radius: 0 0 10px 10px;
+  box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.3); background: #fff; border-bottom: 1px solid #d7e0ea;
+}
+
+/* A barra só aparece quando o formulário já chegou ao topo: a página não precisa de espaço extra. */
+
+.aviso-somente-leitura {
+  font-size: 0.8rem;
+  color: #6b4e00;
+}
+
+/* "Sair sem fazer alterações" com cara de botão ativo (contorno azul), para não parecer
+   desabilitado ao lado do "Atualizar cadastro" desabilitado quando nada mudou. */
+#btnSairSemAlterar,
+.barra-acoes-flutuante .barra-acao-fechar {
+  background: #ffffff;
+  color: #1f5d99;
+  border: 1px solid #1f5d99;
+}
+#btnSairSemAlterar:hover,
+.barra-acoes-flutuante .barra-acao-fechar:hover {
+  background: #eef4fb;
+}
+
+/* × da barra flutuante do formulário: fecha o formulário (como "Sair sem fazer alterações"). */
+.barra-acoes-flutuante .btn-fechar-flutuante {
+  flex: none; display: inline-flex; align-items: center; justify-content: center; width: 38px; min-width: 38px; padding: 0;
+  border: 1px solid #dcdde1; border-radius: 50%; background: #fff; color: #243447; font-size: 20px; line-height: 1; cursor: pointer;
+  align-self: center; height: 38px;
+}
+.barra-acoes-flutuante .btn-fechar-flutuante:hover { background: #f1f4f8; }
+
+/* ---------- Popup do Kit de Boas-vindas (js/kit-acesso.js) ---------- */
+.kit-modal { position: fixed; inset: 0; z-index: 10001; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(20, 30, 45, 0.55); }
+.kit-modal[hidden] { display: none; }
+body.kit-modal-aberto { overflow: hidden; }
+.kit-modal-caixa { width: min(460px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; background: #fff; border-radius: 12px; padding: 16px 18px; box-sizing: border-box; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); }
+.kit-modal-topo { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.kit-modal-topo h3 { margin: 0; font-size: 1.05rem; color: #243447; }
+.kit-modal-fechar { width: 32px; height: 32px; min-width: 32px; padding: 0; border: 1px solid #dcdde1; border-radius: 50%; background: #fff; color: #243447; font-size: 20px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.kit-modal-fechar:hover { background: #f1f4f8; }
+.kit-opcao { margin-top: 12px; padding: 12px 14px; border: 1px solid #dcdde1; border-radius: 10px; }
+.kit-opcao h4 { margin: 0 0 4px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; color: #243447; }
+.kit-opcao p { margin: 0 0 8px; font-size: 0.82rem; color: #5f7287; text-wrap: pretty; }
+.kit-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media (max-width: 420px) { .kit-campos { grid-template-columns: 1fr; } }
+.kit-campos label { display: flex; flex-direction: column; gap: 3px; font-size: 0.78rem; font-weight: 600; color: #43566b; }
+.kit-campos input { width: 100%; box-sizing: border-box; padding: 9px 10px; border: 1px solid #dcdde1; border-radius: 8px; font-size: 0.95rem; }
+.kit-btn { display: block; width: 100%; margin-top: 10px; padding: 10px 14px; box-sizing: border-box; border: 1px solid var(--accent-color, #2f5f98); border-radius: 10px; background: var(--accent-color, #2f5f98); color: #fff; font-size: 0.92rem; font-weight: 700; text-align: center; text-decoration: none; cursor: pointer; }
+.kit-btn:disabled { opacity: 0.6; cursor: default; }
+.kit-btn-secundario { background: #fff; color: var(--accent-color, #2f5f98); }
+.kit-btn-secundario:hover { background: #e9f1fa; text-decoration: none; }
+.kit-mensagem { min-height: 1.2em; margin: 8px 0 0 !important; font-size: 0.8rem !important; }
+.kit-mensagem.erro { color: #c62828 !important; }
+.kit-mensagem.carregando { font-style: italic; }
+
+/* Botão de fechar dos popups (links, Kit, mapa da vaga): o mesmo em todo o site. */
+.popup-link-fechar, .kit-modal-fechar, .popup-mapa-vaga-fechar {
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  flex: none !important; width: 34px !important; height: 34px !important; min-width: 34px !important; min-height: 0 !important;
+  margin: 0 !important; padding: 0 !important; border: 1px solid #d7dee6 !important; border-radius: 50% !important;
+  background: #fff !important; color: #243447 !important; box-shadow: none !important; cursor: pointer;
+}
+.popup-link-fechar:hover, .kit-modal-fechar:hover, .popup-mapa-vaga-fechar:hover { background: #f1f4f8 !important; color: #243447 !important; }
+.popup-link-fechar svg, .kit-modal-fechar svg, .popup-mapa-vaga-fechar svg { display: block; width: 16px; height: 16px; }
+
+/* Popup do Kit: as duas opções são alternativas (uma OU outra), não passos. */
+.kit-intro { margin: 2px 0 0; font-size: 0.85rem; color: #43566b; }
+.kit-opcao h4 { gap: 0; }
+.kit-ou { display: flex; align-items: center; gap: 10px; margin: 10px 0 -2px; color: #8a99a8; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.kit-ou::before, .kit-ou::after { content: ""; flex: 1; height: 1px; background: #dcdde1; }

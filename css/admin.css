@@ -1,0 +1,3403 @@
+:root {
+  --primary-color: #2c3e50;
+  --primary-color-soft: #3b5873;
+  --accent-color: #1f5d99;
+  --surface: #ffffff;
+  --surface-soft: #f7fafc;
+  --border: #d9e4ef;
+  --text: #243447;
+  --muted: #5f7287;
+  --ok: #0b6a2f;
+  --error: #a12622;
+}
+
+.secao + .secao {
+  margin-top: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+  background:
+    radial-gradient(circle at top right, #e8f0f8 0%, #f5f8fc 38%, #f7fafc 100%);
+  color: var(--text);
+}
+
+.container {
+  max-width: 760px;
+  margin: 28px auto 40px;
+  padding: 0 16px 24px;
+}
+
+.auth-container {
+  max-width: 520px;
+  margin: 40px auto 16px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 8px 28px rgba(31, 45, 61, 0.08);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-card > * {
+  width: 100%;
+}
+
+.auth-card h1,
+.auth-card p,
+.auth-card .auth-actions,
+.auth-card .auth-mensagem,
+.auth-links,
+#googleLoginButton {
+  text-align: center;
+}
+
+.auth-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+#googleLoginButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#googleLoginButton button {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.auth-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.auth-links a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.auth-mensagem {
+  min-height: 18px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.auth-mensagem.erro {
+  color: var(--error);
+}
+
+.auth-mensagem.ok {
+  color: var(--ok);
+}
+
+/* 1ª linha: nome e e-mail à esquerda, "Dados" e "Sair" à direita, sem quebrar linha. */
+.topo-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: nowrap;
+}
+
+.topo-admin-acoes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.auth-usuario {
+  min-width: 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.btn-sair {
+  height: 26px;
+  padding: 0 9px;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 1px solid #b9c8d8;
+  background: #fff;
+  color: var(--primary-color-soft);
+  cursor: pointer;
+}
+
+.btn-sair:hover {
+  background: #f3f7fb;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 8px 28px rgba(31, 45, 61, 0.08);
+}
+
+.topo-links {
+  margin-bottom: 12px;
+  font-size: 0.92rem;
+}
+
+.topo-links a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.topo-links a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 1.45rem;
+  color: var(--primary-color);
+}
+
+p {
+  margin: 0 0 16px;
+  color: var(--muted);
+}
+
+.link-planilha-admin {
+  margin-top: -8px;
+  margin-bottom: 14px;
+  font-size: 0.92rem;
+  color: var(--primary-color-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.link-planilha-admin strong {
+  margin-bottom: 2px;
+}
+
+.link-planilha-admin a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link-planilha-admin a:hover {
+  text-decoration: underline;
+}
+
+.card-fonte-dados {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-soft);
+}
+
+.card-fonte-dados h2 {
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+}
+
+.opcoes-fonte-dados {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.opcoes-fonte-dados label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.indicador-fonte-atual {
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.aviso-contingencia {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border: 1px solid #f0c36d;
+  background: #fff8e6;
+  border-radius: 8px;
+  color: #6b4e00;
+  font-size: 0.9rem;
+}
+
+#btnTestarConexoes {
+  height: auto;
+  padding: 8px 14px;
+}
+
+.resultado-teste-conexoes {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+/* Modo somente leitura: esconde ações de escrita quando a fonte ativa é o Google Sheets */
+.modo-somente-leitura .btn-excluir-cadastro,
+.modo-somente-leitura .btn-editar-cadastro,
+.modo-somente-leitura .btn-situacao-cadastro {
+  display: none;
+}
+
+.card-busca {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-soft);
+}
+
+.card-busca label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.linha-busca {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.linha-busca input {
+  flex: 1;
+  min-width: 220px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #b9c8d8;
+  padding: 0 12px;
+  font-size: 0.95rem;
+}
+
+.resultados-busca {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.resultado-busca-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px 10px;
+}
+
+.resultado-busca-item .resultado-busca-titulo {
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 4px;
+}
+
+.resultado-busca-item ul {
+  margin: 0 0 6px;
+  padding-left: 18px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.resultado-busca-item button {
+  height: auto;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+
+.linha {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+select, button {
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #b9c8d8;
+  padding: 0 12px;
+  font-size: 0.95rem;
+}
+
+label {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+select {
+  min-width: 128px;
+  width: 128px;
+  background: #fff;
+}
+
+#aptoAdmin {
+  flex: 1;
+  width: auto;
+  min-width: 128px;
+  max-width: 100%;
+}
+
+.linha #btnBuscarApto {
+  flex: 1;
+}
+
+select option:disabled {
+  color: #94a3b8;
+  background: #eef2f7;
+}
+
+button {
+  background: var(--accent-color);
+  color: #fff;
+  cursor: pointer;
+  border-color: var(--accent-color);
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background: #174a7a;
+}
+
+.status {
+  min-height: 22px;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+.admin-registro-card {
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px;
+}
+
+.registro-cabecalho {
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.data-envio {
+  margin-bottom: 8px;
+  color: var(--primary-color);
+  font-size: 0.95rem;
+}
+
+.logs-atualizacao {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.logs-atualizacao summary {
+  color: var(--accent-color);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.logs-atualizacao ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.logs-atualizacao p {
+  margin: 8px 0 0;
+}
+
+.contratos-vazio {
+  margin: 0;
+}
+
+.admin-registro-card + .admin-registro-card {
+  margin-top: 24px;
+}
+
+.admin-acoes-registro {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.btn-consultar-outro {
+  flex: 2;
+  background: #2c3e50;
+  border: none;
+  border-color: #2c3e50;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-consultar-outro:hover {
+  background: #1a2332;
+}
+
+.btn-excluir-cadastro {
+  flex: 1;
+  display: block;
+  background: #af2b2b;
+  border-color: #af2b2b;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: none;
+}
+
+.btn-excluir-cadastro:hover {
+  background: #8d2323;
+}
+
+.observacoes-valor {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.observacoes-valor.vazio {
+  color: var(--muted);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.overlay-processamento {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.58);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 10000;
+}
+
+.overlay-processamento.hidden {
+  display: none !important;
+}
+
+.overlay-processamento-card {
+  width: min(360px, 100%);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.overlay-processamento-spinner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid #dbeafe;
+  border-top-color: #1f5f8b;
+  animation: overlaySpin 0.9s linear infinite;
+}
+
+.overlay-processamento-roda {
+  position: relative;
+  width: 34px;
+  height: 34px;
+}
+
+.overlay-processamento-percentual {
+  display: none;
+}
+
+/* "Carregando a administração": bolinha maior, com a porcentagem dentro (o número não gira). */
+.overlay-processamento.com-percentual .overlay-processamento-roda {
+  width: 80px;
+  height: 80px;
+}
+
+.overlay-processamento.com-percentual .overlay-processamento-spinner {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-width: 5px;
+}
+
+.overlay-processamento.com-percentual .overlay-processamento-percentual {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1f5f8b;
+  font-variant-numeric: tabular-nums;
+}
+
+#overlayProcessamentoMensagem {
+  margin: 0;
+  color: #1f2937;
+  font-weight: 700;
+}
+
+@keyframes overlaySpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.status.erro {
+  color: var(--error);
+}
+
+.status.ok {
+  color: var(--ok);
+}
+
+.resultado {
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.resultado.vazio {
+  min-height: 0;
+  gap: 0;
+}
+
+.resultado.vazio .resultado-placeholder {
+  display: none;
+}
+
+.resultado-placeholder {
+  background: var(--surface-soft);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  color: var(--muted);
+}
+
+.secao {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  width: 100%;
+  max-width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.secao h2 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  color: var(--primary-color-soft);
+  width: 100%;
+}
+
+.grid-campos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.campo {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  width: fit-content;
+  max-width: min(100%, 220px);
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.campo-titulo {
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.campo-valor {
+  margin: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.35;
+  font-size: 0.95rem;
+}
+
+.campo-frase {
+  max-width: 100%;
+  width: fit-content;
+}
+
+.campo-link-endereco {
+  color: var(--accent-color);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(31, 93, 153, 0.35);
+}
+
+.campo-link-endereco:hover {
+  text-decoration: underline;
+}
+
+.campo-link-email {
+  color: var(--accent-color);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(31, 93, 153, 0.35);
+  overflow-wrap: anywhere;
+}
+
+.campo-link-email:hover {
+  text-decoration: underline;
+}
+
+.subsecoes-lado-a-lado {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.subsecoes-lado-a-lado .subsecao {
+  margin-top: 0;
+}
+
+.campo.vazio .campo-valor {
+  color: #7c8a99;
+}
+
+.campo.vazio {
+  background: #f2f4f7;
+  border-color: #d8dee6;
+}
+
+.subsecao {
+  margin-top: 8px;
+}
+
+.subsecao h3 {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  color: var(--primary-color-soft);
+}
+
+.linha-vaga-topo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: stretch;
+  margin-top: 2px;
+}
+
+.linha-vaga-topo .campo {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.campo-vaga-principal .campo-valor {
+  font-weight: 400;
+  color: var(--primary-color-soft);
+}
+
+.campo-vaga-principal .campo-valor strong {
+  font-weight: 700;
+}
+
+.registro-bloco {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  width: fit-content;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.registro-titulo {
+  margin: 0;
+  flex: 0 0 auto;
+  min-width: 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  line-height: 1;
+}
+
+.registro-conteudo {
+  min-width: 0;
+}
+
+.registro-conteudo .grid-campos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.registro-conteudo .campo {
+  max-width: min(100%, 210px);
+  height: 100%;
+}
+
+.registro-conteudo .campo.campo-telefone {
+  max-width: min(100%, 170px);
+}
+
+.registro-conteudo .campo.campo-telefone .campo-valor {
+  line-height: 1.25;
+}
+
+.subsecao-emergencia .registro-conteudo .grid-campos {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  gap: 8px;
+  align-items: start;
+}
+
+.subsecao-emergencia .registro-conteudo .grid-campos .campo {
+  max-width: 220px;
+}
+
+.subsecao-emergencia .registro-conteudo .grid-campos .campo:nth-child(4) {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.registro-bloco .campo {
+  max-width: min(100%, 220px);
+}
+
+.registro-lista {
+  display: grid;
+  gap: 10px;
+}
+
+.lista-contratos {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.lista-contratos li {
+  margin-bottom: 6px;
+}
+
+.lista-contratos a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.lista-contratos a:hover {
+  text-decoration: underline;
+}
+
+.sem-itens {
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .linha {
+    align-items: stretch;
+  }
+
+  .subsecao-emergencia .registro-conteudo .grid-campos {
+    grid-template-columns: 1fr;
+  }
+
+  .subsecao-emergencia .registro-conteudo .grid-campos .campo:nth-child(4) {
+    grid-column: auto;
+  }
+
+  select, button {
+    width: 100%;
+  }
+}
+
+/* ==========================================
+   ÚLTIMAS ALTERAÇÕES (seção recolhível)
+   ========================================== */
+.card-historico {
+  margin: 14px 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-soft);
+}
+
+.card-historico > summary {
+  padding: 10px 14px;
+  color: var(--accent-color);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.historico-conteudo {
+  padding: 0 14px 12px;
+}
+
+.lista-historico {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lista-historico li {
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.historico-linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+}
+
+.historico-tipo {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.historico-tipo.criacao { color: var(--ok); }
+.historico-tipo.edicao { color: var(--accent-color); }
+.historico-tipo.exclusao { color: var(--error); }
+
+.historico-quando,
+.historico-autor,
+.historico-detalhe {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.historico-detalhe {
+  margin-top: 2px;
+}
+
+.btn-atualizar-historico {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--accent-color);
+  cursor: pointer;
+}
+
+.lista-historico li {
+  position: relative;
+  padding-right: 34px;
+}
+
+.btn-apagar-historico {
+  position: absolute;
+  top: 6px;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn-apagar-historico:hover {
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.btn-apagar-historico:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.historico-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.historico-acoes .btn-atualizar-historico {
+  width: auto;
+}
+
+.historico-conteudo .status:empty {
+  display: none;
+}
+
+/* ==========================================
+   BOTÃO FECHAR (×) — resultados da busca e cadastro carregado
+   ========================================== */
+.admin-registro-card {
+  position: relative;
+}
+
+.btn-fechar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.btn-fechar:hover,
+.btn-fechar:focus-visible {
+  color: var(--error);
+  border-color: var(--error);
+  background: var(--surface);
+}
+
+.admin-registro-card > .btn-fechar {
+  top: 10px;
+  right: 10px;
+}
+
+.admin-registro-card > .registro-cabecalho {
+  padding-right: 40px;
+}
+
+/* ==========================================
+   DESCRIÇÃO DO RELATÓRIO, CAMPO DE BUSCA COM × E ESPAÇOS VAZIOS
+   ========================================== */
+.descricao-acao {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* Mensagens e listas vazias não ocupam espaço (antes deixavam um vão no fim da caixa de busca). */
+.situacao-relatorio:empty,
+.card-busca .status:empty,
+.card-busca .resultados-busca:empty {
+  display: none;
+}
+
+.card-busca .status {
+  margin: 10px 0 0;
+}
+
+.campo-busca {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+}
+
+.linha-busca > button {
+  flex-shrink: 0;
+}
+
+.linha-busca .campo-busca input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding-right: 40px; /* espaço para o × */
+}
+
+.btn-limpar-busca {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn-limpar-busca:hover,
+.btn-limpar-busca:focus-visible {
+  background: var(--surface-soft);
+  color: var(--error);
+}
+
+/* Editar cadastro (abre o formulário em modo administração) */
+.btn-editar-cadastro {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-color);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.btn-editar-cadastro:hover {
+  background: #174a7a;
+}
+
+/* ==========================================
+   RELATÓRIOS (contatos e veículos)
+   ========================================== */
+.relatorios-admin {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.relatorio-item {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-soft);
+}
+
+.relatorio-item button {
+  height: auto;
+  padding: 8px 14px;
+}
+
+.relatorio-item .status {
+  margin: 8px 0 0;
+}
+
+.relatorios-nota {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.situacao-relatorio {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.situacao-relatorio a {
+  color: var(--accent-color);
+}
+
+/* Link do PDF mais recente: o texto todo é o link, em destaque. */
+.situacao-relatorio .link-mais-recente {
+  display: inline-block;
+  max-width: 100%;
+  padding: 6px 10px;
+  overflow-wrap: anywhere;
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  background: var(--surface);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.situacao-relatorio .link-mais-recente:hover {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+.link-backups-relatorio {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--accent-color);
+}
+
+.relatorio-titulo {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.situacao-relatorio.erro {
+  color: var(--error);
+}
+
+.aviso-atualizando {
+  display: block;
+  margin-top: 4px;
+  color: #6b4e00;
+  font-weight: 600;
+}
+
+/* ==========================================
+   MUDOU-SE / REATIVAR
+   ========================================== */
+.aviso-mudou-se {
+  margin: 0 40px 12px 0;
+  padding: 10px 12px;
+  border: 1px solid #d9c6a5;
+  border-left: 5px solid #8a6d3b;
+  border-radius: 8px;
+  background: #fbf6ee;
+  color: #5b4726;
+  font-size: 0.9rem;
+}
+
+.btn-situacao-cadastro {
+  flex: 1;
+  background: #8a6d3b;
+  border-color: #8a6d3b;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btn-situacao-cadastro:hover {
+  background: #6f5730;
+}
+
+.btn-situacao-cadastro.reativar {
+  background: var(--ok);
+  border-color: var(--ok);
+}
+
+.btn-situacao-cadastro.reativar:hover {
+  background: #084f23;
+}
+
+.historico-tipo.mudouse { color: #8a6d3b; }
+
+/* ==========================================
+   MENU E PAINÉIS DO ADMIN (js/admin-paineis.js)
+   ========================================== */
+.topo-links {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+}
+
+.menu-admin {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.menu-admin button {
+  width: 100%;
+  height: auto;
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--accent-color);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.menu-admin button.ativo {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
+}
+
+.paineis-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.paineis-admin:has(.painel-admin:not([hidden])) {
+  margin-bottom: 12px;
+}
+
+.painel-admin {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 2px 8px rgba(20, 40, 60, 0.06);
+}
+
+.painel-admin[hidden] {
+  display: none !important;
+}
+
+.painel-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.painel-topo h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--primary-color);
+}
+
+.btn-fechar-painel {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn-fechar-painel:hover {
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.painel-admin .link-planilha-admin,
+.painel-admin .relatorios-admin {
+  margin: 0;
+}
+
+.painel-admin .card-busca {
+  margin: 0;
+}
+
+/* No celular, "button { width: 100% }" não vale para os botões pequenos do topo e o × dos painéis. */
+.topo-admin-acoes .btn-sair,
+.painel-topo .btn-fechar-painel {
+  width: auto;
+}
+
+.painel-topo .btn-fechar-painel {
+  width: 30px;
+}
+
+.topo-links a {
+  font-size: 0.8rem;
+}
+
+.situacao-relatorio .link-mais-recente {
+  box-sizing: border-box;
+  font-size: 0.78rem;
+}
+
+.situacao-relatorio .link-mais-recente {
+  padding: 6px 8px;
+  font-size: 0.76rem;
+}
+
+/* ==========================================
+   CADASTRO DENTRO DO PAINEL (celular)
+   ========================================== */
+/* O .resultado é flex com align-items: flex-start, que deixava o card do cadastro crescer até a
+   largura "natural" do conteúdo e vazar do painel. Aqui tudo fica limitado à largura do painel. */
+#resultadoAdmin > * {
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+#resultadoAdmin .secao,
+#resultadoAdmin .subsecao,
+#resultadoAdmin .registro-lista,
+#resultadoAdmin .registro-conteudo,
+#resultadoAdmin .grid-campos {
+  min-width: 0;
+  max-width: 100%;
+}
+
+#resultadoAdmin .secao {
+  display: flex;
+}
+
+#resultadoAdmin .registro-lista {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 600px) {
+  /* Contatos de emergência: em vez de 3 colunas fixas, os campos quebram linha. */
+  .subsecao-emergencia .registro-conteudo .grid-campos {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #resultadoAdmin .admin-registro-card {
+    padding: 10px;
+  }
+
+  #resultadoAdmin .secao {
+    padding: 10px;
+  }
+
+  .campo-titulo {
+    font-size: 0.7rem;
+  }
+}
+
+/* Ações do cadastro (Consultar outro / Editar / Mudou-se / Excluir): quebram linha; no celular, 2 por linha. */
+.admin-acoes-registro {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .admin-acoes-registro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .admin-acoes-registro button {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    white-space: normal;
+  }
+}
+
+.admin-registro-card > .registro-cabecalho {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   REVISÃO DO LAYOUT: FONTE MENOR, PÁGINAS SEM CAIXA, CADASTRO "ACHATADO"
+   ========================================== */
+
+/* Páginas (painéis) sem caixa própria: só uma linha separando do menu (e entre páginas). */
+.paineis-admin {
+  gap: 0;
+}
+
+.painel-admin {
+  padding: 12px 0 14px;
+  border: 0;
+  border-top: 2px solid var(--accent-color);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.painel-topo h2 {
+  font-size: 1rem;
+}
+
+.btn-fechar-painel {
+  width: 26px;
+  height: 26px;
+  font-size: 1rem;
+}
+
+.painel-topo .btn-fechar-painel {
+  width: 26px;
+}
+
+/* Consulta por apartamento: sem o rótulo, o menu ocupa a linha toda (como o "Carregar dados"). */
+#painelConsulta .linha label {
+  display: none;
+}
+
+#painelConsulta .linha {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#painelConsulta .linha select,
+#painelConsulta .linha button {
+  width: 100%;
+  min-width: 0;
+}
+
+#painelConsulta > p {
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+}
+
+/* Cadastro carregado: sem caixa em volta de caixa. Só os campos (Apartamento, Tipo, Nome...)
+   têm borda; seções são separadas por uma linha fina. */
+#resultadoAdmin {
+  gap: 6px;
+  min-height: 0;
+}
+
+#resultadoAdmin .admin-registro-card {
+  margin-top: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#resultadoAdmin .admin-registro-card > .registro-cabecalho {
+  padding-right: 34px;
+}
+
+#resultadoAdmin .btn-fechar-registro {
+  top: 0;
+  right: 0;
+}
+
+#resultadoAdmin .data-envio {
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+}
+
+#resultadoAdmin .logs-atualizacao summary {
+  font-size: 0.8rem;
+}
+
+#resultadoAdmin .secao {
+  margin-top: 10px;
+  padding: 10px 0 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+}
+
+#resultadoAdmin .secao h2 {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+#resultadoAdmin .subsecao h3 {
+  font-size: 0.82rem;
+}
+
+#resultadoAdmin .registro-bloco {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#resultadoAdmin .grid-campos {
+  gap: 6px;
+}
+
+#resultadoAdmin .campo {
+  padding: 5px 7px;
+  border-radius: 6px;
+}
+
+#resultadoAdmin .campo-titulo {
+  margin-bottom: 2px;
+  font-size: 0.62rem;
+}
+
+#resultadoAdmin .campo-valor {
+  font-size: 0.85rem;
+}
+
+#resultadoAdmin .admin-acoes-registro {
+  margin-top: 12px;
+}
+
+/* "Últimas alterações cadastrais" é só da home: some quando alguma página está aberta. */
+.card-historico[hidden] {
+  display: none !important;
+}
+
+#resultadoAdmin .registro-bloco {
+  width: 100%;
+  margin-top: 6px;
+}
+
+#resultadoAdmin .registro-bloco + .registro-bloco {
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+
+#painelConsulta .linha select,
+#painelConsulta .linha button {
+  height: auto;
+  min-height: 36px;
+  font-size: 0.9rem;
+}
+
+.menu-admin button {
+  min-height: 34px;
+  padding: 6px 8px;
+  font-size: 0.82rem;
+}
+
+/* Fonte menor em "Últimas alterações cadastrais" e na página "Dados" (fonte de dados). */
+.card-historico > summary {
+  font-size: 0.88rem;
+}
+
+.lista-historico li {
+  font-size: 0.8rem;
+}
+
+.historico-tipo {
+  font-size: 0.65rem;
+}
+
+.historico-quando,
+.historico-autor,
+.historico-detalhe {
+  font-size: 0.75rem;
+}
+
+.btn-atualizar-historico {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.card-fonte-dados {
+  font-size: 0.82rem;
+}
+
+.card-fonte-dados h2 {
+  font-size: 0.95rem;
+}
+
+.opcoes-fonte-dados,
+.opcoes-fonte-dados label,
+.indicador-fonte-atual,
+.aviso-contingencia,
+.resultado-teste-conexoes {
+  font-size: 0.82rem;
+}
+
+#btnTestarConexoes {
+  padding: 6px 12px;
+  font-size: 0.82rem;
+}
+
+/* ==========================================
+   GABARITO DE VAGAS (js/admin-gabarito.js)
+   ========================================== */
+.gabarito-cabecalho,
+.gabarito-linha {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 56px 28px;
+  gap: 6px;
+  align-items: center;
+}
+
+.gabarito-cabecalho {
+  margin-top: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.gabarito-linha {
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.gabarito-linha select,
+.gabarito-linha input {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  padding: 0 6px;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.gabarito-linha input {
+  text-align: center;
+  font-weight: 700;
+}
+
+.gabarito-avisos {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.75rem;
+}
+
+.gabarito-avisos .aviso {
+  color: #6b4e00;
+}
+
+.gabarito-avisos .aviso-erro {
+  color: var(--error);
+  font-weight: 600;
+}
+
+.gabarito-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.gabarito-acoes button {
+  width: auto;
+  height: auto;
+  min-height: 34px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.gabarito-acoes #btnSalvarGabarito {
+  margin-left: auto;
+}
+
+.gabarito-acoes .btn-secundario {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent-color);
+}
+
+.gabarito-acoes button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Gabarito: alternância Tabela / Mapa e o mapa clicável */
+.gabarito-modos,
+.gabarito-garagens {
+  display: flex;
+  gap: 6px;
+  margin: 10px 0 6px;
+}
+
+.gabarito-modos button,
+.gabarito-garagens button {
+  width: auto;
+  height: auto;
+  min-height: 30px;
+  padding: 4px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--accent-color);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gabarito-modos button.ativo,
+.gabarito-garagens button.ativo {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
+}
+
+#modoMapaGabarito[hidden],
+#modoTabelaGabarito[hidden],
+.editor-vaga-mapa[hidden] {
+  display: none !important;
+}
+
+.mapa-gabarito svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mapa-gabarito g[data-vaga] {
+  cursor: pointer;
+}
+
+.mapa-gabarito g[data-vaga]:hover rect {
+  fill: #fff3e0 !important;
+}
+
+.mapa-gabarito g.com-aviso rect {
+  stroke: #c62828 !important;
+  stroke-width: 6 !important;
+}
+
+.mapa-gabarito g.selecionada rect {
+  fill: #ffd180 !important;
+  stroke: #e65100 !important;
+  stroke-width: 7 !important;
+}
+
+.editor-vaga-mapa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+  padding: 8px;
+  border: 1px solid #e65100;
+  border-radius: 8px;
+  background: #fff8f0;
+}
+
+.editor-vaga-mapa select {
+  flex: 1 1 110px;
+  width: auto;
+  min-width: 0;
+  height: 32px;
+  font-size: 0.85rem;
+}
+
+.editor-vaga-mapa button {
+  width: auto;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 0.82rem;
+}
+
+.editor-vaga-mapa .btn-secundario {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent-color);
+}
+
+.editor-vaga-mapa .gabarito-avisos {
+  flex-basis: 100%;
+}
+
+/* Retrato (celular): a planta girada ocupa a largura toda; o texto já vem de pé. */
+.mapa-gabarito.retrato svg {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* O editor da vaga fica grudado no topo da tela enquanto se rola o mapa. */
+.editor-vaga-mapa {
+  position: sticky;
+  top: 6px;
+  z-index: 5;
+  box-shadow: 0 4px 12px rgba(20, 40, 60, 0.15);
+}
+
+/* Busca geral: sem caixa, fonte no padrão das outras páginas e nada quebrando linha. */
+.painel-topo h2 {
+  min-width: 0;
+}
+
+.subtitulo-painel {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* Menu em duas linhas cheias: Consulta e Busca na 1ª (metade cada), os outros 3 na 2ª (um terço
+   cada). Grade de 6 colunas; nenhum botão quebra linha (a fonte encolhe em telas estreitas). */
+.menu-admin {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.menu-admin button {
+  grid-column: span 2;
+  min-width: 0;
+  padding: 6px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  font-size: clamp(0.68rem, 2.9vw, 0.82rem);
+}
+
+.menu-admin button[data-painel="painelConsulta"],
+.menu-admin button[data-painel="painelBusca"] {
+  grid-column: span 3;
+}
+
+/* Ajuste: grade de 10 colunas. 1ª linha 5 + 5; 2ª linha 3 + 3 + 4 (o "Gabarito de vagas" é o
+   texto mais longo), para caber sem quebrar nem cortar em celulares estreitos. */
+.menu-admin {
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.menu-admin button {
+  grid-column: span 3;
+}
+
+.menu-admin button[data-painel="painelConsulta"],
+.menu-admin button[data-painel="painelBusca"] {
+  grid-column: span 5;
+}
+
+.menu-admin button[data-painel="painelGabarito"] {
+  grid-column: span 4;
+}
+
+/* Menu com 6 botões em duas linhas cheias (grade de 12 colunas):
+   1ª: Consulta por apartamento (6) · Busca geral (3) · Pendências (3)
+   2ª: Relatórios (4) · Links úteis (3) · Gabarito de vagas (5) */
+.menu-admin {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.menu-admin button[data-painel="painelConsulta"] { grid-column: span 6; }
+.menu-admin button[data-painel="painelBusca"],
+.menu-admin button[data-painel="painelPendencias"],
+.menu-admin button[data-painel="painelLinks"] { grid-column: span 3; }
+.menu-admin button[data-painel="painelRelatorios"] { grid-column: span 4; }
+.menu-admin button[data-painel="painelGabarito"] { grid-column: span 5; }
+
+/* ==========================================
+   PENDÊNCIAS (js/admin-pendencias.js)
+   ========================================== */
+.lista-pendencias {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.grupo-pendencia {
+  border-bottom: 1px solid var(--border);
+}
+
+.grupo-pendencia > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.grupo-pendencia.vazio > summary {
+  color: var(--muted);
+  font-weight: 400;
+  cursor: default;
+  pointer-events: none;
+  list-style: none;
+}
+
+.grupo-pendencia.vazio > summary::-webkit-details-marker {
+  display: none;
+}
+
+.contador-pendencia {
+  flex-shrink: 0;
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #fde7e7;
+  color: #b3261e;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.grupo-pendencia.vazio .contador-pendencia {
+  background: #e7f5ea;
+  color: #1f7a3a;
+}
+
+.grupo-pendencia ul {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+}
+
+.pendencia-item {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-align: left;
+}
+
+button.pendencia-item {
+  cursor: pointer;
+}
+
+button.pendencia-item:hover {
+  background: var(--surface-soft);
+}
+
+.pendencia-detalhe {
+  display: block;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+#btnAtualizarPendencias {
+  width: auto;
+}
+
+/* Ajuste fino: grade de 24 colunas para as duas linhas caberem cheias até em celular estreito.
+   1ª: Consulta (10) · Busca geral (7) · Pendências (7) — 2ª: Relatórios (7) · Links úteis (7) · Gabarito (10) */
+.menu-admin {
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+}
+
+.menu-admin button[data-painel="painelConsulta"],
+.menu-admin button[data-painel="painelGabarito"] { grid-column: span 10; }
+.menu-admin button[data-painel="painelBusca"],
+.menu-admin button[data-painel="painelPendencias"],
+.menu-admin button[data-painel="painelRelatorios"],
+.menu-admin button[data-painel="painelLinks"] { grid-column: span 7; }
+
+/* Telas estreitas: "Consulta por apto" no lugar de "Consulta por apartamento". */
+.menu-admin .rotulo-curto { display: none; }
+
+@media (max-width: 520px) {
+  .menu-admin .rotulo-longo { display: none; }
+  .menu-admin .rotulo-curto { display: inline; }
+}
+
+@media (max-width: 340px) {
+  .menu-admin button {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+
+/* Pendências: título mais perto do conteúdo, "Atualizar" pequeno ao lado do título,
+   setinhas indicando o que abre (grupo) e o que leva ao cadastro (item). */
+#painelPendencias .painel-topo {
+  margin-bottom: 2px;
+}
+
+#painelPendencias .painel-topo h2 {
+  flex: 0 1 auto;
+}
+
+#painelPendencias .btn-fechar-painel {
+  margin-left: auto;
+}
+
+.btn-atualizar-pendencias {
+  width: auto;
+  height: 24px;
+  padding: 0 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--accent-color);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dica-pendencias {
+  margin: 0 0 4px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+#statusPendencias:empty {
+  display: none;
+}
+
+.grupo-pendencia > summary {
+  list-style: none;
+  justify-content: flex-start;
+}
+
+.grupo-pendencia > summary::-webkit-details-marker {
+  display: none;
+}
+
+.grupo-pendencia > summary::before {
+  content: "▸";
+  flex-shrink: 0;
+  width: 12px;
+  color: var(--accent-color);
+  transition: transform 0.15s;
+}
+
+.grupo-pendencia[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.grupo-pendencia.vazio > summary::before {
+  color: transparent;
+}
+
+.grupo-pendencia > summary .contador-pendencia {
+  margin-left: auto;
+}
+
+button.pendencia-item {
+  position: relative;
+  padding-left: 22px;
+}
+
+button.pendencia-item::before {
+  content: "›";
+  position: absolute;
+  left: 8px;
+  top: 5px;
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+.pendencia-item.sem-link {
+  padding-left: 22px;
+}
+
+/* Home: "Últimas alterações cadastrais" logo abaixo do menu. */
+#historicoAdmin {
+  margin-top: 0;
+}
+
+/* Pendências: o número vem antes do título ("9 Apartamentos sem cadastro"). */
+.grupo-pendencia > summary .contador-pendencia {
+  margin-left: 0;
+}
+
+/* Gabarito de vagas: menos espaço entre Tabela/Mapa e o conteúdo. */
+#statusGabarito:empty {
+  display: none;
+}
+
+#painelGabarito .descricao-acao {
+  margin-bottom: 4px;
+}
+
+#painelGabarito .gabarito-modos {
+  margin: 6px 0 4px;
+}
+
+#painelGabarito .gabarito-garagens {
+  margin: 4px 0;
+}
+
+#painelGabarito .gabarito-cabecalho {
+  margin-top: 4px;
+}
+
+/* Últimas alterações: "Atualizar" pequeno ao lado do título. */
+.card-historico > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-historico > summary::before {
+  content: "▸";
+  color: var(--accent-color);
+  transition: transform 0.15s;
+}
+
+.card-historico[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.card-historico > summary {
+  list-style: none;
+}
+
+.card-historico > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Pendências: grupo sem pendência leva um "✓" no lugar da setinha. */
+.grupo-pendencia.vazio > summary::before {
+  content: "✓";
+  color: #1f7a3a;
+  font-weight: 700;
+}
+
+/* ==========================================
+   HOME (últimas alterações + busca geral), MENU COM "MEMBROS", LINKS EM LINHA
+   ========================================== */
+#homeAdmin[hidden] {
+  display: none !important;
+}
+
+.busca-home {
+  margin-top: 14px;
+}
+
+.titulo-home {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  color: var(--primary-color);
+  overflow-wrap: anywhere;
+}
+
+.busca-home .card-busca {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.busca-home .linha-busca {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.busca-home .campo-busca,
+.busca-home .linha-busca > button,
+.busca-home input {
+  width: 100%;
+}
+
+.busca-home input,
+.busca-home .linha-busca > button {
+  height: 36px;
+  min-height: 36px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+/* Menu: 1ª linha Consulta (10) · Pendências (7) · Relatórios (7);
+         2ª linha Links úteis (7) · Gabarito de vagas (10) · Membros (7). */
+.menu-admin button[data-painel="painelMembros"] { grid-column: span 7; }
+
+
+/* Consulta por apartamento: sem espaço sobrando embaixo do campo. */
+#painelConsulta .linha {
+  margin-bottom: 0;
+}
+
+#statusAdmin:empty,
+#resultadoAdmin.vazio {
+  display: none;
+}
+
+#statusAdmin {
+  margin: 8px 0 0;
+}
+
+/* ==========================================
+   MEMBROS (js/admin-membros.js)
+   ========================================== */
+.cargo-membro {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cargo-titulo {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.cargo-membro select,
+.cargo-membro input[type="email"] {
+  width: 100%;
+  height: 34px;
+  padding: 0 8px;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.cargo-membro input[type="email"]:disabled,
+.cargo-membro select:disabled {
+  background: #f2f4f7;
+  color: #556270;
+}
+
+.cargo-info {
+  font-size: 0.8rem;
+  color: var(--text);
+}
+
+.cargo-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.cargo-aviso {
+  font-size: 0.75rem;
+  color: #6b4e00;
+}
+
+#statusMembros:empty {
+  display: none;
+}
+
+.membros-acoes {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.membros-acoes button {
+  width: auto;
+  height: auto;
+  min-height: 34px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+.membros-acoes .btn-secundario {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent-color);
+}
+
+.membros-acoes button:disabled {
+  opacity: 0.5;
+}
+
+.membros-acoes button[hidden] {
+  display: none;
+}
+
+#statusMembros {
+  font-size: 0.82rem;
+}
+
+/* "Carregando..." pequeno e discreto em todo o admin. */
+.status.carregando,
+.situacao-relatorio.carregando,
+.auth-mensagem.carregando {
+  margin: 4px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* Links úteis: um por linha, cada um com um "•" na frente. */
+.links-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.links-lista a::before {
+  content: "•";
+  display: inline-block;
+  width: 14px;
+  color: var(--muted);
+}
+
+/* Pendências: caixinha "ignorar" na frente de cada item; ignorados ficam apagados e não contam. */
+.grupo-pendencia li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.ignorar-pendencia {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  margin: 8px 0 0 4px;
+  cursor: pointer;
+}
+
+.grupo-pendencia li .pendencia-item {
+  flex: 1;
+  min-width: 0;
+  padding-left: 18px;
+}
+
+.grupo-pendencia li .pendencia-item.sem-link {
+  padding-left: 6px;
+}
+
+.grupo-pendencia li.ignorada .pendencia-item {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+/* Grupo zerado só porque tudo foi ignorado: ✓ verde, mas abre para poder reativar. */
+.grupo-pendencia.zerado > summary {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.grupo-pendencia.zerado > summary::before {
+  content: "✓";
+  color: #1f7a3a;
+  font-weight: 700;
+}
+
+.grupo-pendencia.zerado .contador-pendencia {
+  background: #e7f5ea;
+  color: #1f7a3a;
+}
+
+.grupo-pendencia.zerado[open] > summary::before,
+.grupo-pendencia.vazio[open] > summary::before {
+  transform: none;
+}
+
+/* Etiqueta de cargo (Síndico, Membro do conselho, Desenvolvedor) ao lado do nome na consulta. */
+.tag-cargo {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent-color);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1.6;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* Botão "Página inicial": linha inteira acima do menu; aceso quando a home está à mostra. */
+.btn-pagina-inicial {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 34px;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--accent-color);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-pagina-inicial.ativo {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
+}
+
+/* "Últimas alterações cadastrais" numa linha só, ao lado do "Atualizar". */
+.card-historico > summary {
+  flex-wrap: nowrap;
+  font-size: 0.82rem;
+}
+
+.card-historico > summary > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.card-historico > summary .btn-atualizar-pendencias {
+  flex-shrink: 0;
+}
+
+.card-historico > summary {
+  gap: 6px;
+  font-size: 0.76rem;
+}
+
+.card-historico > summary .btn-atualizar-pendencias {
+  margin-left: auto;
+}
+
+/* ==========================================
+   DESFAZER / SALVAR EM LARGURA TOTAL (50/50) — Gabarito e Membros
+   ========================================== */
+.acoes-50 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.acoes-50:empty,
+.acoes-50[hidden] {
+  display: none;
+}
+
+.acoes-50 button {
+  width: 100%;
+  margin: 0;
+  min-height: 36px;
+  height: auto;
+  padding: 7px 8px;
+  font-size: 0.85rem;
+}
+
+.acoes-50 .btn-secundario {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent-color);
+}
+
+.acoes-50 button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.acoes-50 button[hidden] {
+  display: none;
+}
+
+#painelGabarito .gabarito-acoes:not(.acoes-50) button {
+  width: 100%;
+}
+
+/* ==========================================
+   CONTROLE SEGMENTADO (estilo iOS) — Tabela/Mapa e G1/G2
+   ========================================== */
+.segmentado {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 !important;
+  padding: 3px;
+  border-radius: 10px;
+  background: #e6ebf1;
+}
+
+/* Indicador que desliza para baixo da opção ativa. */
+.segmentado::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  transition: transform 0.22s ease;
+}
+
+.segmentado:has(> button:nth-child(2).ativo)::before {
+  transform: translateX(100%);
+}
+
+.segmentado > button,
+.segmentado > button.ativo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 30px;
+  margin: 0;
+  padding: 5px 8px;
+  border: 0 !important;
+  border-radius: 8px;
+  background: transparent !important;
+  color: #5f7287 !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.segmentado > button.ativo {
+  color: var(--primary-color) !important;
+  font-weight: 700;
+}
+
+/* "Página inicial": acesa (azul) também no hover, com texto branco; ícone de casa em SVG. */
+.btn-pagina-inicial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* No hover, a acesa escurece como o botão Buscar (fundo #174a7a) e o texto continua branco.
+   Fica fora da regra "fundo claro no hover" lá embaixo, que deixava o texto branco sobre branco. */
+.btn-pagina-inicial.ativo:hover,
+.btn-pagina-inicial.ativo:focus {
+  background: #174a7a;
+  color: #fff;
+}
+
+.btn-pagina-inicial:not(.ativo):hover {
+  background: #eef3f8;
+  color: var(--accent-color);
+}
+
+.icone-casa {
+  flex-shrink: 0;
+}
+
+/* Gabarito: tabela Vaga | Apartamento | × (a garagem vem do G1/G2). */
+.gabarito-cabecalho,
+.gabarito-linha {
+  grid-template-columns: 56px minmax(0, 1fr);
+}
+
+.gabarito-garagens.segmentado {
+  margin: 6px 0;
+}
+
+.desenhos-originais {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+}
+
+.btn-restaurar-numeracao {
+  width: auto;
+  height: auto;
+  min-height: 26px;
+  padding: 3px 10px;
+  border: 1px solid #f1b8b4;
+  border-radius: 999px;
+  background: #fdecea;
+  color: #b3261e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-restaurar-numeracao:disabled {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Desfazer/Salvar só aparecem depois que o conteúdo do painel carregou. */
+#painelGabarito:not(.conteudo-carregado) .acoes-50,
+#painelMembros:not(.conteudo-carregado) .acoes-50,
+#painelNotificacoes:not(.conteudo-carregado) .acoes-50 {
+  display: none !important;
+}
+
+.auth-usuario-linha {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+/* Todo "Carregando..." em itálico. */
+.status.carregando,
+.situacao-relatorio.carregando,
+.auth-mensagem.carregando {
+  font-style: italic;
+}
+
+/* Cabeçalho Vaga/Apartamento só depois que o gabarito carregou. */
+#painelGabarito:not(.conteudo-carregado) .gabarito-cabecalho {
+  display: none;
+}
+
+/* "Nenhuma alteração registrada ainda." em fonte menor. */
+#statusHistorico.vazio {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--texto-suave, #5f7287);
+}
+
+/* ---------- Notificações ---------- */
+.lista-notificacoes { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.titulo-exemplo-email { margin: 24px 0 4px; font-size: 1rem; color: #243447; }
+.exemplo-email { border: 1px solid #d7e0ea; border-radius: 12px; overflow: hidden; background: #fff; font-family: Arial, Helvetica, sans-serif; color: #243447; font-size: 13px; }
+.exemplo-email-cabecalho { background: #f3f6fa; padding: 10px 12px; border-bottom: 1px solid #d7e0ea; font-size: 12px; }
+.exemplo-email-cabecalho span { color: #5f7287; }
+.exemplo-email-corpo { padding: 4px 12px 8px; }
+.exemplo-email table { border-collapse: collapse; font-size: 12px; }
+.exemplo-email th { text-align: left; color: #5f7287; padding: 6px 8px; font-weight: 600; }
+.exemplo-email td { padding: 6px 8px; border-bottom: 1px solid #e3e8ee; vertical-align: top; }
+.exemplo-email ul { margin-top: 0; padding-left: 20px; }
+.exemplo-email u { color: #1a5fb4; }
+
+/* Menu com 7 botões, sem "viúva" (grade de 24 colunas, duas linhas cheias):
+   1ª: Consulta (10) · Pendências (7) · Relatórios (7)
+   2ª: Links úteis (5) · Gabarito de vagas (7) · Membros (5) · Notificações (7) */
+.menu-admin button[data-painel="painelLinks"],
+.menu-admin button[data-painel="painelMembros"] { grid-column: span 5; }
+.menu-admin button[data-painel="painelGabarito"],
+.menu-admin button[data-painel="painelNotificacoes"] { grid-column: span 7; }
+
+/* Notificações: fontes no mesmo tamanho das outras páginas. */
+.titulo-exemplo-email { font-size: 0.92rem; }
+.exemplo-email { font-size: 12px; }
+.exemplo-email-cabecalho { font-size: 11px; }
+.exemplo-email table { font-size: 11px; }
+
+/* Celular: 4 botões numa linha cortariam o texto. Fica 2 + 2 + 3, sem viúva:
+   Consulta · Pendências / Relatórios · Links úteis / Gabarito · Membros · Notificações */
+@media (max-width: 560px) {
+  .menu-admin button[data-painel="painelConsulta"],
+  .menu-admin button[data-painel="painelPendencias"],
+  .menu-admin button[data-painel="painelRelatorios"],
+  .menu-admin button[data-painel="painelLinks"] { grid-column: span 12; }
+  .menu-admin button[data-painel="painelGabarito"] { grid-column: span 10; }
+  .menu-admin button[data-painel="painelMembros"] { grid-column: span 6; }
+  .menu-admin button[data-painel="painelNotificacoes"] { grid-column: span 8; }
+}
+
+/* Aviso informativo (não é erro) em fonte pequena. */
+.status.aviso-leve {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #5f7287;
+}
+
+/* Notificações: só os botões de cima (a cópia espelhada); os originais, embaixo, ficam escondidos. */
+#acoesNotificacoes {
+  display: none !important;
+}
+
+/* Desfazer/Salvar: só os botões do topo. Os originais (embaixo) ficam escondidos e a cópia
+   do topo vira barra flutuante ao rolar (js/admin-acoes-espelho.js). */
+#acoesMembros,
+#acoesGabarito,
+#acoesNotificacoes {
+  display: none !important;
+}
+
+.acoes-topo.fixa {
+  position: fixed;
+  top: 0;
+  z-index: 50;
+  margin: 0;
+  padding: 8px 10px;
+  background: var(--surface, #fff);
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+.sem-pdf-cadastro {
+  margin: 4px 0 6px;
+  font-size: 0.8rem;
+  color: #5f7287;
+}
+.pendencia-pdf {
+  flex: none;
+  align-self: center;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+/* Rodapé (Documentação) colado ao cartão principal, com um respiro curto. */
+#adminArea,
+#authGate {
+  margin-bottom: 0 !important;
+}
+.rodape-site {
+  margin-top: 14px !important;
+}
+
+/* Exemplo do e-mail (Notificações): é o HTML real do e-mail; fontes no tamanho do admin e tabela com rolagem. */
+.exemplo-email-corpo { overflow-x: auto; }
+.exemplo-email-corpo > div { font-size: 12px !important; }
+.exemplo-email-corpo table { font-size: 11px !important; }
+.exemplo-email-corpo div div, .exemplo-email-corpo p[style*="12px"], .exemplo-email-corpo p[style*="12px"] a { font-size: 10px !important; }
+
+/* Menu com 8 botões, sem "viúva": tela larga 4 + 4; celular 2 + 2 + 2 + 2 (grade de 24 colunas). */
+.menu-admin button[data-painel="painelConsulta"] { grid-column: span 8; }
+.menu-admin button[data-painel="painelPendencias"],
+.menu-admin button[data-painel="painelRelatorios"],
+.menu-admin button[data-painel="painelMembros"] { grid-column: span 5; }
+.menu-admin button[data-painel="painelLinks"],
+.menu-admin button[data-painel="painelNotificacoes"],
+.menu-admin button[data-painel="painelBloqueios"] { grid-column: span 6; }
+.menu-admin button[data-painel="painelGabarito"] { grid-column: span 7; }
+@media (max-width: 560px) {
+  .menu-admin button[data-painel] { grid-column: span 12 !important; }
+}
+
+/* ---------- Bloqueios ---------- */
+.titulo-bloqueios { margin: 16px 0 6px; font-size: 0.92rem; color: #243447; }
+.lista-bloqueios { display: flex; flex-direction: column; gap: 8px; }
+.bloqueio-item { padding: 10px 12px; border: 1px solid #f0c2c2; border-radius: 12px; background: #fff7f7; font-size: 0.8rem; }
+.bloqueio-item.antigo { border-color: #d7e0ea; background: #fff; }
+.bloq-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+.bloq-topo strong { font-size: 0.88rem; }
+.bloq-quem { color: #5f7287; }
+.bloq-sem-cadastro { font-style: italic; }
+.bloq-linha span { color: #5f7287; }
+.btn-desbloquear { flex: none; padding: 6px 12px; border: 1px solid #c62828; border-radius: 999px; background: #fff; color: #c62828; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
+.btn-desbloquear:hover { background: #fdecec; }
+.bloq-tentativas { margin-top: 4px; }
+.bloq-tentativas summary { cursor: pointer; color: #2f5f98; }
+.bloq-tentativas ul { margin: 4px 0 0; padding-left: 18px; }
+
+/* Bloqueios: "Atualizar" colado ao título (como em Pendências) e textos no tamanho do restante. */
+#painelBloqueios .painel-topo h2 { flex: 0 1 auto; }
+#painelBloqueios .btn-fechar-painel { margin-left: auto; }
+#painelBloqueios .descricao-acao { font-size: 0.8rem; margin-bottom: 4px; }
+#painelBloqueios .titulo-bloqueios { font-size: 0.85rem; margin: 12px 0 4px; }
+#painelBloqueios .sem-itens { font-size: 0.8rem; }
+
+/* Consulta: situação do código por e-mail do cadastro. */
+.btn-desativar-codigo { margin-left: 6px; padding: 2px 10px; border: 1px solid #c62828; border-radius: 999px; background: #fff; color: #c62828; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+
+/* Pendências: chip do PDF logo depois do nome (dentro da linha do item). */
+.pendencia-item .pendencia-pdf {
+  display: inline-block;
+  align-self: auto;
+  margin-left: 4px;
+  padding: 0 7px;
+  line-height: 1.5;
+  vertical-align: 1px;
+  cursor: pointer;
+}
+.pendencia-item .pendencia-pdf:hover { background: #eef4fb; }
+
+/* Notificações: explicação de como funcionam os e-mails. */
+.como-funcionam-notificacoes {
+  margin: 8px 0 12px;
+  padding: 10px 12px;
+  border: 1px solid #d7e0ea;
+  border-radius: 12px;
+  background: #f7fafc;
+  font-size: 0.8rem;
+  color: #243447;
+}
+.como-funcionam-notificacoes ul { margin: 4px 0 0; padding-left: 18px; }
+.como-funcionam-notificacoes li { margin: 3px 0; }
+
+/* "Atualizar" colado ao título também em Membros, Notificações e Gabarito. */
+#painelMembros .painel-topo h2,
+#painelNotificacoes .painel-topo h2,
+#painelGabarito .painel-topo h2 { flex: 0 1 auto; }
+#painelMembros .btn-fechar-painel,
+#painelNotificacoes .btn-fechar-painel,
+#painelGabarito .btn-fechar-painel { margin-left: auto; }
+
+/* Título e × na primeira linha; "Atualizar" e "atualizado agora" logo abaixo, na mesma linha.
+   O título nunca é cortado (reticências são proibidas no site). */
+.painel-topo {
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 4px;
+}
+.painel-topo h2 {
+  flex: 1 1 auto;
+  line-height: 1.3;
+}
+.painel-topo .btn-fechar-painel { order: 1; margin-left: auto; }
+.bloco-atualizar {
+  order: 2;
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.atualizado-em {
+  font-size: 0.72rem;
+  line-height: 1.3;
+  color: #8a99a8;
+  white-space: nowrap;
+  margin: 0;
+}
+.atualizado-em:empty { display: none; }
+
+/* ---------- Cadastros pendentes (js/admin-aprovacoes.js) ---------- */
+/* Botão do menu em linha própria, largura total, acima dos outros 8 (sem "viúva"). */
+#painelAprovacoes .painel-topo h2 { flex: 0 1 auto; }
+#painelAprovacoes .btn-fechar-painel { margin-left: auto; }
+.aviso-so-visualizar { color: #8a5a00; }
+.lista-aprovacoes { display: flex; flex-direction: column; gap: 8px; }
+.aprovacao-item { padding: 10px 12px; border: 1px solid #d7e0ea; border-radius: 12px; background: #fff; font-size: 0.8rem; }
+.aprov-topo strong { font-size: 0.88rem; }
+.aprov-quando { color: #5f7287; margin-bottom: 4px; }
+.aprov-linha span, .aprov-grupo span { color: #5f7287; }
+.aprov-vazio { font-style: italic; color: #5f7287; }
+.aprov-grupo ul { margin: 2px 0 4px; padding-left: 18px; }
+.aprov-detalhes { margin-top: 4px; }
+.aprov-detalhes summary { cursor: pointer; color: #2f5f98; }
+.aprov-acoes { display: flex; gap: 8px; margin-top: 8px; }
+.aprov-acoes button { flex: 1; min-height: 34px; padding: 6px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+.btn-aprovar { border: 1px solid #1f7a3a; background: #1f7a3a; color: #fff; }
+.btn-rejeitar, .btn-confirmar-rejeicao { border: 1px solid #c62828; background: #fff; color: #c62828; }
+.btn-confirmar-rejeicao { background: #c62828; color: #fff; }
+.btn-cancelar-rejeicao { border: 1px solid #d7e0ea; background: #fff; color: #2f5f98; }
+.aprov-rejeicao { margin-top: 8px; }
+.aprov-rejeicao label { display: block; margin-bottom: 4px; font-size: 0.78rem; color: #5f7287; }
+.aprov-motivo { width: 100%; box-sizing: border-box; font-size: 0.82rem; }
+.aprov-mapa { margin: 6px 0 2px; }
+.aprov-mapa a { display: block; max-width: 320px; border: 1px solid #d7e0ea; border-radius: 8px; padding: 4px; background: #fff; }
+.aprov-mapa svg { display: block; width: 100%; height: auto; }
+
+/* ---------- Menu: 1ª linha "Cadastros para aprovação" + "Pendências" (50/50); depois 4 + 3 na tela
+   larga e 2 + 2 + 3 no celular (grade de 24 colunas, sem "viúva"). ---------- */
+.menu-admin button { position: relative; overflow: visible; }
+.menu-admin button[data-painel="painelAprovacoes"] { order: 1; grid-column: span 12 !important; }
+.menu-admin button[data-painel="painelPendencias"] { order: 2; grid-column: span 12 !important; }
+.menu-admin button[data-painel="painelConsulta"] { order: 3; grid-column: span 7 !important; }
+.menu-admin button[data-painel="painelRelatorios"] { order: 4; grid-column: span 5 !important; }
+.menu-admin button[data-painel="painelLinks"] { order: 5; grid-column: span 5 !important; }
+.menu-admin button[data-painel="painelGabarito"] { order: 6; grid-column: span 7 !important; }
+.menu-admin button[data-painel="painelMembros"] { order: 7; grid-column: span 8 !important; }
+.menu-admin button[data-painel="painelNotificacoes"] { order: 8; grid-column: span 8 !important; }
+.menu-admin button[data-painel="painelBloqueios"] { order: 9; grid-column: span 8 !important; }
+@media (max-width: 560px) {
+  .menu-admin button[data-painel="painelConsulta"],
+  .menu-admin button[data-painel="painelRelatorios"],
+  .menu-admin button[data-painel="painelLinks"],
+  .menu-admin button[data-painel="painelGabarito"] { grid-column: span 12 !important; }
+}
+/* Bolinha vermelha com a quantidade (estilo notificação de aplicativo), no canto do botão. */
+.badge-menu {
+  position: absolute; top: -7px; right: -5px; min-width: 19px; height: 19px; padding: 0 5px; box-sizing: border-box;
+  border-radius: 999px; background: #e53935; color: #fff; font-size: 0.68rem; font-weight: 700; line-height: 19px;
+  text-align: center; box-shadow: 0 0 0 2px #fff; pointer-events: none;
+}
+.badge-menu[hidden] { display: none; }
+
+/* ---------- Consulta por apartamento: ficha, telefones e mapa da vaga ---------- */
+.btn-ficha-pdf {
+  display: inline-block; margin: 6px 0 8px; padding: 6px 14px; border-radius: 999px;
+  background: var(--accent-color); color: #fff !important; font-size: 0.8rem; font-weight: 700; text-decoration: none;
+}
+.btn-ficha-pdf:hover { filter: brightness(1.08); text-decoration: none; }
+/* Cada telefone é um bloco: número numa linha, WhatsApp e Ligar na linha de baixo. O mesmo espaço (4px)
+   separa número e botões e um telefone do seguinte, para as entrelinhas ficarem uniformes. */
+.telefone-item { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.telefone-item + .telefone-item { margin-top: 4px; }
+.telefone-acoes { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.telefone-numero { white-space: nowrap; }
+.acao-telefone {
+  display: inline-block; padding: 1px 8px; border: 1px solid currentColor; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 700; line-height: 1.5; text-decoration: none; white-space: nowrap;
+}
+.acao-whatsapp { color: #1f8f4e; }
+.acao-ligar { color: var(--accent-color); }
+.acao-telefone:hover { text-decoration: none; filter: brightness(0.9); }
+.consulta-mapa-vaga { margin: 8px 0 4px; }
+.consulta-mapa-vaga a { display: block; width: 100%; max-width: 560px; border: 1px solid #d7e0ea; border-radius: 10px; padding: 6px; background: #fff; box-sizing: border-box; text-decoration: none; }
+.consulta-mapa-vaga svg { display: block; width: 100%; height: auto; }
+.consulta-mapa-dica { display: block; margin-top: 4px; font-size: 0.72rem; color: #5f7287; text-align: center; }
+
+/* ---------- Sem autorização (Membros > Autorizações): visual de desativado ---------- */
+.menu-admin button.sem-autorizacao,
+#btnAbrirFonteDados.sem-autorizacao,
+body.sem-historico #historicoAdmin > summary,
+body.sem-editarCadastros .btn-excluir-cadastro,
+body.sem-editarCadastros .btn-editar-cadastro,
+body.sem-editarCadastros .btn-situacao-cadastro,
+body.sem-editarCadastros .btn-desativar-codigo,
+body.sem-drive .btn-ficha-pdf,
+body.sem-drive a[href*="drive.google.com"],
+body.sem-drive a[href*="docs.google.com"] {
+  opacity: 0.45 !important; cursor: not-allowed !important; filter: grayscale(1);
+}
+body.sem-editarCadastros .btn-excluir-cadastro,
+body.sem-editarCadastros .btn-editar-cadastro,
+body.sem-editarCadastros .btn-situacao-cadastro,
+body.sem-editarCadastros .btn-desativar-codigo { pointer-events: none !important; }
+.menu-admin button.sem-autorizacao:hover { background: var(--surface) !important; color: var(--accent-color) !important; }
+.cargo-nota { font-weight: 400; font-size: 0.72rem; color: #5f7287; }
+
+/* ---------- Perfil dos moradores (página "Dados") ---------- */
+.titulo-perfil { margin-top: 22px; }
+.graficos-perfil { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 560px) { .graficos-perfil { grid-template-columns: 1fr; } }
+.grafico-perfil { padding: 10px 12px; border: 1px solid #d7e0ea; border-radius: 12px; background: #fff; }
+.grafico-perfil h3 { margin: 0 0 8px; font-size: 0.88rem; color: #243447; }
+.barra-linha { display: grid; grid-template-columns: 76px 1fr auto; align-items: center; gap: 8px; margin: 5px 0; font-size: 0.78rem; }
+.barra-rotulo { color: #5f7287; white-space: nowrap; }
+.barra-trilho { height: 12px; border-radius: 999px; background: #eef1f4; overflow: hidden; }
+.barra { display: block; height: 100%; border-radius: 999px; background: var(--accent-color); }
+.barra-valor { font-weight: 700; white-space: nowrap; }
+.barra-valor small { font-weight: 400; color: #5f7287; }
+
+/* ---------- Membros: Autorizações + Desfazer + Salvar na mesma linha; tabela de autorizações ---------- */
+.acoes-50.acoes-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.btn-autorizacoes.ativo { background: var(--accent-color) !important; color: #fff !important; border-color: var(--accent-color) !important; }
+.aut-tabela-rolagem { overflow-x: auto; }
+.aut-tabela { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.aut-tabela th { padding: 6px 4px; text-align: center; color: #5f7287; font-weight: 700; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.aut-tabela th:first-child { text-align: left; }
+.aut-tabela td { padding: 6px 4px; border-bottom: 1px solid #eef1f4; }
+.aut-tabela tbody tr:nth-child(even) td { background: #f7f9fb; }
+.aut-celula { text-align: center; width: 15%; }
+.aut-check { position: relative; display: inline-flex; width: 20px; height: 20px; cursor: pointer; }
+.aut-check input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.aut-caixa { width: 18px; height: 18px; border: 2px solid var(--accent-color); border-radius: 5px; background: #fff; box-sizing: border-box; transition: background 0.15s; }
+.aut-check input:checked + .aut-caixa { background: var(--accent-color); }
+.aut-check input:checked + .aut-caixa::after { content: ""; display: block; width: 5px; height: 9px; margin: 1px 0 0 5px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.aut-check input:focus-visible + .aut-caixa { outline: 2px solid var(--accent-color); outline-offset: 2px; }
+.aut-check.travado { cursor: default; opacity: 0.55; }
+.aut-check.travado input { cursor: default; }
+@media (max-width: 560px) { .aut-tabela { font-size: 0.7rem; } .aut-tabela th { white-space: normal; } }
+
+/* ---------- Hover legível nos botões claros ----------
+   A regra geral "button:hover" escurece o fundo (#174a7a) sem mudar a cor do texto; nos botões de fundo
+   claro e texto azul, o texto sumia. Aqui eles ganham um fundo claro no hover, mantendo o texto. */
+.btn-atualizar-historico:hover,
+.btn-atualizar-pendencias:hover,
+.menu-admin button:not(.ativo):not(.sem-autorizacao):not(:disabled):hover,
+.gabarito-acoes .btn-secundario:hover,
+.gabarito-modos button:not(.ativo):hover,
+.gabarito-garagens button:not(.ativo):hover,
+.editor-vaga-mapa .btn-secundario:hover,
+.membros-acoes .btn-secundario:not(.ativo):hover,
+.acoes-50 .btn-secundario:not(.ativo):hover,
+.segmentado > button:not(.ativo):hover,
+.btn-restaurar-numeracao:not(:disabled):hover,
+.btn-cancelar-rejeicao:hover {
+  background: #e9f1fa !important;
+}
+.btn-restaurar-numeracao:disabled:hover { background: inherit !important; }
+.btn-rejeitar:hover,
+.btn-desativar-codigo:hover { background: #fdecec !important; }
+.btn-confirmar-rejeicao:hover { background: #a61f1f !important; color: #fff !important; }
+.btn-aprovar:hover { background: #17652f !important; color: #fff !important; }
+.segmentado > button.ativo:hover,
+.btn-autorizacoes.ativo:hover { color: #fff !important; }
+
+/* ---------- Membros: 2 colunas na tela larga (1: Condomínio, Síndico, Administradora, Desenvolvedor;
+   2: Conselho). No celular, uma coluna: Condomínio, Síndico, Administradora, Conselho, Desenvolvedor. */
+.form-membros { display: flex; flex-direction: column; }
+.membros-coluna { display: contents; }
+.form-membros .cargo-condominio { order: 1; }
+.form-membros .cargo-sindico { order: 2; }
+.form-membros .cargo-administradora { order: 3; }
+.form-membros .membros-coluna-2 > * { order: 4; }
+.form-membros .cargo-desenvolvedor { order: 5; }
+@media (min-width: 761px) {
+  .form-membros { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; align-items: start; }
+  .membros-coluna { display: flex; flex-direction: column; }
+}
+.btn-apagar-conselho { margin-left: 8px; width: auto; height: auto; min-height: 0; padding: 1px 9px; border-radius: 999px; border: 1px solid #c62828; background: #fff; color: #c62828; font-size: 0.68rem; font-weight: 700; cursor: pointer; vertical-align: 1px; }
+.btn-apagar-conselho:hover { background: #fdecec !important; color: #c62828 !important; }
+.conselho-vazio { padding: 8px 0; font-style: italic; }
+.aut-tabela .rotulo-curto { display: none; }
+@media (max-width: 560px) {
+  .aut-tabela .rotulo-longo { display: none; }
+  .aut-tabela .rotulo-curto { display: inline; }
+}
+
+/* Cartões com os números gerais do prédio (página "Dados"): 4 x 3 / 2 x 6, sem "viúva". */
+.cartoes-resumo { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 560px) { .cartoes-resumo { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cartao-resumo { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border: 1px solid #d7e0ea; border-radius: 10px; background: #fff; }
+.cartao-resumo strong { font-size: 1.15rem; color: var(--accent-color); line-height: 1.1; }
+.cartao-resumo span { font-size: 0.72rem; color: #5f7287; line-height: 1.25; }
+.cartao-resumo small { font-size: 0.68rem; }
+
+/* Dados: cartões menores (7 x 2 / 2 x 7) e pizza do gênero. */
+.cartoes-resumo { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+@media (max-width: 760px) { .cartoes-resumo { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cartao-resumo { padding: 6px 8px; border-radius: 8px; gap: 1px; }
+.cartao-resumo strong { font-size: 0.98rem; }
+.cartao-resumo span { font-size: 0.66rem; }
+.cartao-resumo small { font-size: 0.62rem; }
+.pizza-corpo { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.pizza { width: 120px; height: 120px; border-radius: 50%; flex: none; }
+.pizza-legenda { list-style: none; margin: 0; padding: 0; font-size: 0.78rem; }
+.pizza-legenda li { display: flex; align-items: center; gap: 6px; margin: 5px 0; }
+.pizza-cor { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+.pizza-legenda small { color: #5f7287; }
+.btn-apagar-conselho:disabled { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
+.btn-apagar-conselho:disabled:hover { background: #fff !important; }
+
+/* Sem autorização de ESCREVER (Membros > Autorizações): controles de gravação com visual desativado. */
+body.sem-pendenciasEscrever .ignorar-pendencia,
+body.sem-historicoEscrever .btn-apagar-historico,
+body.sem-gabaritoEscrever #btnSalvarGabarito, body.sem-gabaritoEscrever #btnDesfazerGabarito, body.sem-gabaritoEscrever #btnRestaurarNumeracao,
+body.sem-membrosEscrever #btnSalvarMembros, body.sem-membrosEscrever #btnDesfazerMembros,
+body.sem-membrosEscrever #formMembros input, body.sem-membrosEscrever #formMembros select, body.sem-membrosEscrever #formMembros button,
+body.sem-notificacoesEscrever #btnSalvarNotificacoes, body.sem-notificacoesEscrever #btnDesfazerNotificacoes, body.sem-notificacoesEscrever #listaNotificacoes input,
+body.sem-bloqueiosEscrever .btn-desbloquear,
+body.sem-aprovar .btn-aprovar, body.sem-aprovar .btn-rejeitar,
+body.sem-dadosEscrever input[name="fonteDados"], body.sem-dadosEscrever #btnTestarConexoes {
+  opacity: 0.45 !important; cursor: not-allowed !important; pointer-events: none !important; filter: grayscale(1);
+}
+/* Os botões espelhados no topo (barra flutuante) também. */
+body.sem-gabaritoEscrever [data-espelho="acoesGabarito"] button,
+body.sem-notificacoesEscrever [data-espelho="acoesNotificacoes"] button { opacity: 0.45 !important; pointer-events: none !important; filter: grayscale(1); }
+body.sem-membrosEscrever [data-espelho="acoesMembros"] button:not(.btn-autorizacoes) { opacity: 0.45 !important; pointer-events: none !important; filter: grayscale(1); }
+
+/* Autorizações: dois checkbox por cargo (ler | escrever). */
+.aut-par { display: inline-flex; align-items: center; gap: 4px; }
+.aut-sep { color: #b8c4d0; font-weight: 400; margin: 0 1px; }
+.aut-sem-escrita { display: inline-block; width: 20px; text-align: center; color: #b8c4d0; }
+
+
+/* Membros e Autorizações se alternam: o display do formulário não pode anular o "hidden". */
+#formMembros[hidden], #autorizacoesMembros[hidden], #descricaoMembros[hidden] { display: none !important; }
+
+/* Autorizações: regras em linhas, com setas. */
+.aut-regras { font-size: 0.78rem; color: #43566b; margin: 4px 0 10px; }
+.aut-regras p { margin: 0 0 4px; }
+.aut-regras ul { margin: 0; padding-left: 0; list-style: none; }
+.aut-regras li { margin: 3px 0; padding-left: 12px; position: relative; }
+.aut-regras li::before { content: ""; position: absolute; left: 2px; top: 0.55em; width: 4px; height: 4px; border-radius: 50%; background: var(--accent-color); }
+.aut-so-ver { margin-top: 6px !important; font-style: italic; color: #8a5a00; }
+.atualizado-em.carregando-indicador { font-style: italic; color: #5f7287; }
+
+/* ---------- Tabelas do admin (Autorizações e Notificações) ----------
+   Zebra, linha vertical fina entre as colunas, 1ª coluna mais larga e fixa na rolagem horizontal. */
+.tabela-admin-rolagem { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: 10px; }
+.tabela-admin { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.78rem; }
+.tabela-admin th, .tabela-admin td { padding: 7px 12px; border-bottom: 1px solid #eef1f4; border-left: 1px solid #e3e8ee; vertical-align: middle; background: #fff; }
+.tabela-admin th:first-child, .tabela-admin td:first-child { border-left: 0; }
+.tabela-admin thead th { background: #f4f7fb; color: #43566b; font-weight: 700; text-align: center; line-height: 1.25; }
+.tabela-admin tbody tr:nth-child(even) td { background: #f7f9fb; }
+.tabela-admin tbody tr:last-child td { border-bottom: 0; }
+/* 1ª coluna: mais larga (cabe "Consulta por apartamento / e busca geral") e congelada. */
+.tabela-admin th:first-child, .tabela-admin td:first-child {
+  position: sticky; left: 0; z-index: 1; min-width: 180px; max-width: 230px; text-align: left;
+  box-shadow: 1px 0 0 #e3e8ee; text-wrap: pretty;
+}
+.tabela-admin thead th:first-child { z-index: 2; }
+.tabela-admin .aut-celula { text-align: center; white-space: nowrap; width: auto; }
+.aut-ler-escrever { white-space: nowrap; font-weight: 400; font-size: 0.72rem; }
+.aut-explicacao { display: block; margin-top: 2px; font-size: 0.7rem; color: #5f7287; font-style: italic; }
+.tabela-notificacoes thead th:not(:first-child) { min-width: 96px; }
+.notif-cargo-linha { display: block; font-weight: 700; color: #243447; }
+.notif-quem { display: block; font-size: 0.72rem; color: #5f7287; }
+@media (max-width: 560px) {
+  .tabela-admin { font-size: 0.72rem; }
+  .tabela-admin th, .tabela-admin td { padding: 6px 9px; }
+  .tabela-admin th:first-child, .tabela-admin td:first-child { min-width: 150px; max-width: 170px; }
+}
+
+/* × da barra flutuante: só aparece com a barra presa no topo; fecha a página aberta. */
+.acoes-topo .btn-fechar-flutuante { display: none; }
+.acoes-topo.fixa { padding-right: 48px !important; }
+.acoes-topo.fixa .btn-fechar-flutuante {
+  display: inline-flex; align-items: center; justify-content: center; position: absolute; right: 10px; top: 50%;
+  transform: translateY(-50%); width: 30px !important; height: 30px !important; min-height: 0 !important; padding: 0 !important;
+  border: 1px solid var(--border) !important; border-radius: 50%; background: #fff !important; color: #243447 !important;
+  font-size: 18px; line-height: 1; cursor: pointer;
+}
+.acoes-topo.fixa .btn-fechar-flutuante:hover { background: #f1f4f8 !important; }
+
+/* Notificações: botões dos exemplos (4 lado a lado; 2 x 2 no celular) e um exemplo por vez. */
+.botoes-exemplo-email { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 6px 0 10px; }
+@media (max-width: 560px) { .botoes-exemplo-email { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.btn-exemplo-email {
+  width: 100%; min-height: 40px; height: auto; padding: 6px 8px; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--surface, #fff); color: var(--accent-color); font-size: 0.78rem; font-weight: 700; line-height: 1.2; cursor: pointer; text-wrap: balance;
+}
+.btn-exemplo-email:not(.ativo):hover { background: #e9f1fa !important; color: var(--accent-color) !important; }
+.btn-exemplo-email.ativo { background: var(--accent-color) !important; border-color: var(--accent-color); color: #fff !important; }
+.exemplo-email-bloco[hidden] { display: none !important; }
+
+/* Botão de fechar dos popups (links, Kit, mapa da vaga): o mesmo em todo o site. */
+.popup-link-fechar, .kit-modal-fechar, .popup-mapa-vaga-fechar {
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  flex: none !important; width: 34px !important; height: 34px !important; min-width: 34px !important; min-height: 0 !important;
+  margin: 0 !important; padding: 0 !important; border: 1px solid #d7dee6 !important; border-radius: 50% !important;
+  background: #fff !important; color: #243447 !important; box-shadow: none !important; cursor: pointer;
+}
+.popup-link-fechar:hover, .kit-modal-fechar:hover, .popup-mapa-vaga-fechar:hover { background: #f1f4f8 !important; color: #243447 !important; }
+.popup-link-fechar svg, .kit-modal-fechar svg, .popup-mapa-vaga-fechar svg { display: block; width: 16px; height: 16px; }
+
+/* Autorizações: ler (azul, a cor padrão) e escrever (laranja) com cores diferentes, também na legenda. */
+.aut-check-escrever .aut-caixa { border-color: #c8610f; }
+.aut-check-escrever input:checked + .aut-caixa { background: #c8610f; }
+.aut-check-escrever input:focus-visible + .aut-caixa { outline-color: #c8610f; }
+.aut-legenda-ler { color: var(--accent-color); font-weight: 700; }
+.aut-legenda-escrever { color: #c8610f; font-weight: 700; }
+
+/* Consulta por apartamento: as caixas de informação crescem até ocupar a linha toda (100% da
+   largura), em vez de ficarem do tamanho do texto com sobra à direita. */
+#resultadoAdmin .grid-campos,
+#resultadoAdmin .linha-vaga-topo,
+#resultadoAdmin .subsecao-emergencia .registro-conteudo .grid-campos {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+#resultadoAdmin .campo,
+#resultadoAdmin .registro-conteudo .campo,
+#resultadoAdmin .registro-bloco .campo,
+#resultadoAdmin .subsecao-emergencia .registro-conteudo .grid-campos .campo {
+  flex: 1 1 auto;
+  width: auto;
+  max-width: 100%;
+}
+#resultadoAdmin .registro-conteudo { flex: 1 1 auto; }
+#resultadoAdmin .linha-vaga-topo .campo { align-items: flex-start; }
+
+/* ---------- Consulta por apartamento: caixas da mesma linha com a mesma altura ----------
+   O "height: 100%" das caixas dentro de um registro impedia o esticar do flex (cada caixa ficava
+   da altura do próprio texto). Com altura automática, todas acompanham a maior da linha. */
+#resultadoAdmin .registro-conteudo .campo { height: auto; }
+#resultadoAdmin .registro-conteudo { align-self: stretch; }
+#resultadoAdmin .registro-bloco { align-items: center; }
+
+/* Emergência e prestadores: 3 colunas fixas (mesma largura em todos os registros), cada caixa com
+   a altura da maior. A 1ª coluna junta dois campos: nome + parentesco, ou nome + serviço. */
+#resultadoAdmin .grid-campos.grid-colunas,
+#resultadoAdmin .subsecao-emergencia .registro-conteudo .grid-campos.grid-colunas {
+  display: grid;
+  align-items: stretch;
+  width: 100%;
+}
+#resultadoAdmin .grid-colunas-emergencia { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr); }
+#resultadoAdmin .grid-colunas-prestadores { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.6fr); }
+#resultadoAdmin .grid-colunas .campo,
+#resultadoAdmin .subsecao-emergencia .registro-conteudo .grid-campos.grid-colunas .campo {
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  grid-column: auto;
+}
+.campo-agrupado { gap: 6px; }
+.campo-parte .campo-titulo { margin-bottom: 2px; }
+.campo-parte.vazio .campo-valor { color: #7c8a99; }
+/* Celular: 2 colunas; a 3ª caixa (endereço ou chave) desce para uma linha inteira. */
+@media (max-width: 600px) {
+  #resultadoAdmin .grid-colunas-emergencia,
+  #resultadoAdmin .grid-colunas-prestadores { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  #resultadoAdmin .subsecao .registro-conteudo .grid-campos.grid-colunas > .campo:nth-child(3) { grid-column: 1 / -1; }
+}
+
+/* ---------- Membros: Condomínio | Administradora em cima; Síndico e Desenvolvedor | conselho embaixo ----------
+   Grade de 2 linhas na tela larga, para o membro 1 do conselho ficar na altura do Síndico.
+   No celular as listas se desfazem e a ordem vem do "order" das regras de 2 colunas acima. */
+.membros-lista { display: contents; }
+.form-membros .membros-lista-2 > * { order: 4; }
+@media (min-width: 761px) {
+  .form-membros { grid-template-rows: auto auto; }
+  .form-membros .membros-coluna { display: contents; }
+  .form-membros .cargo-condominio { grid-column: 1; grid-row: 1; }
+  .form-membros .cargo-administradora { grid-column: 2; grid-row: 1; }
+  .form-membros .membros-lista { display: flex; flex-direction: column; grid-row: 2; }
+  .form-membros .membros-lista-1 { grid-column: 1; }
+  .form-membros .membros-lista-2 { grid-column: 2; }
+}
+/* "+ Adicionar membro no conselho": largura toda da coluna, tracejado como no formulário do morador. */
+.btn-add.btn-adicionar-conselho {
+  display: block; width: 100%; min-height: 0; height: auto; margin: 10px 0; padding: 9px 12px;
+  border: 1.5px dashed #2b7fb9; border-radius: 8px; background: #eaf6ff; color: #0f5d8c;
+  font-size: 0.85rem; font-weight: 700; cursor: pointer;
+}
+.btn-add.btn-adicionar-conselho:not(:disabled):hover { background: #d0e7f9 !important; color: #0f5d8c !important; }
+.btn-add.btn-adicionar-conselho:disabled { opacity: 0.45; cursor: not-allowed; filter: grayscale(1); }
+.btn-add.btn-adicionar-conselho:disabled:hover { background: #eaf6ff !important; color: #0f5d8c !important; }
+
+/* ---------- Controle segmentado (Mapa/Tabela, G1/G2): hover legível ----------
+   A opção ativa fica sobre o indicador branco; o "texto branco no hover" de outras regras a
+   deixava invisível. Aqui o fundo continua transparente e o texto, azul. */
+.segmentado > button.ativo:hover,
+.segmentado > button.ativo:focus {
+  background: transparent !important;
+  color: var(--primary-color) !important;
+}
+.segmentado > button:not(.ativo):hover {
+  color: var(--primary-color) !important;
+}
+
+/* Gabarito: "Carregar mais 5" embaixo da tabela. */
+.btn-carregar-mais {
+  display: block;
+  width: 100%;
+  min-height: 36px;
+  margin: 8px 0 0;
+  padding: 6px 12px;
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--accent-color);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-carregar-mais:hover { background: #e9f1fa !important; color: var(--accent-color) !important; }
+.btn-carregar-mais[hidden] { display: none; }
+
+/* × das páginas do admin: a regra geral "button:hover" escurecia o fundo e o × (escuro) sumia.
+   No hover, fundo claro avermelhado, como o × do cadastro aberto. */
+.btn-fechar-painel:hover,
+.btn-fechar-painel:focus-visible {
+  background: #fdecec !important;
+  color: var(--error) !important;
+}
+
+/* ---------- Consulta por apartamento: colunas padronizadas ----------
+   Em vez de cada caixa ter a largura do próprio texto (colunas desalinhadas entre um registro e
+   outro), cada lista usa colunas de mesma largura: uma por campo (grid-n2/n3/n4), e o Registro
+   4 colunas (2 no celular). Textos longos quebram linha dentro da caixa. */
+#resultadoAdmin .grid-campos.grid-registro,
+#resultadoAdmin .grid-campos.grid-n2,
+#resultadoAdmin .grid-campos.grid-n3,
+#resultadoAdmin .grid-campos.grid-n4 {
+  display: grid;
+  align-items: stretch;
+  width: 100%;
+}
+#resultadoAdmin .grid-registro { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+#resultadoAdmin .grid-n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#resultadoAdmin .grid-n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+#resultadoAdmin .grid-n4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+#resultadoAdmin .grid-registro .campo,
+#resultadoAdmin .grid-n2 .campo,
+#resultadoAdmin .grid-n3 .campo,
+#resultadoAdmin .grid-n4 .campo,
+#resultadoAdmin .registro-conteudo .grid-n2 .campo,
+#resultadoAdmin .registro-conteudo .grid-n3 .campo,
+#resultadoAdmin .registro-conteudo .grid-n4 .campo {
+  width: auto;
+  max-width: none;
+  min-width: 0;
+}
+/* Carros e motos na coluna estreita da tela larga, e listas de 3 campos no celular: o 1º campo
+   (marca e modelo, nome do pet) na linha toda e os outros dois embaixo, lado a lado. */
+@media (min-width: 601px) {
+  #resultadoAdmin .subsecoes-veiculos .grid-n3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #resultadoAdmin .subsecoes-veiculos .grid-n3 > .campo:first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  #resultadoAdmin .grid-registro,
+  #resultadoAdmin .grid-n3,
+  #resultadoAdmin .grid-n4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #resultadoAdmin .grid-n3 > .campo:first-child { grid-column: 1 / -1; }
+}
+
+/* Consulta: "Não preenchido" das listas vazias (Pets, Prestadores, Motos, Contratos, Observações...)
+   com o mesmo tamanho e cor do "Não preenchido" dentro das caixas, em vez da letra grande em itálico. */
+#resultadoAdmin .sem-itens,
+#resultadoAdmin .contratos-vazio,
+#resultadoAdmin .observacoes-valor.vazio {
+  font-size: 0.85rem;
+  font-style: normal;
+  color: #7c8a99;
+}
+#resultadoAdmin .contratos-vazio em,
+#resultadoAdmin .observacoes-valor.vazio em { font-style: normal; }
+
+/* "Como funcionam os e-mails do sistema": caixa que abre e fecha (nasce fechada). */
+details.como-funcionam-notificacoes > summary { cursor: pointer; font-weight: 700; list-style: none; }
+details.como-funcionam-notificacoes > summary::-webkit-details-marker { display: none; }
+details.como-funcionam-notificacoes > summary::before { content: "▸"; display: inline-block; margin-right: 6px; transition: transform .15s; }
+details.como-funcionam-notificacoes[open] > summary::before { transform: rotate(90deg); }
+
+/* "Últimas alterações cadastrais": texto um pouco maior, "Atualizar" menor, contagem e sem quebrar linha. */
+.card-historico > summary { font-size: 0.86rem; flex-wrap: nowrap; white-space: nowrap; }
+.card-historico > summary > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; overflow-wrap: normal; }
+.card-historico > summary .btn-atualizar-pendencias { font-size: 0.68rem; white-space: nowrap; }
+.contagem-historico {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 19px; height: 19px; padding: 0 5px; box-sizing: border-box; border-radius: 999px;
+  background: #e53935; color: #fff; font-size: 0.68rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 2px #fff;
+}
+.contagem-historico[hidden] { display: none; }
+
+/* Bolinhas com 0 itens: verde com "OK" (menu e últimas alterações). */
+.badge-menu.ok,
+.contagem-historico.ok { background: #2e7d32; box-shadow: 0 0 0 2px #fff; }
+
+/* Bolinhas que ainda esperam o número do servidor: já aparecem no lugar, em cinza. */
+.badge-menu.aguardando,
+.contagem-historico.aguardando { background: #9aa7b4; box-shadow: 0 0 0 2px #fff; }
+
+/* "Aguarde" com × no canto superior direito; card do tamanho do conteúdo (o menor possível). */
+.overlay-processamento-card {
+  width: auto !important;
+  min-width: 240px;
+  max-width: min(320px, 100%);
+  position: relative !important;
+}
+.overlay-processamento .overlay-processamento-card > .overlay-processamento-fechar {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid #dcdde1 !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  color: #243447 !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+}
+.overlay-processamento .overlay-processamento-card > .overlay-processamento-fechar:hover {
+  background: #f1f4f8 !important;
+}

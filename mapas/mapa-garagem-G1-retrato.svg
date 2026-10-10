@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1195 2255" width="1195" height="2255" font-family="Arial, Helvetica, sans-serif">
+<title>Garagem G1 - Condomínio Exemplo</title>
+<defs>
+  <pattern id="hachura" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="16" stroke="#c9c9c9" stroke-width="5"/></pattern>
+  <marker id="ponta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+</defs>
+<style>
+  .fundo { fill: #ffffff; }
+  .borda { fill: none; stroke: #222; stroke-width: 6; }
+  .vaga rect { fill: #ffffff; stroke: #8a8a8a; stroke-width: 2; }
+  .vaga.condominio rect { fill: #e8f0f8; }
+  .vaga.desativada rect.hachura { fill: url(#hachura); stroke: none; }
+  .num-vaga circle { fill: #222; }
+  .num-vaga text { fill: #fff; font-weight: bold; text-anchor: middle; dominant-baseline: central; }
+  .apto { fill: #222; font-weight: bold; text-anchor: middle; dominant-baseline: central; }
+  .obs-vaga { fill: #4a6b8a; text-anchor: middle; dominant-baseline: central; font-weight: bold; letter-spacing: 0.5px; }
+  .bloco { fill: #f1f1f1; stroke: #222; stroke-width: 5; }
+  .bloco.fino { stroke-width: 3; }
+  .rotulo { fill: #333; text-anchor: middle; dominant-baseline: central; font-weight: bold; letter-spacing: 1px; }
+  .rampa { fill: #dcdcdc; stroke: #222; stroke-width: 5; }
+  .seta { stroke: #555; stroke-width: 3; fill: none; }
+  .pilar { fill: #555; }
+  .excedente circle { fill: #f3c98b; stroke: #9a6a2a; stroke-width: 2; }
+  .excedente polygon { fill: #7a4a12; }
+  .titulo { fill: #222; font-weight: bold; text-anchor: middle; dominant-baseline: central; }
+  .nota { fill: #333; }
+  .credito { fill: #777; text-anchor: end; }
+
+</style>
+<rect class="fundo" x="0" y="0" width="1195" height="2255"/>
+<polygon class="rampa" points="1165,778 1165,1395 990,1395 1008,1290 1008,778"/>
+<text x="1067" y="1030" class="rotulo" font-size="33.75">RAMPA</text>
+<line class="seta" x1="1107" y1="1390" x2="1107" y2="1270" marker-end="url(#ponta)"/>
+<text x="1107" y="1314" class="rotulo" font-size="20" transform="rotate(-90.0 1107 1330)">DESCE</text>
+<polygon class="rampa" points="970,1720 970,1975 580,1975 580,1805 777,1800"/>
+<text x="725" y="1890" class="rotulo" font-size="38">RAMPA</text>
+<line class="seta" x1="933" y1="1800" x2="845" y2="1840" marker-end="url(#ponta)"/>
+<text x="933" y="1895" class="rotulo" font-size="20">SOBE P/ G2</text>
+<g id="vaga-G1-17" class="vaga" data-garagem="G1" data-vaga="17" data-apto="202"><rect x="982" y="237" width="183" height="178"/><g class="num-vaga"><circle cx="1015" cy="270" r="21"/><text x="1015" y="270" font-size="22">17</text></g><text x="1073.5" y="334" class="apto" font-size="42" data-campo="apto">202</text></g>
+<g id="vaga-G1-18" class="vaga condominio" data-garagem="G1" data-vaga="18" data-apto=""><rect x="982" y="415" width="183" height="163"/><g class="num-vaga"><circle cx="1015" cy="448" r="21"/><text x="1015" y="448" font-size="22">18</text></g><text x="1073.5" y="504.5" class="obs-vaga" font-size="20" data-campo="obs-vaga">CONDOMÍNIO</text></g>
+<g id="vaga-G1-19" class="vaga" data-garagem="G1" data-vaga="19" data-apto="806"><rect x="982" y="578" width="183" height="162"/><g class="num-vaga"><circle cx="1015" cy="611" r="21"/><text x="1015" y="611" font-size="22">19</text></g><text x="1073.5" y="667" class="apto" font-size="42" data-campo="apto">806</text></g>
+<g id="vaga-G1-16" class="vaga" data-garagem="G1" data-vaga="16" data-apto="705"><rect x="795" y="25" width="187" height="212"/><g class="num-vaga"><circle cx="828" cy="58" r="21"/><text x="828" y="58" font-size="22">16</text></g><text x="888.5" y="139" class="apto" font-size="42" data-campo="apto">705</text></g>
+<g id="vaga-G1-15" class="vaga condominio" data-garagem="G1" data-vaga="15" data-apto=""><rect x="595" y="25" width="200" height="230"/><g class="num-vaga"><circle cx="628" cy="58" r="21"/><text x="628" y="58" font-size="22">15</text></g><text x="695" y="148" class="obs-vaga" font-size="20" data-campo="obs-vaga">CONDOMÍNIO</text></g>
+<g id="vaga-G1-14" class="vaga" data-garagem="G1" data-vaga="14" data-apto="606"><rect x="390" y="25" width="205" height="230"/><g class="num-vaga"><circle cx="423" cy="58" r="21"/><text x="423" y="58" font-size="22">14</text></g><text x="492.5" y="148" class="apto" font-size="42" data-campo="apto">606</text></g>
+<g id="vaga-G1-13" class="vaga" data-garagem="G1" data-vaga="13" data-apto="302"><rect x="237" y="25" width="153" height="210"/><g class="num-vaga"><circle cx="270" cy="58" r="21"/><text x="270" y="58" font-size="22">13</text></g><text x="313.5" y="138" class="apto" font-size="42" data-campo="apto">302</text></g>
+<g id="vaga-G1-12" class="vaga" data-garagem="G1" data-vaga="12" data-apto="405"><rect x="30" y="230" width="207" height="170"/><g class="num-vaga"><circle cx="63" cy="263" r="21"/><text x="63" y="263" font-size="22">12</text></g><text x="133.5" y="323" class="apto" font-size="42" data-campo="apto">405</text></g>
+<g id="vaga-G1-11" class="vaga" data-garagem="G1" data-vaga="11" data-apto="304"><rect x="30" y="400" width="207" height="168"/><g class="num-vaga"><circle cx="63" cy="433" r="21"/><text x="63" y="433" font-size="22">11</text></g><text x="133.5" y="492" class="apto" font-size="42" data-campo="apto">304</text></g>
+<g id="vaga-G1-10" class="vaga" data-garagem="G1" data-vaga="10" data-apto="901"><rect x="30" y="568" width="207" height="144"/><g class="num-vaga"><circle cx="63" cy="601" r="21"/><text x="63" y="601" font-size="22">10</text></g><text x="133.5" y="648" class="apto" font-size="42" data-campo="apto">901</text></g>
+<g id="vaga-G1-9" class="vaga" data-garagem="G1" data-vaga="9" data-apto="703"><rect x="30" y="712" width="207" height="153"/><g class="num-vaga"><circle cx="63" cy="745" r="21"/><text x="63" y="745" font-size="22">9</text></g><text x="133.5" y="796.5" class="apto" font-size="42" data-campo="apto">703</text></g>
+<g id="vaga-G1-7" class="vaga" data-garagem="G1" data-vaga="7" data-apto="402"><rect x="30" y="1022" width="207" height="168"/><g class="num-vaga"><circle cx="63" cy="1055" r="21"/><text x="63" y="1055" font-size="22">7</text></g><text x="133.5" y="1114" class="apto" font-size="42" data-campo="apto">402</text></g>
+<g id="vaga-G1-6" class="vaga" data-garagem="G1" data-vaga="6" data-apto="701"><rect x="30" y="1190" width="207" height="185"/><g class="num-vaga"><circle cx="63" cy="1223" r="21"/><text x="63" y="1223" font-size="22">6</text></g><text x="133.5" y="1290.5" class="apto" font-size="42" data-campo="apto">701</text></g>
+<g id="vaga-G1-5" class="vaga" data-garagem="G1" data-vaga="5" data-apto="601"><rect x="30" y="1375" width="207" height="175"/><g class="num-vaga"><circle cx="63" cy="1408" r="21"/><text x="63" y="1408" font-size="22">5</text></g><text x="133.5" y="1470.5" class="apto" font-size="42" data-campo="apto">601</text></g>
+<g id="vaga-G1-4" class="vaga" data-garagem="G1" data-vaga="4" data-apto="802"><rect x="30" y="1550" width="207" height="175"/><g class="num-vaga"><circle cx="63" cy="1583" r="21"/><text x="63" y="1583" font-size="22">4</text></g><text x="133.5" y="1645.5" class="apto" font-size="42" data-campo="apto">802</text></g>
+<g id="vaga-G1-26" class="vaga" data-garagem="G1" data-vaga="26" data-apto="901"><rect x="610" y="455" width="155" height="217"/><g class="num-vaga"><circle cx="643" cy="488" r="21"/><text x="643" y="488" font-size="22">26</text></g><text x="687.5" y="571.5" class="apto" font-size="42" data-campo="apto">901</text></g>
+<g id="vaga-G1-25" class="vaga" data-garagem="G1" data-vaga="25" data-apto="901"><rect x="455" y="455" width="155" height="217"/><g class="num-vaga"><circle cx="488" cy="488" r="21"/><text x="488" y="488" font-size="22">25</text></g><text x="532.5" y="571.5" class="apto" font-size="42" data-campo="apto">901</text></g>
+<g id="vaga-G1-20" class="vaga condominio" data-garagem="G1" data-vaga="20" data-apto=""><rect x="833" y="885" width="137" height="197"/><g class="num-vaga"><circle cx="866" cy="918" r="21"/><text x="866" y="918" font-size="22">20</text></g><text x="901.5" y="991.5" class="obs-vaga" font-size="17.6" data-campo="obs-vaga">CONDOMÍNIO</text></g>
+<g id="vaga-G1-21" class="vaga" data-garagem="G1" data-vaga="21" data-apto="503"><rect x="833" y="1082" width="137" height="275"/><g class="num-vaga"><circle cx="866" cy="1115" r="21"/><text x="866" y="1115" font-size="22">21</text></g><text x="901.5" y="1227.5" class="apto" font-size="42" data-campo="apto">503</text></g>
+<g id="vaga-G1-22" class="vaga" data-garagem="G1" data-vaga="22" data-apto="604"><rect x="685" y="1082" width="148" height="275"/><g class="num-vaga"><circle cx="718" cy="1115" r="21"/><text x="718" y="1115" font-size="22">22</text></g><text x="759" y="1227.5" class="apto" font-size="42" data-campo="apto">604</text></g>
+<g id="vaga-G1-24" class="vaga condominio" data-garagem="G1" data-vaga="24" data-apto=""><rect x="420" y="1022" width="210" height="163"/><g class="num-vaga"><circle cx="453" cy="1055" r="21"/><text x="453" y="1055" font-size="22">24</text></g><text x="525" y="1111.5" class="obs-vaga" font-size="20" data-campo="obs-vaga">CONDOMÍNIO</text></g>
+<g id="vaga-G1-23" class="vaga" data-garagem="G1" data-vaga="23" data-apto="602"><rect x="440" y="1185" width="245" height="175"/><g class="num-vaga"><circle cx="473" cy="1218" r="21"/><text x="473" y="1218" font-size="22">23</text></g><text x="562.5" y="1280.5" class="apto" font-size="42" data-campo="apto">602</text></g>
+<g id="vaga-G1-1" class="vaga" data-garagem="G1" data-vaga="1" data-apto="504"><rect x="580" y="1590" width="153" height="215"/><g class="num-vaga"><circle cx="613" cy="1623" r="21"/><text x="613" y="1623" font-size="22">1</text></g><text x="656.5" y="1705.5" class="apto" font-size="42" data-campo="apto">504</text></g>
+<g id="vaga-G1-2" class="vaga condominio" data-garagem="G1" data-vaga="2" data-apto=""><rect x="430" y="1725" width="150" height="250"/><g class="num-vaga"><circle cx="463" cy="1758" r="21"/><text x="463" y="1758" font-size="22">2</text></g><text x="505" y="1858" class="obs-vaga" font-size="19.4" data-campo="obs-vaga">CONDOMÍNIO</text></g>
+<g id="vaga-G1-3" class="vaga" data-garagem="G1" data-vaga="3" data-apto="303"><rect x="237" y="1725" width="193" height="250"/><g class="num-vaga"><circle cx="270" cy="1758" r="21"/><text x="270" y="1758" font-size="22">3</text></g><text x="333.5" y="1858" class="apto" font-size="42" data-campo="apto">303</text></g>
+<rect class="bloco" x="630" y="692" width="190" height="390"/>
+<text x="743.4" y="887" class="rotulo" font-size="28">TANQUES</text>
+<text x="696.5" y="800" class="rotulo" font-size="28">ESCADA</text>
+<text x="725" y="989.2" class="rotulo" font-size="17.7">LOCAL DA CAIXA</text>
+<text x="700.8" y="1010.8" class="rotulo" font-size="18">DE GORDURA</text>
+<rect class="bloco" x="455" y="692" width="100" height="165"/>
+<text x="505" y="774" class="rotulo" font-size="15.3">ELEVADOR</text>
+<rect class="bloco" x="392" y="857" width="175" height="165"/>
+<text x="473" y="940" class="rotulo" font-size="28">LIXO</text>
+<rect class="bloco fino" x="30" y="865" width="220" height="157"/>
+<text x="140" y="943" class="rotulo" font-size="24.1">BICICLETÁRIO</text>
+<rect class="pilar" x="968" y="199" width="28" height="22" rx="2"/>
+<rect class="pilar" x="968" y="404" width="28" height="22" rx="2"/>
+<rect class="pilar" x="968" y="567" width="28" height="22" rx="2"/>
+<rect class="pilar" x="965" y="729" width="28" height="22" rx="2"/>
+<rect class="pilar" x="963" y="924" width="28" height="22" rx="2"/>
+<rect class="pilar" x="963" y="1094" width="28" height="22" rx="2"/>
+<rect class="pilar" x="963" y="1257" width="28" height="22" rx="2"/>
+<rect class="pilar" x="963" y="1384" width="28" height="22" rx="2"/>
+<rect class="pilar" x="781" y="179" width="28" height="22" rx="2"/>
+<rect class="pilar" x="381" y="174" width="28" height="22" rx="2"/>
+<rect class="pilar" x="223" y="194" width="28" height="22" rx="2"/>
+<rect class="pilar" x="766" y="422" width="28" height="22" rx="2"/>
+<rect class="pilar" x="761" y="557" width="28" height="22" rx="2"/>
+<rect class="pilar" x="436" y="422" width="28" height="22" rx="2"/>
+<rect class="pilar" x="436" y="557" width="28" height="22" rx="2"/>
+<rect class="pilar" x="651" y="1359" width="28" height="22" rx="2"/>
+<rect class="pilar" x="511" y="1357" width="28" height="22" rx="2"/>
+<rect class="pilar" x="526" y="1174" width="28" height="22" rx="2"/>
+<rect class="pilar" x="416" y="1727" width="28" height="22" rx="2"/>
+<rect class="pilar" x="221" y="389" width="28" height="22" rx="2"/>
+<rect class="pilar" x="221" y="557" width="28" height="22" rx="2"/>
+<rect class="pilar" x="221" y="701" width="28" height="22" rx="2"/>
+<rect class="pilar" x="221" y="849" width="28" height="22" rx="2"/>
+<rect class="pilar" x="223" y="1179" width="28" height="22" rx="2"/>
+<rect class="pilar" x="223" y="1364" width="28" height="22" rx="2"/>
+<rect class="pilar" x="221" y="1539" width="28" height="22" rx="2"/>
+<rect class="pilar" x="219" y="1719" width="28" height="22" rx="2"/>
+<rect class="pilar" x="939" y="1704" width="28" height="22" rx="2"/>
+<rect class="pilar" x="763" y="1757" width="28" height="22" rx="2"/>
+<rect class="pilar" x="576" y="1596" width="28" height="22" rx="2"/>
+<rect class="pilar" x="569" y="1769" width="28" height="22" rx="2"/>
+<g class="excedente"><circle cx="1070" cy="140" r="30"/><polygon points="1070.0,118.0 1075.8,132.0 1090.9,133.2 1079.4,143.1 1082.9,157.8 1070.0,149.9 1057.1,157.8 1060.6,143.1 1049.1,133.2 1064.2,132.0"/></g>
+<g class="excedente"><circle cx="133" cy="130" r="30"/><polygon points="133.0,108.0 138.8,122.0 153.9,123.2 142.4,133.1 145.9,147.8 133.0,139.9 120.1,147.8 123.6,133.1 112.1,123.2 127.2,122.0"/></g>
+<g class="excedente"><circle cx="135" cy="1835" r="30"/><polygon points="135.0,1813.0 140.8,1827.0 155.9,1828.2 144.4,1838.1 147.9,1852.8 135.0,1844.9 122.1,1852.8 125.6,1838.1 114.1,1828.2 129.2,1827.0"/></g>
+<rect class="borda" x="30" y="25" width="1135" height="1950"/>
+<text x="100" y="2045" class="titulo" font-size="72">G1</text>
+<text x="200" y="2025" class="nota" font-size="26" dominant-baseline="central">★ As vagas nº 3, 12 e 17 têm espaços excedentes pertencentes ao</text>
+<text x="200" y="2061" class="nota" font-size="26" dominant-baseline="central">condomínio. Caso venham a ser</text>
+<text x="200" y="2097" class="nota" font-size="26" dominant-baseline="central">ocupados por um 2º veículo, essas ocupações serão cobradas.</text>
+<text x="200" y="2133" class="nota" font-size="26" dominant-baseline="central">Vagas adicionais pertencentes ao condomínio: 2, 15, 18, 20 e 24. A vaga 8</text>
+<text x="200" y="2169" class="nota" font-size="26" dominant-baseline="central">deu lugar ao bicicletário.</text>
+<text x="1165" y="2205" class="credito" font-size="18">Desenho original: L. Barthô, arquiteto</text>
+</svg>

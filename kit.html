@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <title>Kit de Boas-vindas — Condomínio Exemplo</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="shortcut icon" href="favicon/favicon.ico">
+  <style>
+    :root {
+      --texto: #243447;
+      --suave: #5f7287;
+      --borda: #dcdde1;
+      --fundo: #f4f7f6;
+      --cartao: #ffffff;
+      --destaque: #2f5f98;
+      --destaque-fundo: #eef4fb;
+      --erro: #c62828;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      background: var(--fundo);
+      color: var(--texto);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    main {
+      position: relative;
+      max-width: 750px;
+      margin: 0 auto;
+      background: var(--cartao);
+      padding: 28px 24px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    /* Dentro do popup (js/popup-links.js) não há caixa de fora: o × fica no próprio cartão. */
+    .fechar-embutido {
+      display: none; position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; padding: 0;
+      align-items: center; justify-content: center; border: 1px solid var(--borda); border-radius: 50%;
+      background: #fff; color: var(--texto); cursor: pointer;
+    }
+    .fechar-embutido:hover { background: #f1f4f8; }
+    html.embutido body { background: transparent; }
+    html.embutido .fechar-embutido { display: flex; }
+    html.embutido .voltar { display: block; margin-right: 40px; }
+    .voltar { font-size: 0.9rem; font-weight: 600; color: var(--destaque); text-decoration: none; }
+    h1 { font-size: 1.5rem; line-height: 1.3; margin: 12px 0 6px; text-wrap: balance; }
+    h2 { font-size: 1.05rem; margin: 22px 0 8px; }
+    .subtitulo { color: var(--suave); margin: 0 0 20px; text-wrap: pretty; }
+    a { color: var(--destaque); }
+
+    /* Acesso: CPF + data de nascimento */
+    .acesso { max-width: 360px; margin: 0 auto; text-align: center; }
+    .acesso label { display: block; font-size: 0.85rem; font-weight: 600; margin: 10px 0 4px; text-align: left; }
+    .acesso input {
+      width: 100%; padding: 10px 12px; font-size: 1rem; border: 1px solid var(--borda); border-radius: 8px;
+      font-family: inherit; color: var(--texto);
+    }
+    .acesso input:focus { outline: 2px solid var(--destaque-fundo); border-color: var(--destaque); }
+    .btn {
+      display: inline-block; width: 100%; margin-top: 16px; padding: 11px 16px; border: 1px solid var(--destaque);
+      border-radius: 10px; background: var(--destaque); color: #fff; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+      font-family: inherit;
+    }
+    .btn:disabled { opacity: 0.6; cursor: default; }
+    .btn-secundario { background: #fff; color: var(--destaque); width: auto; margin-top: 0; padding: 6px 14px; font-size: 0.85rem; border-radius: 999px; }
+    .mensagem { min-height: 1.4em; margin: 12px 0 0; font-size: 0.9rem; text-wrap: pretty; }
+    .mensagem.erro { color: var(--erro); }
+    .mensagem.carregando { color: var(--suave); font-style: italic; }
+    .nota { font-size: 0.8rem; color: var(--suave); margin-top: 16px; text-wrap: pretty; }
+
+    /* Conteúdo do kit */
+    .topo-kit { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .topo-kit p { margin: 0; }
+    .docs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .doc {
+      display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 10px 12px;
+      border: 1px solid var(--borda); border-radius: 10px; background: #fff; color: var(--texto);
+      text-decoration: none; font-weight: 600; font-size: 0.92rem; line-height: 1.3;
+    }
+    button.doc { width: 100%; text-align: left; font-family: inherit; cursor: pointer; }
+    button.doc:disabled { opacity: 0.7; cursor: wait; }
+    .doc:hover { border-color: var(--destaque); background: var(--destaque-fundo); }
+    .doc svg { flex: none; width: 26px; height: 26px; color: var(--destaque); }
+    .doc span { overflow-wrap: anywhere; }
+    /* Número ímpar de documentos: o último ocupa a linha inteira (sem "viúva"). */
+    .docs .doc:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .docs .doc { min-height: 56px; box-sizing: border-box; }
+    .kit-drive-titulo { margin: 0 0 8px; text-align: left; }
+    .btn-pasta-drive { display: inline-block; padding: 8px 16px; border-radius: 10px; background: var(--destaque); color: #fff; font-weight: 700; text-decoration: none; }
+    details.secao { border: 1px solid var(--borda); border-radius: 10px; margin-top: 8px; background: #fff; }
+    details.secao > summary {
+      cursor: pointer; padding: 10px 14px; font-weight: 700; color: var(--destaque); list-style: none;
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    details.secao > summary::-webkit-details-marker { display: none; }
+    details.secao > summary::after { content: "+"; font-size: 1.2rem; line-height: 1; }
+    details.secao[open] > summary::after { content: "−"; }
+    details.secao .docs { padding: 0 10px 10px; }
+    .qtd { font-weight: 400; color: var(--suave); font-size: 0.85rem; }
+    .aviso-sessao { margin: 10px 0 0; padding: 8px 12px; border: 1px solid var(--borda); border-radius: 8px; background: var(--destaque-fundo); color: var(--suave); font-size: 0.82rem; line-height: 1.4; text-wrap: pretty; }
+    .atualizacao-kit { display: flex; align-items: center; gap: 10px; margin: -10px 0 18px; }
+    .atualizacao-kit .btn-secundario { width: auto; margin: 0; padding: 4px 12px; font-size: 0.78rem; }
+    .lido-em { font-size: 0.75rem; color: var(--suave); font-style: italic; }
+    .rodape { margin-top: 28px; font-size: 0.85rem; color: var(--suave); }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 560px) {
+      main { padding: 22px 16px; }
+      .docs { grid-template-columns: 1fr; }
+      .docs .doc:last-child:nth-child(odd) { grid-column: auto; }
+    }
+    .kit-drive, .subtitulo { font-size: 0.92em; }
+</style>
+</head>
+<body>
+<script>
+  // Dentro do popup do site: sem fundo próprio, e o × (ou Esc, ou clicar fora do cartão) fecha o popup.
+  (function() {
+    if (window.parent === window) return;
+    document.documentElement.classList.add("embutido");
+    function fechar() { window.parent.postMessage("fechar-popup-link", location.origin); }
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelector(".fechar-embutido").addEventListener("click", fechar);
+      document.addEventListener("click", function(e) { if (!e.target.closest("main")) fechar(); });
+    });
+    document.addEventListener("keydown", function(e) { if (e.key === "Escape") fechar(); });
+  })();
+</script>
+<main>
+  <button type="button" class="fechar-embutido" aria-label="Fechar"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg></button>
+  <a class="voltar" href="index.html">← voltar para o cadastro de moradores</a>
+  <h1>Kit de Boas-vindas</h1>
+  <p class="subtitulo">Os documentos e orientações mais importantes para a convivência no Condomínio Exemplo.</p>
+  <div class="kit-drive-bloco">
+    <p class="kit-drive-titulo"><a class="btn-pasta-drive" data-nova-aba href="#demo-arquivo" target="_blank" rel="noopener noreferrer">Pasta do Google Drive</a></p>
+    <p class="kit-drive">O conteúdo abaixo é espelhado dessa pasta, o que for adicionado, alterado ou removido lá aparece aqui. Quem tem o e-mail cadastrado abre a pasta com a conta Google desse e-mail; quem não usa e-mail acessa pelo CPF e pela data de nascimento, como aqui.</p>
+  </div>
+  <!-- Só com o kit aberto: "Atualizar" lê a pasta do Drive na hora (sozinho, ela é relida a cada 6 horas). -->
+  <div id="atualizacaoKit" class="atualizacao-kit" hidden>
+    <button type="button" class="btn btn-secundario" id="btnAtualizarKit">Atualizar</button>
+    <span id="lidoEmKit" class="lido-em"></span>
+  </div>
+
+  <form id="formAcesso" class="acesso" novalidate>
+    <p>Para acessar, informe o CPF e a data de nascimento do seu cadastro de morador.</p>
+    <label for="cpf">CPF</label>
+    <input type="text" id="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14">
+    <label for="nasc">Data de nascimento</label>
+    <input type="text" id="nasc" inputmode="numeric" autocomplete="off" placeholder="DD/MM/AAAA" maxlength="10">
+    <button type="submit" class="btn" id="btnAcessar">Acessar o kit</button>
+    <p id="mensagem" class="mensagem" role="status"></p>
+    <p class="nota">Ainda não tem cadastro? <a href="index.html">Faça o seu cadastro de morador</a>; o kit fica disponível
+      assim que ele for aprovado. Por segurança, depois de 5 tentativas erradas o CPF é bloqueado até a administração liberar.</p>
+  </form>
+
+  <section id="conteudoKit" hidden>
+    <h2 id="tituloPrincipais">Documentos</h2>
+    <div id="docsPrincipais" class="docs"></div>
+    <div id="secoes"></div>
+  </section>
+
+  <p class="rodape">Condomínio Exemplo · <a href="seguranca.html">Documentação: meus dados estão seguros?</a></p>
+</main>
+<script src="js/regras.js?v=20261009Z"></script>
+<script src="js/data/backend.js?v=20261009Z"></script>
+<script src="js/data/backend-demo.js?v=20261010A"></script>
+<script src="js/sessao-morador.js?v=20261009Z"></script>
+<script src="js/pular-campo.js?v=20261009Z"></script>
+<script>
+  (function() {
+    // O kit carregado fica só nesta aba (sessionStorage), para não pedir o CPF de novo ao recarregar.
+    var CHAVE = "kitBoasVindas";
+    var form = document.getElementById("formAcesso");
+    var cpf = document.getElementById("cpf");
+    var nasc = document.getElementById("nasc");
+    var btn = document.getElementById("btnAcessar");
+
+    function mascarar(el, tipo) {
+      el.addEventListener("input", function() {
+        var v = el.value.replace(/\D/g, "");
+        if (tipo === "cpf") {
+          v = v.slice(0, 11);
+          if (v.length > 9) v = v.slice(0, 3) + "." + v.slice(3, 6) + "." + v.slice(6, 9) + "-" + v.slice(9);
+          else if (v.length > 6) v = v.slice(0, 3) + "." + v.slice(3, 6) + "." + v.slice(6);
+          else if (v.length > 3) v = v.slice(0, 3) + "." + v.slice(3);
+        } else {
+          v = v.slice(0, 8);
+          if (v.length > 4) v = v.slice(0, 2) + "/" + v.slice(2, 4) + "/" + v.slice(4);
+          else if (v.length > 2) v = v.slice(0, 2) + "/" + v.slice(2);
+        }
+        el.value = v;
+      });
+    }
+    mascarar(cpf, "cpf");
+    mascarar(nasc, "data");
+
+    function setMensagem(texto, tipo) {
+      msg.textContent = texto || "";
+      msg.className = "mensagem" + (tipo ? " " + tipo : "");
+    }
+
+    function escapar(t) {
+      return String(t == null ? "" : t).replace(/[&<>"']/g, function(c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+
+    var ICONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>';
+
+    function listaDocs(arquivos) {
+      return arquivos.map(function(a) {
+        // O PDF vem do servidor (fbArquivoKit), com a sessão aberta pelo CPF + data: não precisa de conta Google.
+        return '<button type="button" class="doc" data-id="' + escapar(a.id || "") + '" data-nome="' + escapar(a.nome) + '" data-drive="' + escapar(a.url || "") + '">' + ICONE + "<span>" + escapar(a.nome) + "</span></button>";
+      }).join("");
+    }
+
+    function textoLidoEm(iso) {
+      if (!iso) return "";
+      var d = new Date(iso);
+      if (isNaN(d)) return "";
+      function z(n) { return (n < 10 ? "0" : "") + n; }
+      return "Atualizado em " + z(d.getDate()) + "/" + z(d.getMonth() + 1) + "/" + d.getFullYear() + " às " + z(d.getHours()) + ":" + z(d.getMinutes());
+    }
+
+    // "Atualizar": lê a pasta do Drive de novo e redesenha a lista (mostra "Carregando..." enquanto isso).
+    document.getElementById("btnAtualizarKit").addEventListener("click", function() {
+      var guardado = null;
+      try { guardado = JSON.parse(sessionStorage.getItem(CHAVE) || "null"); } catch (e) {}
+      if (!guardado || !guardado.sessaoKit) { voltarAoFormulario("Informe o CPF e a data de nascimento de novo."); return; }
+      var botao = this, lido = document.getElementById("lidoEmKit");
+      botao.disabled = true;
+      lido.textContent = "Carregando...";
+      window.Backend.chamar("fbAtualizarKit", { sessao: guardado.sessaoKit })
+        .then(function(r) {
+          if (!r || !r.sucesso) {
+            if (r && r.expirado) { voltarAoFormulario(r.mensagem); return; }
+            throw new Error((r && r.mensagem) || "Não foi possível atualizar.");
+          }
+          guardado.principais = r.principais; guardado.secoes = r.secoes; guardado.lidoEm = r.lidoEm;
+          try { sessionStorage.setItem(CHAVE, JSON.stringify(guardado)); } catch (e2) {}
+          mostrarKit(guardado);
+        })
+        .catch(function(erro) { lido.textContent = (erro && erro.message) || "Não foi possível atualizar."; })
+        .then(function() { botao.disabled = false; });
+    });
+
+    function mostrarKit(r) {
+      form.hidden = true;
+      document.getElementById("conteudoKit").hidden = false;
+      document.getElementById("atualizacaoKit").hidden = false;
+      document.getElementById("lidoEmKit").textContent = textoLidoEm(r.lidoEm);
+      var principais = r.principais || [];
+      document.getElementById("tituloPrincipais").hidden = !principais.length;
+      document.getElementById("docsPrincipais").innerHTML = listaDocs(principais);
+      document.getElementById("secoes").innerHTML = (r.secoes || []).map(function(s) {
+        return '<details class="secao"><summary>' + escapar(s.nome) + ' <span class="qtd">' + s.arquivos.length +
+          (s.arquivos.length === 1 ? " documento" : " documentos") + '</span></summary><div class="docs">' + listaDocs(s.arquivos) + "</div></details>";
+      }).join("");
+    }
+
+    // Abre um documento: baixa pelo servidor e mostra no popup do site.
+    document.addEventListener("click", function(e) {
+      var doc = e.target.closest("button.doc[data-id]");
+      if (!doc) return;
+      var guardado = null;
+      try { guardado = JSON.parse(sessionStorage.getItem(CHAVE) || "null"); } catch (e2) {}
+      if (!guardado || !guardado.sessaoKit) { voltarAoFormulario("Informe o CPF e a data de nascimento para abrir os documentos."); return; }
+      var span = doc.querySelector("span");
+      var texto = span.textContent;
+      span.textContent = "Abrindo";
+      doc.disabled = true;
+      window.Backend.chamar("fbArquivoKit", { sessao: guardado.sessaoKit, id: doc.getAttribute("data-id") })
+        .then(function(r) {
+          if (!r || !r.sucesso) {
+            if (r && r.expirado) {
+              // O acesso do kit no servidor expirou, mas a sessão de 1 hora do site ainda vale: entra de novo e abre.
+              if (!doc.dataset.reentrou && window.SessaoMorador && window.SessaoMorador.obter()) {
+                doc.dataset.reentrou = "1";
+                return entrarPelaSessao().then(function(novo) {
+                  span.textContent = texto; doc.disabled = false;
+                  if (novo) doc.click(); else voltarAoFormulario(r.mensagem);
+                  return "repetido";
+                });
+              }
+              voltarAoFormulario(r.mensagem); return;
+            }
+            throw new Error((r && r.mensagem) || "Não foi possível abrir o documento.");
+          }
+          delete doc.dataset.reentrou;
+          var bytes = atob(r.base64), arr = new Uint8Array(bytes.length);
+          for (var i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+          var url = URL.createObjectURL(new Blob([arr], { type: r.mime || "application/pdf" }));
+          if (window.PopupLinks && window.PopupLinks.abrirDireto) window.PopupLinks.abrirDireto(url, r.nome || texto, doc.getAttribute("data-drive"));
+          else window.open(url, "_blank");
+        })
+        .catch(function(erro) { delete doc.dataset.reentrou; alert((erro && erro.message) || "Não foi possível abrir o documento."); })
+        .then(function(res) { if (res !== "repetido") { span.textContent = texto; doc.disabled = false; } });
+    });
+
+    // Entra no kit com o CPF e a data guardados na sessão de 1 hora, sem pedir de novo.
+    function entrarPelaSessao() {
+      var s = window.SessaoMorador && window.SessaoMorador.obter();
+      if (!s) return Promise.resolve(null);
+      return window.Backend.chamar("fbAbrirKit", { cpf: s.cpf, nascimento: s.nasc }).then(function(r) {
+        if (!r || !r.encontrado) { window.SessaoMorador.encerrar(); return null; }
+        try { sessionStorage.setItem(CHAVE, JSON.stringify(r)); } catch (e2) {}
+        return r;
+      });
+    }
+
+    function voltarAoFormulario(mensagem) {
+      try { sessionStorage.removeItem(CHAVE); } catch (e) {}
+      document.getElementById("conteudoKit").hidden = true;
+      document.getElementById("atualizacaoKit").hidden = true;
+      form.hidden = false;
+      setMensagem(mensagem || "", mensagem ? "erro" : "");
+    }
+
+    var guardadoInicial = null;
+    try { guardadoInicial = JSON.parse(sessionStorage.getItem(CHAVE) || "null"); } catch (e) {}
+    if (guardadoInicial && guardadoInicial.encontrado && window.SessaoMorador && window.SessaoMorador.obter()) {
+      mostrarKit(guardadoInicial);
+    } else if (window.SessaoMorador && window.SessaoMorador.obter()) {
+      // Veio da página inicial com a sessão ativa: abre o kit sem pedir o CPF de novo.
+      // Enquanto confere a sessão, mostra só "Carregando" (sem o formulário de CPF piscando antes do kit).
+      btn.disabled = true;
+      form.hidden = true;
+      var carregandoKit = document.createElement("p");
+      carregandoKit.className = "mensagem carregando";
+      carregandoKit.textContent = "Carregando o kit";
+      form.parentNode.insertBefore(carregandoKit, form);
+      entrarPelaSessao()
+        .then(function(r) {
+          carregandoKit.remove();
+          setMensagem("", "");
+          if (!r) form.hidden = false;
+          if (r) mostrarKit(r);
+          else setMensagem("A sessão não vale mais. Informe o CPF e a data de nascimento de novo.", "erro");
+        })
+        .catch(function() { carregandoKit.remove(); form.hidden = false; setMensagem("Não foi possível conectar ao sistema. Tente novamente em instantes.", "erro"); })
+        .then(function() { btn.disabled = false; });
+    } else {
+      try { sessionStorage.removeItem(CHAVE); } catch (e) {}
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var cpfDigitos = cpf.value.replace(/\D/g, "");
+      if (cpfDigitos.length !== 11) { setMensagem("Informe o CPF completo (11 dígitos).", "erro"); cpf.focus(); return; }
+      if (!/^\d{2}\/\d{2}\/\d{4}$/.test(nasc.value)) { setMensagem("Informe a data de nascimento no formato DD/MM/AAAA.", "erro"); nasc.focus(); return; }
+      btn.disabled = true;
+      setMensagem("Conferindo", "carregando");
+      window.Backend.chamar("fbAbrirKit", { cpf: cpfDigitos, nascimento: nasc.value })
+        .then(function(r) {
+          if (!r || !r.encontrado) {
+            setMensagem((r && r.mensagem) || "CPF ou data de nascimento não conferem.", "erro");
+            return;
+          }
+          setMensagem("", "");
+          try { sessionStorage.setItem(CHAVE, JSON.stringify(r)); } catch (e2) {}
+          if (window.SessaoMorador) window.SessaoMorador.iniciar(cpfDigitos, nasc.value);
+          mostrarKit(r);
+        })
+        .catch(function() { setMensagem("Não foi possível conectar ao sistema. Tente novamente em instantes.", "erro"); })
+        .then(function() { btn.disabled = false; });
+    });
+
+  })();
+</script>
+<script src="js/popup-links.js?v=20261010C"></script>
+<script src="js/sem-conectivos.js?v=20261009Z"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+# Configurações locais do Claude Code (a launch.json do servidor local fica versionada)
+.claude/settings.local.json
